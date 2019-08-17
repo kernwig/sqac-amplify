@@ -32,14 +32,7 @@
     ],
     "no-arg": true,
     "no-bitwise": true,
-    "no-console": [
-      true,
-      "debug",
-      "info",
-      "time",
-      "timeEnd",
-      "trace"
-    ],
+    "no-console": false,
     "no-construct": true,
     "no-debugger": true,
     "no-duplicate-variable": true,
@@ -59,15 +52,10 @@
     "one-line": [
       true,
       "check-open-brace",
-      "check-catch",
-      "check-else",
       "check-whitespace"
     ],
     "prefer-const": true,
-    "quotemark": [
-      true,
-      "single"
-    ],
+    "quotemark": false,
     "radix": true,
     "semicolon": [
       "always"
