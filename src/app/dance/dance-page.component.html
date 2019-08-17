@@ -1,0 +1,133 @@
+<sqac-page-content>
+    <main>
+        <div class="content-area form">
+            <div class="row">
+                <div class="col-xs-2 col-sm-1">
+                    <label>Calls:</label>
+                </div>
+                <div *ngIf="currentModule" class="col-xs-8 col-sm-10 current-module">
+                    {{currentModule.name}}
+                    [{{currentModule.startFormation.abbreviation}} → {{currentModule.endFormation.abbreviation}}]
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-10 col-sm-11">
+                    <sqac-command-listing></sqac-command-listing>
+                </div>
+                <div class="col-xs-1 col-sm-1" style="min-width: 55px;">
+                    <sqac-play-control style="width: 100%"></sqac-play-control>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-5 col-sm-6 pad-top">
+                    <label>Level:</label>
+                    <select class="form-control"
+                            [(ngModel)]="choreoSvc.maxDanceLevel" (ngModelChange)="choreoSvc.activateCriteria()">
+                        <option *ngFor="let level of availableDanceLevels" [value]="level">{{level | danceLevel}}</option>
+                    </select>
+                </div>
+                <div class="col-xs-5 col-sm-5 pad-top">
+                    <sqac-bpm-control class="pull-right"></sqac-bpm-control>
+                </div>
+                <div class="col-xs-1 col-sm-1" style="min-width: 55px;">
+                    <label> </label>
+                    <sqac-stop-control style="width: 100%"></sqac-stop-control>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 pad-top">
+                    <sqac-continuation-control></sqac-continuation-control>
+                </div>
+                <div class="col-xs-12 col-sm-6 pad-top">
+                    <sqac-max-difficulty></sqac-max-difficulty>
+                </div>
+                <div class="col-xs-12 col-sm-offset-6 col-sm-6 pad-top">
+                    <sqac-average-difficulty></sqac-average-difficulty>
+                </div>
+<!--
+                <div class="col-xs-6 col-sm-4 pad-top">
+                    <label>Get to: </label><br>
+                    <button type="button" class="btn btn-warning" disabled>
+                        <span class="glyphicon glyphicon-pause">Lines</span>
+                    </button>
+                </div>
+-->
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <sqac-tip-history-view></sqac-tip-history-view>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <aside>
+        <h4>Let's Dance!</h4>
+
+        <p>
+            In the <b>Calls</b> box is the scrolling commands to shout out. You see the previous command,
+            the big bold line of the current command, followed by the upcoming one.
+            If you are in play <span class="glyphicon glyphicon-play"></span> mode, it will automatically
+            scroll at your selected <b>BPM</b> rate.
+            Press pause <span class="glyphicon glyphicon-pause"></span> to stop this automatic scroll.
+            Use the step <span class="glyphicon glyphicon-forward"></span> button to
+            control the scroll of commands manually.
+            Press <span class="glyphicon glyphicon-stop"></span> to end the tip.
+        </p>
+        <p class="alert alert-warning">
+            Note: You must have sufficient processing power for play <span class="glyphicon glyphicon-play"></span> mode
+            to scroll at the selected <b>BPM</b>. Low-end or old smart phones and tablets may be laggy, resulting
+            in jerky scroll outside of the proper beats. If you wish to use SqAC on such a device, use the
+            step <span class="glyphicon glyphicon-forward"></span> button instead.
+        </p>
+
+        <p>
+            Set the the dance <b>Level</b>, and SqAC will only use modules up to that level.
+        </p>
+
+        <p>
+            Slide <b>Continuation</b> to control the odds of the dance resolving back to home vs continuing.
+        </p>
+        <p>
+            No module will be called that is defined as being more difficult than the <b>Max Difficulty</b>,
+            which SqAC will try to maintain near the <b>Average Difficulty</b>.
+<!--
+            <br/>
+            Tip: Setting the average higher than the max will force SqAC to only use modules
+            at that maximum difficulty.
+-->
+        </p>
+
+        <p>
+            Press <b>Tip History</b> to view all the modules and commands so far called since the tip began.
+            Press again to hide it.
+        </p>
+
+        <h4>Hotkeys</h4>
+        <p>
+            Hotkeys are keyboard shortcuts for the on-screen controls. All may be used without holding shift.
+        </p>
+        <ul>
+            <li>Type <b>P</b> to Play <span class="glyphicon glyphicon-play"></span> or Pause <span class="glyphicon glyphicon-pause"></span></li>
+            <li>Type <b>N</b> or <span class="glyphicon glyphicon-arrow-right"></span> to Step <span class="glyphicon glyphicon-forward"></span></li>
+            <li>Type <b>+</b> to increase BPM</li>
+            <li>Type <b>-</b> to decrease BPM</li>
+            <li>Type <b>H</b> to Show / hide tip history</li>
+        </ul>
+<!--
+        <h4>Comming Soon</h4>
+        <p>
+            <em>The following features are net yet implemented, even though the controls appear on the screen.</em>
+        </p>
+        <ul>
+            <li>
+            </li>
+            <li>
+                Use <b>Get to</b> to quickly get to the selected setup. (The dance will then pause if in
+                play <span class="glyphicon glyphicon-play"></span> mode.) This is good for picking up broken
+                squares.
+            </li>
+        </ul>
+-->
+    </aside>
+</sqac-page-content>

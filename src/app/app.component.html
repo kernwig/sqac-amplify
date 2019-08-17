@@ -1,0 +1,110 @@
+<ng-sidebar-container>
+    <!--
+        Navigation & controls sidebar
+    -->
+    <ng-sidebar [(opened)]="showSidebar" [closeOnClickOutside]="!isLargeScreen" [autoFocus]="false"
+                [mode]="isLargeScreen ? 'push' : 'over'" sidebarClass="left-sidebar">
+        <ul class="nav nav-pills nav-stacked">
+            <li *ngIf="userSettings" routerLinkActive="active">
+                <a class="navbar-link" routerLink="/home/account" >
+                    <img [src]="userSvc.info?.photo" class="img-circle" style="width: 32px; height: 32px">
+                    {{userSettings.name || 'Guest'}}
+                </a>
+            </li>
+            <li *ngIf="!userSettings" routerLinkActive="active">
+                <a class="navbar-link" routerLink="/home/account">🤷️ Sign In</a>
+            </li>
+            <li routerLinkActive="active">
+                <a class="navbar-link" routerLink="/dance">
+                    <span class="icon">💃</span> Dance
+                </a>
+            </li>
+            <li *ngIf="userSettings" routerLinkActive="active">
+                <a class="navbar-link" routerLink="/sessions">
+                    <span class="icon">📅</span> Sessions ➡
+                    <span style="font-size: smaller">{{userSettings?.activeSession?.name || 'none'}}</span>
+                </a>
+            </li>
+            <li routerLinkActive="active">
+                <a class="navbar-link" routerLink="/collections">
+                    <span class="icon">📦</span> Collections</a>
+            </li>
+            <li routerLinkActive="active">
+                <a class="navbar-link" routerLink="/home/news">
+                    <span class="icon">📜</span> News</a>
+            </li>
+            <li *ngIf="pwaInstallPrompt && userSettings">
+                <a class="navbar-link" (click)="pwaInstallPrompt.prompt()">
+                    <span class="icon">💻</span> Install App</a>
+            </li>
+        </ul>
+    </ng-sidebar>
+
+    <!--
+        Everything not in the sidebar
+    -->
+    <div ng-sidebar-content>
+        <!--
+            Header
+        -->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <!--
+                Left-side of header
+            -->
+            <div class="navbar-header pull-left">
+                <button type="button" class="navbar-toggle sidebar-toggle" (click)="toggleSidebar()">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand">
+                    <div>SqAC</div>
+                </a>
+            </div>
+            <!--
+                Right-side of header
+            -->
+            <p class="navbar-text navbar-right pull-right">
+                <span *ngIf="userSettings">
+                    <span (click)="syncWithCloud($event)" class="button"
+                          [tooltip]="!syncSvc.isOnline() ? 'Offline' : syncSvc.isUnsynced() ? 'Save Changes' : 'Check for updates'"
+                          [placement]="'bottom'">
+                        <span class="{{syncSvc.getIcon()}} button"></span>
+                    </span>
+                </span>
+                <span *ngIf="(layoutSvc.showHelp$ | async) !== undefined"
+                      class="button" tooltip="Documentation" placement="bottom" (click)="toggleHelp()">
+                    <span class="glyphicon glyphicon-question-sign"></span>
+                </span>
+            </p>
+        </nav>
+
+        <!--
+            Page content
+        -->
+        <div role="main">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</ng-sidebar-container>
+
+
+<!-- Error Modal -->
+<div class="modal fade" bsModal #errorModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="width: inherit">
+            <div class="modal-header btn-danger" >
+                <h4 class="modal-title pull-left">{{errorTitle}}</h4>
+            </div>
+            <div class="modal-body">
+                <p *ngFor="let message of errorMessages" style="word-break: break-all">{{message}}</p>
+            </div>
+            <div class="modal-footer">
+                <div class="col-xs-12 text-align-right">
+                    <button class="btn btn-danger" (click)="closeError()">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

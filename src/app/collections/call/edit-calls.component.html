@@ -1,0 +1,98 @@
+<sqac-page-content>
+    <main>
+        <fieldset class="content-area form" *ngIf="collection" [disabled]="!isMutable">
+            <ol class="breadcrumb">
+                <li><a [routerLink]="['/collections']">Collections</a></li>
+                <li><a [routerLink]="['/collections', collection.id]">{{collection.name}}</a></li>
+                <li class="active">Calls</li>
+            </ol>
+
+            <sqac-only-owner-message *ngIf="!isMutable"></sqac-only-owner-message>
+            <div *ngIf="isMutable" class="alert alert-warning text-center">
+                Few people should ever define calls! Defining your own can lead to conflicts.
+            </div>
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <td class="text-center col-xs-5"><b>Family</b></td>
+                    <td class="text-center col-xs-5"><b>Command</b></td>
+                    <td class="text-center col-xs-1"><b>Beats</b></td>
+                    <td class="text-center col-xs-1"></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let c of collection.calls" [ngClass]="{'danger': !c.isAvailable}">
+                    <td class="form-group">
+                        <sqac-searchable-input
+                            [selection]="c.family"
+                            (selectionChange)="setFamily(c, $event)"
+                            [availableItems]="availableFamilies">
+                        </sqac-searchable-input>
+                    </td>
+                    <td class="form-group">
+                        <input type="text" placeholder="Call command" maxlength="60" class="form-control"
+                               [(ngModel)]="c.command" (ngModelChange)="setModified()">
+                    </td>
+                    <td class="form-group">
+                        <input type="number" class="form-control" style="width: auto" size="3" min="0" max="128"
+                               [(ngModel)]="c.beats" (ngModelChange)="setBeats(c, $event)">
+                    </td>
+                    <td class="text-right valign-middle">
+                        <span *ngIf="!usedCalls.has(c.id)" title="Remove" (click)="delete(c)">
+                            <span class="glyphicon glyphicon-trash text-danger"></span>
+                        </span>
+                    </td>
+                </tr>
+                <tr *ngIf="adding && isMutable" [ngClass]="{'danger': !adding.isAvailable}">
+                    <td class="form-group">
+                        <sqac-searchable-input
+                            [selection]="adding.family"
+                            (selectionChange)="setFamily(adding, $event)"
+                            [availableItems]="availableFamilies">
+                        </sqac-searchable-input>
+                    </td>
+                    <td class="form-group">
+                        <input type="text" placeholder="Call command" maxlength="60" class="form-control"
+                               [(ngModel)]="adding.command" (keyup.enter)="addIfComplete(addingNameElem)">
+                    </td>
+                    <td class="form-group">
+                        <input type="number" class="form-control" style="width: auto" size="3" min="0" max="128"
+                               [(ngModel)]="adding.beats" (ngModelChange)="setBeats(adding, $event)"
+                               (keyup.enter)="addIfComplete(addingNameElem)">
+                    </td>
+                    <td class="text-right valign-middle">
+                        <span title="Clear" (click)="clearAdding(addingNameElem)">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </main>
+
+    <aside>
+        <p>
+            A call is the command given to dancers durin a dance. In SqAC, each "call" belongs to a family and
+            has built-in designators such as "Heads Right and Left Thru", "Centers Right and Left Thru", etc..
+            Each one also includes the number of beats needed to complete the call. If a call may have
+            varied timing, then it must be split into multiple calls in SqAC.
+        </p>
+        <p>
+            All calls in the collection are presented here in columnar form:
+        </p>
+        <ul>
+            <li><em>Family</em> - Indicates the family that the call belongs to.
+                Typing in this field performs a search to find an already defined family.</li>
+            <li><em>Command</em> - This is the command to be displayed to the caller, and to be spoken by the caller, during a dance.</li>
+            <li><em>Beats</em> - The number of beats required to complete the call.</li>
+            <li><span class="glyphicon glyphicon-trash"></span> - Click to remove the call from this collection. Only available if no module is using this call.</li>
+        </ul>
+
+        <p>
+            To return to your collection list, click on the <span class="text-primary">Collections</span> breadcrumb under the logo.
+            To return to the collection containing these calls, click on the <span class="text-primary">{{collection?.name}}</span> breadcrumb.
+        </p>
+    </aside>
+</sqac-page-content>

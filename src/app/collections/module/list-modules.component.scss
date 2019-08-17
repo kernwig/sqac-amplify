@@ -1,0 +1,12 @@
+.formations-summary {
+    width: auto;
+
+    table {
+        td, th {
+            padding: 1px 1em;
+        }
+        tbody tr.new-start {
+            border-top: 1px solid #cccccc;
+        }
+    }
+}

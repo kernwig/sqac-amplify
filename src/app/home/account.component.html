@@ -1,0 +1,45 @@
+<div class="content-area">
+    <ol class="breadcrumb">
+        <li><a [routerLink]="['/home']">Home</a></li>
+        <li class="active">My Account</li>
+    </ol>
+
+    <div *ngIf="!syncSvc.isOnline()" role="alert" class="alert alert-warning">
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        <strong>Your are currently offline.</strong>
+    </div>
+
+    <div *ngIf="!userSettings && syncSvc.isOnline()" class="container-fluid text-center">
+        <hr>
+        <div *ngFor="let auth of authenticators" style="padding: .5em">
+            <a class="btn {{auth.cssClass}}" style="width: 14em" [href]="auth.url">
+                Sign in with {{auth.name}}
+            </a>
+        </div>
+        <hr>
+        <p class="text-info small">
+            Your account is only used for basic identification, so that you can backup your data and share between your,
+            and <i>only your</i> devices. (Unless you <i>choose</i> to share with others.)
+            <br>
+            SqAC does not gain access to your social feeds, shopping, or anything of the sort.
+            <br>
+            These providers will tell you if special permissions were being requested.
+            They are just used so that SqAC can focus on calling, and not account maintenance.
+            <br>
+            Once you choose a provider, you must continue using it each time. Choosing a different provider
+            will result in a separate SqAC account.
+        </p>
+    </div>
+
+    <div *ngIf="userSettings" class="container-fluid text-center">
+        <img [src]="userSvc.info.photo" class="img-rounded" style="width: 96px; height: 96px">
+        <h4 class="text-success">You are signed in with {{userSettings.getAuthProviderName()}} as <em>{{userSettings.name}}</em>.</h4>
+        <button type="button" class="btn btn-primary" (click)="syncWithCloud()" [disabled]="!syncSvc.isOnline()">
+            Update collections from cloud storage.
+        </button>
+        <hr>
+        <button type="button" class="btn btn-danger" (click)="signOut()" [disabled]="!syncSvc.isOnline()">
+            Sign Out
+        </button>
+    </div>
+</div>

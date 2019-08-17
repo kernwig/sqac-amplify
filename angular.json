@@ -1,0 +1,153 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "sqac-amplify": {
+      "root": "",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "tsConfig": "src/tsconfig.app.json",
+            "polyfills": "src/polyfills.ts",
+            "assets": [
+              "src/assets",
+              "src/favicon.ico",
+              "src/404.html",
+              "src/manifest.json",
+              {
+                "glob": "src/ngsw-worker.js",
+                "input": "node_modules/@angular/service-worker",
+                "output": "/"
+              }
+            ],
+            "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.scss",
+              "node_modules/ngx-toastr/toastr.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "serviceWorker": true,
+              "ngswConfigPath": "src/ngsw-config.json",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "sqac-amplify:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "sqac-amplify:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "sqac-amplify:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "karmaConfig": "./karma.conf.js",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.spec.json",
+            "scripts": [],
+            "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.scss"
+            ],
+            "assets": [
+              "src/assets",
+              "src/favicon.ico",
+              "src/404.html",
+              "src/manifest.json",
+              {
+                "glob": "ngsw-worker.js",
+                "input": "node_modules/@angular/service-worker",
+                "output": "/"
+              }
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "src/tsconfig.app.json",
+              "src/tsconfig.spec.json"
+            ],
+            "exclude": []
+          }
+        }
+      }
+    },
+    "sqac-amplify-e2e": {
+      "root": "e2e",
+      "sourceRoot": "e2e",
+      "projectType": "application"
+    }
+  },
+  "defaultProject": "sqac-amplify",
+  "schematics": {
+    "@schematics/angular:class": {
+      "spec": false
+    },
+    "@schematics/angular:component": {
+      "flat": true,
+      "spec": false,
+      "prefix": "sqac",
+      "styleext": "scss"
+    },
+    "@schematics/angular:directive": {
+      "flat": true,
+      "spec": false,
+      "prefix": "sqac"
+    },
+    "@schematics/angular:guard": {
+      "flat": true,
+      "spec": false
+    },
+    "@schematics/angular:module": {
+      "flat": false,
+      "spec": false,
+      "routing": true
+    },
+    "@schematics/angular:pipe": {
+      "flat": true,
+      "spec": false
+    },
+    "@schematics/angular:service": {
+      "flat": true,
+      "spec": false
+    }
+  }
+}

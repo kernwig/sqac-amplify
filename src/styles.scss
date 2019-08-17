@@ -1,0 +1,100 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~nouislider/distribute/nouislider.min.css";
+
+body {
+    padding-top: 51px;
+    /*
+     * Disable browser pull-to-refresh, as that breaks offline support.
+     * (As of writing, only supported by Chrome 62+)
+     */
+    overscroll-behavior: none;
+}
+
+/*
+ * Add padding to top or bottom. Works well with col-* style classes.
+ */
+div.pad-top {
+    padding-top: 8px;
+}
+div.pad-bottom {
+    padding-bottom: 8px;
+}
+
+/*
+ * Buttons
+ */
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+    box-shadow: 1px 1px 5px 0px grey
+}
+.btn-circle.btn-lg {
+    width: 50px;
+    height: 50px;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.33;
+    border-radius: 25px;
+    box-shadow: 2px 2px 6px 0px grey
+}
+.btn-circle.btn-xl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 16px;
+    font-size: 24px;
+    line-height: 1.33;
+    border-radius: 35px;
+    box-shadow: 3px 3px 8px 0px grey
+}
+
+.btn-float-bottom-right {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    z-index: 10;
+}
+
+/*
+ * Text
+ */
+.text-large {
+    font-size: large;
+}
+.text-x-large {
+    font-size: x-large;
+}
+.text-larger {
+    font-size: larger;
+}
+
+// Mute the link icon more
+.text-muted {
+    color: #ccc;
+}
+
+/*
+ * Tables
+ */
+td.valign-bottom {
+    vertical-align: bottom !important;
+}
+td.valign-middle {
+    vertical-align: middle !important;
+}
+
+/*
+ * Modify formatting in a documentation/aside block.
+ */
+aside {
+    ul, ol {
+        padding-left: 16px;
+    }
+}
+.help-backdrop {
+    opacity: .2 !important;
+}

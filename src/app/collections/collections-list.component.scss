@@ -1,0 +1,8 @@
+.collection-list {
+    div.alert {
+        margin-bottom: 26px;
+    }
+    div.alert:not(:first-child) {
+        margin-top: 32px;
+    }
+}

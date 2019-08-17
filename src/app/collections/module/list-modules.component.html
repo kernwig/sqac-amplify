@@ -1,0 +1,164 @@
+<sqac-page-content>
+    <main>
+        <div class="content-area" *ngIf="collection">
+            <ol class="breadcrumb">
+                <li><a [routerLink]="['/collections']">Collections</a></li>
+                <li><a [routerLink]="['/collections', collection.id]">{{collection.name}}</a></li>
+                <li class="active">Modules</li>
+            </ol>
+            <div *ngIf="isMutable" class="text-right">
+                <button type="button" class="btn btn-danger btn-circle btn-lg btn-float-bottom-right"
+                        (click)="onCreateModule()">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </div>
+            <div class="row">
+                <div *ngFor="let m of modules" class="col-xs-12 col-lg-6">
+                    <div (click)="onModuleClick(m)"
+                         class="panel {{!m.isAvailable ? 'panel-danger' : 'panel-success'}}">
+                        <div class="panel-heading">
+                            {{m.name}}
+                            <span class="pull-right">
+                                <button (click)="play(m, $event)" tooltip="Dance this"
+                                        type="button" class="btn btn-default btn-circle btn-primary">
+                                    <span class="glyphicon glyphicon-play"></span>
+                                </button>
+                            </span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-xs-5 col-sm-3">
+                                    <label>Level:</label>
+                                    {{m.level | danceLevel}}
+                                </div>
+                                <div class="col-xs-7 col-sm-3">
+                                    <label>Difficulty:</label>
+                                    {{m.difficulty | difficulty}}
+                                </div>
+                                <div class="col-xs-5 col-sm-2">
+                                    <label>From:</label>
+                                    {{m.startFormation?.abbreviation}}
+                                </div>
+                                <div class="col-xs-4 col-sm-2">
+                                    <label>To:</label>
+                                    {{m.endFormation?.abbreviation}}
+                                </div>
+                                <div class="col-xs-3 col-sm-2">
+                                    <span class="badge">{{m.sequence.length}}</span>
+                                    <label>calls</label>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="m.notes">
+                                <div class="hidden-xs col-sm-12">
+                                    <label>Notes:</label>
+                                    {{m.notes}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div *ngIf="formationsSummary" class="panel panel-info formations-summary">
+                <div class="panel-heading">
+                    Summary of Start &amp; End Formations
+                </div>
+                <div class="panel-body">
+                    <table>
+                        <thead>
+                            <tr class="text-primary">
+                                <th><label>Start</label></th>
+                                <th><label>End</label></th>
+                                <th><label>Count</label></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let start of formationsSummary">
+                                <tr *ngFor="let end of start.ends; first as isFirst" [ngClass]="{'new-start': isFirst}">
+                                    <td *ngIf="isFirst" [attr.rowspan]="start.ends.length" valign="top">{{start.formation.name}}</td>
+                                    <td>{{end.formation.name}}</td>
+                                    <td>{{end.count}}</td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <aside>
+        <p>
+            This screen summarizes all the modules in the {{collection?.name}} collection.
+        </p>
+        <p>
+            Click on a module to {{isMutable ? 'edit' : 'view'}} it. Click <span class="glyphicon glyphicon-play"></span> to dance it.
+        </p>
+        <p>
+            To return to your collection list, click on the <span class="text-primary">Collections</span> breadcrumb under the logo.
+            To return to the collection containing these modules, click on the <span class="text-primary">{{collection?.name}}</span> breadcrumb.
+        </p>
+    </aside>
+</sqac-page-content>
+
+<!-- Play Module Modal -->
+<div [config]="{backdrop: 'static'}"
+     class="modal fade" bsModal #playModal="bs-modal" tabindex="-1" role="dialog">
+    <div *ngIf="playingModule" class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left"><b>Dance</b> {{playingModule.name}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-2 col-sm-1">
+                        <label>Calls:</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-10 col-md-11">
+                        <sqac-command-listing></sqac-command-listing>
+                    </div>
+                    <div class="col-xs-1 col-md-1" style="min-width: 55px;">
+                        <sqac-play-control style="width: 100%"></sqac-play-control>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5 col-md-6">
+                        <div class="row">
+                            <div class="col-xs-6 col-md-3 pad-top">
+                                <label>Level:</label><br>
+                                <span class="text-nowrap">{{playingModule.level | danceLevel}}</span>
+                            </div>
+                            <div class="col-xs-6 col-md-3 pad-top">
+                                <label>Difficulty:</label><br>
+                                {{playingModule.difficulty | difficulty}}
+                            </div>
+                            <div class="col-xs-3 col-md-2 pad-top">
+                                <label>From:</label><br>
+                                {{playingModule.startFormation?.abbreviation}}
+                            </div>
+                            <div class="col-xs-3 col-md-2 pad-top">
+                                <label>To:</label><br>
+                                {{playingModule.endFormation?.abbreviation}}
+                            </div>
+                            <div class="col-xs-3 col-md-2 pad-top text-nowrap">
+                                <label>Calls:</label><br>
+                                <span class="badge">{{playingModule.sequence.length}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-5 col-md-5 pad-top">
+                        <sqac-bpm-control class="pull-right"></sqac-bpm-control>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-right" (click)="closePlay()">
+                    <span class="glyphicon glyphicon-stop"></span>
+                    End
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

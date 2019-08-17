@@ -1,0 +1,322 @@
+<sqac-page-content>
+    <main *ngIf="collection && module">
+        <fieldset class="content-area form" [disabled]="!isMutable">
+            <ol class="breadcrumb">
+                <li><a [routerLink]="['/collections']">Collections</a></li>
+                <li><a [routerLink]="['/collections', collection.id]">{{collection.name}}</a></li>
+                <li><a [routerLink]="['/collections', collection.id, 'modules']">Modules</a></li>
+                <li>{{module.name}}</li>
+            </ol>
+
+            <sqac-only-owner-message *ngIf="!isMutable"></sqac-only-owner-message>
+
+            <div class="panel panel-primary module-info">
+                <div class="panel-heading">
+                    <h5 class="pull-left panel-title">Module Information</h5>
+                    <span class="pull-right">
+                        <span class="glyphicon glyphicon-trash" (click)="deleteConfirmModal.show()"></span>
+                    </span>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4 form-group {{isNameUnique ? '' : 'has-warning'}}">
+                            <label>Name:</label><br>
+                            <input type="text" maxlength="40" class="form-control"
+                                   [(ngModel)]="module.name" (ngModelChange)="checkUniqueName()">
+                            <span *ngIf="!isNameUnique" class="text-warning small">Name is not unique</span>
+                        </div>
+                        <div class="col-xs-3 col-sm-2">
+                            <label>Level:</label><br>
+                            {{module.level | danceLevel}}
+                        </div>
+                        <div class="col-xs-3 col-sm-2">
+                            <label>Difficulty:</label><br>
+                            <select class="form-control" [(ngModel)]="module.difficulty" (ngModelChange)="setModified()">
+                                <option *ngFor="let dif of availableDifficulties" [ngValue]="dif">{{dif | difficulty}}</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <label>Notes:</label><br>
+                            <textarea class="form-control" rows="3" [(ngModel)]="module.notes" (ngModelChange)="setModified()"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                            <label>Start Setup:</label><br>
+                            <select class="form-control" [(ngModel)]="module.startFormation" (ngModelChange)="setModified()">
+                                <option *ngFor="let f of availableFormations" [ngValue]="f">{{f.searchableName}}</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-offset-1 col-xs-11 col-sm-offset-0 col-sm-6">
+                            <table class="hand-flow">
+                                <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td><label>Hand Needed:</label></td>
+                                    <td><label>Start Flow:</label></td>
+                                </tr>
+                                <tr>
+                                    <td><label>Beau:</label></td>
+                                    <td>
+                                        <select class="form-control" [(ngModel)]="module.startHandBeau" (ngModelChange)="setModified()">
+                                            <option *ngFor="let hand of availableHands" [value]="hand">{{hand | hand}}</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-control" [(ngModel)]="module.startFlowBeau" (ngModelChange)="setModified()">
+                                            <option *ngFor="let flow of availableFlowDirections" [value]="flow">{{flow | flowDirection}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label>Belle:</label></td>
+                                    <td>
+                                        <select class="form-control" [(ngModel)]="module.startHandBelle" (ngModelChange)="setModified()">
+                                            <option *ngFor="let hand of availableHands" [value]="hand">{{hand | hand}}</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-control" [(ngModel)]="module.startFlowBelle" (ngModelChange)="setModified()">
+                                            <option *ngFor="let flow of availableFlowDirections" [value]="flow">{{flow | flowDirection}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                            <label>End Setup:</label><br>
+                            <select class="form-control" [(ngModel)]="module.endFormation" (ngModelChange)="setModified()">
+                                <option *ngFor="let f of availableFormations" [ngValue]="f">{{f.searchableName}}</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-offset-1 col-xs-11 col-sm-offset-0 col-sm-6">
+                            <table class="hand-flow">
+                                <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td><label>Last Hand Used:</label></td>
+                                    <td><label>End Flow:</label></td>
+                                </tr>
+                                <tr>
+                                    <td><label>Beau:</label></td>
+                                    <td>
+                                        <select class="form-control" [(ngModel)]="module.endHandBeau" (ngModelChange)="setModified()">
+                                            <option *ngFor="let hand of availableHands" [value]="hand">{{hand | hand}}</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-control" [(ngModel)]="module.endFlowBeau" (ngModelChange)="setModified()">
+                                            <option *ngFor="let flow of availableFlowDirections" [value]="flow">{{flow | flowDirection}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label>Belle:</label></td>
+                                    <td>
+                                        <select class="form-control" [(ngModel)]="module.endHandBelle" (ngModelChange)="setModified()">
+                                            <option *ngFor="let hand of availableHands" [value]="hand">{{hand | hand}}</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-control" [(ngModel)]="module.endFlowBelle" (ngModelChange)="setModified()">
+                                            <option *ngFor="let flow of availableFlowDirections" [value]="flow">{{flow | flowDirection}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h5 class="panel-title">Call Sequence</h5>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped sequence">
+                        <thead>
+                        <tr>
+                            <td class="col-xs-1"></td>
+                            <td class="text-center col-xs-4"><b>Call</b></td>
+                            <td class="text-center col-xs-4"><b>Alt. Command</b></td>
+                            <td class="col-xs-1"></td>
+                            <td class="col-xs-1"></td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of module.sequence; let itemIdx=index; let itemLast=last">
+                                <td class="text-right valign-bottom">
+                                    <span *ngIf="!itemLast"
+                                          title="Concurrent with next call, so both end together."
+                                          class="glyphicon glyphicon-link {{item.concurrentWithNext ? 'text-primary':'text-muted'}}"
+                                          (click)="toggleConcurrency(item)"></span>
+                                </td>
+                                <td class="form-group">
+                                    <sqac-searchable-input
+                                        [(selection)]="item.call" (selectionChange)="setModifiedLevel()"
+                                        [availableItems]="availableCalls">
+                                    </sqac-searchable-input>
+                                </td>
+                                <td class="form-group">
+                                    <input type="text" class="form-control" placeholder="alternative command wording" maxlength="60"
+                                               [(ngModel)]="item.altCommand" (ngModelChange)="setModified()">
+                                </td>
+                                <td class="valign-middle">
+                                    <span class="glyphicon glyphicon-chevron-up" title="Move up" (click)="moveSeqItemDown(itemIdx-1)" *ngIf="itemIdx > 0"></span>
+                                    <span class="glyphicon glyphicon-chevron-down" title="Move down" (click)="moveSeqItemDown(itemIdx)" *ngIf="!itemLast"></span>
+                                </td>
+                                <td class="text-right valign-middle">
+                                    <span title="Remove" (click)="deleteSeqItem(itemIdx)">
+                                        <span class="glyphicon glyphicon-trash text-danger"></span>
+                                    </span>
+                                </td>
+                            </tr>
+                            <!-- Add call row -->
+                            <tr *ngIf="isMutable">
+                                <td></td>
+                                <td class="form-group">
+                                    <sqac-searchable-input
+                                        [(selection)]="addingCall" (selectionChange)="addSeqItem($event)"
+                                        [availableItems]="availableCalls">
+                                    </sqac-searchable-input>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr style="background-color: transparent;">
+                                <td></td>
+                                <td class="text-right">
+                                    <label>Total beats: {{getTotalBeats(module)}}</label>
+                                </td>
+                                <td>
+                                    <label>{{getTotalSeconds(module)}} sec @ {{choreoSvc.bpm}} bpm</label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--<pre>{{module | json}}</pre>-->
+
+            <div [config]="{backdrop: 'true'}"
+                 class="modal fade" bsModal #deleteConfirmModal="bs-modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title pull-left">Delete module {{module.name}}?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger pull-left" (click)="onDeleteModule()">
+                                Delete it!
+                            </button>
+                            <button type="button" class="btn btn-success pull-right" (click)="deleteConfirmModal.hide()">
+                                No, Keep my module
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </main>
+
+    <aside>
+        <p>
+            CALLERLAB defines a module as "a call or series of calls which will move the dancers
+            from one known FASR to the same or different but known FASR."<br/>
+            SqAC defines a module as "what this app is all about." 😉
+        </p>
+
+        <h4>Module Information</h4>
+
+        <ul>
+            <li>
+                <b>Name</b> the module something descriptive. This appears in the module list and when in the text showing the history of a tip danced.
+            </li>
+            <li>
+                <b>Level</b> is automatically set according to the calls that you include in the module.
+            </li>
+            <li>
+                <b>Difficulty</b> determines whether or not this module will be selected, based on the difficulty
+                slider selections on the <span text="text-primary">Dance</span> screen. Choose <em>Plain</em> for
+                community and handicapable level. <em>Vanilla</em> must use only standard applications of calls, and
+                so makes for an easy dance. Select <em>Pepper</em> if your module has a bit of spice to it (extended
+                applications), or <em>Tabasco</em> for truly tricky modules.
+            </li>
+            <li>
+                <b>Notes</b> may describe your module in a bit more detail than the short name.
+            </li>
+            <li *ngIf="collection">
+                <b>Start Setup</b> is the setup from which this module may begin. (See the documentation on the
+                <a [routerLink]="['/collections', collection.id, 'setups']">Setups</a> screen for details.)
+            </li>
+            <li>
+                <b>End Setup</b> is the setup at which this module will complete.
+            </li>
+            <li>
+                <b>Hand Needed</b> is used to avoid hand violations by specifying which hand(s) must be available
+                to use at the beginning of this module. There's a selection for both Beaus (left-hand dancer / boy)
+                and Belles (right-hand dancer / girl).
+            </li>
+            <li>
+                <b>Last Hand Used</b> is used to avoid hand violations by specifying which hand(s) are in use in
+                the final beats of the module.
+            </li>
+            <li>
+                <b>Start Flow</b> is used to avoid awkward flow when starting a module. Select the flow that
+                the beau and belle dancers will have in the first couple beats of the module. Only consider the
+                initially active dancers.
+            </li>
+            <li>
+                <b>End Flow</b> is used to avoid awkward flow when starting the next module. Select the flow that
+                the beau and belle dancers will have in the final couple beats of the module. Only consider the
+                active dancers.
+            </li>
+        </ul>
+
+        <h4>Call Sequence</h4>
+
+        <p>
+            Here you select the calls of your modules. In the <b>Call</b> search box, simply start typing some
+            letters in the call's command to get a list of matching calls.
+            Any call with the entered letters, in the order given, will match.
+            For example, typing <em>rtlt</em> will give you choices that include Right &amp; Left Thru. If there
+            are many matches, not all will show; just keep typing until you find the call you want.
+        </p>
+
+        <p>
+            Each call shows beats in parentheses; be sure to find the call with the correct timing. If you
+            don't find the exact command that you want, just find one in the same family with the right
+            number of beats. If you just want to cueing something that is not quite a call, use one of the
+            <em>Any Cueing</em> "calls".
+        </p>
+
+        <p>
+            On the <span text="text-primary">Dance</span> screen, the call's command will display just as entered
+            in the call list (without the beats). If this isn't quite what you want to say, just enter
+            <b>Alternative Command</b> text in the next box; this will be displayed instead.
+            You can randomize specifiers in the <b>Alternative Command</b> by beginning it with the pattern
+            <i>(option1/option2)</i>. Recommended use is like <i>(Heads/Sides)</i> in a get-in module. (Only use once
+            per module - it will not be consistent!)
+        </p>
+
+        <p>
+            Sequenced wrong? Use <span class="glyphicon glyphicon-chevron-up"></span> and
+            <span class="glyphicon glyphicon-chevron-down"></span> to rearrange, or
+            <span class="glyphicon glyphicon-trash"></span> to remove a call.
+        </p>
+        <p>
+            Activate the concurrent option <span class="glyphicon glyphicon-link text-primary"></span> to link two
+            calls together so that they are timed to end on the same beat.
+            This is useful for sequences such as Heads Square Thru Four and Sides Half Sashey.
+        </p>
+        <p>
+            To return to the list of modules, click on the <span text="text-primary">Modules</span> breadcrumb under the logo.
+        </p>
+    </aside>
+</sqac-page-content>

@@ -1,0 +1,575 @@
+<div class="main" id="main">
+    <div class="container-fluid content-area">
+        <h1>News</h1>
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            More Mobile Style
+                            <span class="pull-right">
+                                November 11, 2018
+                            </span>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            Square Dance calling is done on the move, so SqAC should have mobile style user interface,
+                            should it not?
+                        </p>
+                        <p>
+                            User interfaces have never been my strongest skill, but I continue to learn. While this
+                            update still can't be called slick, it has taken another step toward being more like a
+                            native app than a web site. The navigation menu is now under the hamburger menu at the
+                            top-left corner, and documentation is now under the
+                            <span class="glyphicon glyphicon-question-sign"></span> icon at the top-right of screens
+                            that have documentation. (This screen does not.)
+                        </p>
+                        <p>
+                            This is just the beginning. My next step is a total redesign of the <i>Dance</i> screen
+                            to make it more usable. I have found it... not so great. The new design will take more
+                            cues from physical module cards of calling yore, while retaining the advantage of a
+                            computerized assistant. Look for that upgrade in the coming months.
+                        </p>
+                        <p>
+                            If you have suggestions on how SqAC can be made more useful, drop me an email or use the
+                            <i>Report a Bug</i> link to the right. (You can use it for feature requests, not just bugs.)
+                        </p>
+                        <blockquote>
+                            <footer>Adam Fanello</footer>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Wonders of Binary Bias
+                            <span class="pull-right">
+                                June 10, 2018
+                            </span>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            I called a guest tip last Tuesday and tried to use SqAC for it. Boy was I embarrassed
+                            when it seemed like the same modules were being used over and over... and after I thought
+                            I just fixed that! This weekend️ I took another look at the code and (this is nerdy, feel free to skip):
+                        </p>
+                        <ul>
+                            <li>
+                                Swapped in an improved pseudo-random number generator that accounts for binary bias.
+                            </li>
+                            <li>
+                                Replaced the scattershot approach to finding the best next module with a
+                                targeted and consistent algorithm.
+                            </li>
+                        </ul>
+                        <p>
+                            While at it, I made some related enhancements and found and fixed a couple other problems:
+                        </p>
+                        <ul>
+                            <li>
+                                Added some details about how each module is chosen into the tip history display,
+                                to provide a clue the next time the selection quality seems poor.
+                                Also added display of start and end formation to the
+                                module name displayed above the call list, because it's useful to see!
+                            </li>
+                            <li>
+                                Sometimes session restrictions weren't initially applied
+                                to the module selector; it is now.
+                            </li>
+                            <li>
+                                Ignores the impossible should you select of average difficulty greater than max difficulty;
+                                which would certainly skew the selections.
+                            </li>
+                        </ul>
+                        <p>
+                            Finally, I split the <i>Circulate</i> family into <i>Circulate B1</i> and <i>Circulate B2</i>.
+                            Even though there's really only one Circulate family, the CALLERLAB teaching order calls for
+                            teaching some in Basic 1 and some later in Basic 2.
+                            Also, community dance programs tend to only teach the simple (Basic 1) calls.
+                            This allows you to select only <i>Circulate B1</i> for your dance session.
+                        </p>
+                        <blockquote>
+                            <footer>Adam Fanello</footer>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Incremental Improvements Keep Coming!
+                            <span class="pull-right">
+                                June 3, 2018
+                            </span>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            This release includes a hodge podge of enhancements and bug fixes to make SqAC better still.
+                        </p>
+                        <ul>
+                            <li>
+                                There was a feature to avoid using the same module twice in one tip. This never seemed to
+                                work though, because it didn't. Now it does.
+                            </li>
+                            <li>
+                                When naming a module, a little warning tells you in the name is already used by another
+                                module. You <i>can</i> have the same name if you want, but I sure found this helpful
+                                when entering 300+ new basic modules from Ceder.net.
+                            </li>
+                            <li>
+                                The <i>Alternative Command</i> for a call in a module may now start with text like
+                                <code>(Heads/Sides)</code> or <code>(Side/Head)</code>, and the when danced it'll
+                                now automatically choose one word at random and display that. This allows a single
+                                get-in module to work two different ways.
+                            </li>
+                            <li>
+                                I was curious about the distribution of the 383 modules now in the Ceder.net Basic
+                                collection, so now after all the list of modules in a collection there's a dandy little
+                                table called <i>Summary of Start &amp; End Formations</i>.
+                            </li>
+                        </ul>
+
+                        <p>
+                            Did I mention that there are now three times as many modules in the
+                            Ceder.net Basic Selections collection? 🎉
+                        </p>
+                        <blockquote>
+                            <footer>Adam Fanello</footer>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            More Browser Support &amp; Bug fixes
+                            <span class="pull-right">
+                                April 4, 2018
+                            </span>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            SqAC is now supported in Firefox, Safari, and Microsoft Edge (not IE), as well as
+                            Google Chrome.
+                            (It actually was working with the previous release, but thought I'd mention it.)
+                        </p>
+                        <p>
+                            Bug fixes address an error that sometimes appears on Dance page, preventing accidental
+                            page reload in Chrome, and ensuring that when you click to a new screen,
+                            you find yourself at the top of it!
+                        </p>
+                        <p>
+                            On a final note, there's now a collection for the
+                            <a href="http://abcsquaredancing.com/" target="abc">
+                                ABC Community Square Dance Program <span class="glyphicon glyphicon-new-window"></span>
+                            </a>. Find it in <a routerLink="/collections/search">Search Online</a>.
+                        </p>
+                        <blockquote>
+                            <footer>Adam Fanello</footer>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Bug fixes &amp; Unsubscribe
+                            <span class="pull-right">
+                                February 25, 2018
+                            </span>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            Various bug fixes involving adding warnings, signing in/out, styling of menu on a
+                            mobile device, more informative prompt on Apple Safari browser, and the call selection
+                            popup when defining a module is properly positioned again.
+                        </p>
+                        <p>
+                            Finally enabled ability to unsubscribe from a collection that you no longer wish to have
+                            available. (Don't unsubscribe from the CALLERLAB collections that define the calls,
+                            or things won't work so well. 😲)
+                        </p>
+                        <p>
+                            Also, the "CALLERLAB SSD" collections now contain patter for all twelve lessons.
+                        </p>
+                        <blockquote>
+                            <footer>Adam Fanello</footer>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Offline Editing &amp; Revision History / Rollback
+                            <span class="pull-right">
+                                January 13, 2018
+                            </span>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            Offline support has been coming incrementally. I'm pleased to report that as of today's
+                            release, you can even edit your collections offline. You're device's storage is now the
+                            primary storage, with the cloud being used for backup and synchronization across devices.
+                        </p>
+                        <p>
+                            Ah, but now the cloud storage does a bit more for you too. The last several <i>revisions</i>
+                            of your collections are now preserved on the cloud. You can now click the history icon
+                            <span class="glyphicon glyphicon-time"></span> to see these older revisions and revert
+                            back to them if you made a mistake. Cool, huh?
+                        </p>
+                        <blockquote>
+                            <footer>Adam Fanello</footer>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Progressive Web App
+                            <span class="pull-right">
+                                November 11, 2017
+                            </span>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            A Progressive Web App is a application that uses modern web capabilities to deliver a native-like experience for users,
+                            while still working as an ordinary web app on older systems.
+                            SqAC is now a real <a href="https://en.wikipedia.org/wiki/Progressive_web_app" target="wikipedia">Progressive Web App (PWA)</a>!
+                        </p>
+                        <p>
+                            What does this mean?
+                        </p>
+                        <ul>
+                            <li>
+                                Visit SqAC a couple of times, and your browser should offer to install it.
+                                Exactly how this <i>looks</i> depends on your operating system.
+                                <a href="http://fanello.net/home/2017/11/11/sqac-is-a-progressive-web-app/" target="blog">Screenshots <span class="glyphicon glyphicon-new-window"></span>.</a>
+                            </li>
+                            <li>You can run SqAC again while offline, and it'll just work! (Saving changes while offline will come soon.)</li>
+                        </ul>
+                        <p>
+                            The bad news is, only Chrome and Firefox fully supports PWA <i>right now</i>.
+                            Microsoft and Apple are working on it though, with support expected in 2018.
+                        </p>
+                        <blockquote>
+                            <footer>Adam Fanello</footer>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Dance Sessions + random tweaks
+                            <span class="pull-right">
+                                October 21, 2017
+                            </span>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            There's a whole new section of the app called <span class="text-primary">Sessions</span>.
+                            With it you can track multiple dancer audiences for classes or club dances.
+                            Each session not only lets you toggle dance level, BPM, and difficulty for each of your
+                            regular classes and dances, but also:
+                        </p>
+                        <ul>
+                            <li>
+                                Limit which collections you want to pull modules from. After all, you probably
+                                don't want to use your teaching modules at a club dance!
+                            </li>
+                            <li>
+                                Set which call families your dancers know. This is particularly useful at a class or
+                                unusual dance level. (I'm looking at you, Club 50!)
+                            </li>
+                        </ul>
+                        <p>
+                            Added a toggle switch when editing a collection (name, description, license), so
+                            that you can now designate your collection as public or private.
+                        </p>
+                        <p>
+                            I was annoyed when calling a tip and SqAC did the same module twice in a row!
+                            It'll try not to do that anymore. (It still can, if the choices are limited.)
+                        </p>
+                        <p>
+                            Module editor enhancements: the call selection popup is now wider,
+                            and estimated dance time now shown under the call sequence.
+                        </p>
+                        <p>
+                            Finally, I took a couple steps toward making SqAC work offline. You <i>probably</i>
+                            won't notice them yet, but they are steps toward that goal.
+                        </p>
+                        <blockquote>
+                            <footer>Adam Fanello</footer>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            On-Demand Dance Modules
+                            <span class="pull-right">
+                                October 1, 2017
+                            </span>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            You can now <span class="glyphicon glyphicon-play"></span> Play (dance) modules on-demand
+                            from in their collection. This is great for teach modules!
+                            Search online for <b>CALLERLAB SSD</b> for the collections I'm
+                            building up based on the CALLERLAB Sustainable Square Dancing program.
+                        </p>
+                        <blockquote>
+                            <footer>Adam Fanello</footer>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Dance controls &amp; display
+                            <span class="pull-right">
+                                September 15, 2017
+                            </span>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            All of the controls on the Dance screen now function. Select the dance level,
+                            continuation (resolve or keep going?), maximum difficulty, and running average
+                            difficulty. This may not sound huge, but it also lays the groundwork for handling of
+                            more module selection criteria to come. I'm thrilled. 😅
+                        </p>
+                        <p>
+                            Also:
+                        </p>
+                        <ul>
+                            <li>The name of the current module shows above the commands.</li>
+                            <li>Only the previous command shows now (<i>not</i> two back), in order to make more
+                                room for the current command, which was sometimes too long and was being cut off.</li>
+                        </ul>
+                        <blockquote>
+                            <footer>Adam Fanello</footer>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Bug Fix: Formation selection
+                            <span class="pull-right">
+                        September 8, 2017
+                    </span>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            Whoops! When editing modules, the start and end formation selector simply did
+                            not work. At all. 😲
+                            <br>Fixed that.
+                        </p>
+                        <blockquote>
+                            <footer>Adam Fanello</footer>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Documentation! Yay!
+                            <span class="pull-right">
+                        August 20, 2017
+                    </span>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            In this release, we have many little bug fixes and improvements, but the big change is
+                            documentation! Every screen now shows helpful text on how to use it. On large screens,
+                            it appears on the right. For a small/narrow screen, scroll down to view it.
+                        </p>
+                        <p>
+                            In collections, formations has been renamed to Setups to reflect the broader concept,
+                            and you may now specify a license or copyright.
+                        </p>
+                        <p>
+                            I spent a great deal of time playing with FASRs this month and how to leverage more
+                            power from them in SqAC. Head over to the
+                            <a href="http://fanello.net/home/category/sqac/" target="blog">
+                                blog <span class="glyphicon glyphicon-new-window"></span>
+                            </a>
+                            to learn more.
+                        </p>
+                        <blockquote>
+                            <footer>Adam Fanello</footer>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Bug Fixes and U/I tweaks.
+                            <span class="pull-right">
+                        July 17, 2017
+                    </span>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            Fixed error that popped up after signing in through Facebook.
+                            While playing with that, made some minor improvements to the Sign In page.
+                        </p>
+                        <p>
+                            Also, enlarged and fixed a bug with the cloud sync button.
+                        </p>
+                        <p>
+                            That's all. Normally wouldn't make such a small release, but wanted to fix
+                            the Facebook problem.
+                        </p>
+                        <blockquote>
+                            <footer>Adam Fanello</footer>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            New Logo and U/I enhancements
+                            <span class="pull-right">
+                        July 16, 2017
+                    </span>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            SqAC now has a logo!
+                        </p>
+                        <img src="/assets/sqac-banner-160.png" height="160"/>
+                        <p></p>
+                        <p>
+                            Also, there's been some enhancements to the Dance page, making it easier to manually
+                            control the scroll, and to end a tip.
+                        </p>
+                        <blockquote>
+                            <footer>Adam Fanello</footer>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Public Preview Launched
+                            <span class="pull-right">
+                        June 25, 2017
+                    </span>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            Square Auto-Choreographer (SqAC) is now available for anyone to play with. This is still very
+                            much an in-development product so let's be clear: it's buggy and incomplete!
+                        </p>
+                        <p>
+                            If you are feeling adventurous though, here's some tips to get you started:
+                        </p>
+                        <ol>
+                            <li>Click on <b>Sign In</b> in the top right <span style="font-size: 1.2em">↗</span> and identify yourself.</li>
+                            <li>
+                                Now click on <b>Collections</b> <span style="font-size: 1.2em">⬆</span>.
+                                There you'll find the four default collections that everybody starts with.
+                                There's not enough there to actually dance to though. So...
+                            </li>
+                            <li>
+                                Click the <b>+ Search Online</b> (below your name, on the <i>Collections</i> page), and search for <i>Adam</i>
+                                to find a few more collections that I've begun.
+                            </li>
+                            <li>
+                                The ones marked <span class="glyphicon glyphicon-check"></span> on the right are what you already have.<br>
+                                Click on one or more <span class="glyphicon glyphicon-download-alt"></span> icons to subscribe to them.
+                                (As I'm writing this, the <i>Ceder.net Basic selections</i> collection
+                                is the only one big enough to start dancing to.)
+                            </li>
+                            <li>
+                                Now click on the <b>Dance</b> tab above <span style="font-size: 1.2em">⬆</span>.
+                            </li>
+                            <li>
+                                Click the <span class="glyphicon glyphicon-play-circle"></span> button to begin calling!
+                            </li>
+                        </ol>
+                        <p>
+                            Some more caveats:
+                        </p>
+                        <ul>
+                            <li>
+                                Some features, including half the controls on the <i>Dance</i> page, Are just placeholders.
+                                They don't do anything yet.
+                            </li>
+                            <li>
+                                Yes, it is mobile friendly! I wouldn't create modules on a phone,
+                                but the <i>Dance</i> page certainly works great on small screens.</li>
+                            <li>
+                                You generally need to be online when you start up SqAC. Once started though,
+                                it'll work offline. The app will evolve to behave more like a native app with full off-line support,
+                                and less like a web site.
+                            </li>
+                            <li>
+                                SqAC is being developed on Google Chrome. It <i>should</i> work with the current versions
+                                of Safari, Firefox, Opera, Microsoft Edge, and maybe Internet Explorer 11,
+                                but they are <i>not</i> tested at this point.
+                            </li>
+                        </ul>
+                        <blockquote>
+                            <footer>Adam Fanello</footer>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Welcome to SqAC!
+                            <span class="pull-right">
+                        May 12, 2017
+                    </span>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            Square Auto-Choreographer (SqAC, pronounced "squawk") is a computer program to assist a caller,
+                            or even a knowledgeable dancer, in calling patter.
+                        </p>
+                        <p>
+                            This application is in early development. You are seeing this because you're an alpha tester! 🙌&nbsp; 😎
+                        </p>
+                        <blockquote>
+                            <footer>Adam Fanello</footer>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="well">
+                    <a href="http://fanello.net/home/category/sqac/" target="blog">
+                        SqAC Blog <span class="glyphicon glyphicon-new-window"></span>
+                    </a>
+                    <br>
+                    <a href="https://bitbucket.org/kernwig/sqac-ng/issues" target="bitbucket">
+                        Report a Bug <span class="glyphicon glyphicon-new-window"></span>
+                    </a>
+                </div>
+                <div class="well small">
+                    <p>
+                        SqAC is &copy;&nbsp;2017-2019 By Adam&nbsp;Fanello.<br/>All Rights Reserved<br/>
+                        View <a routerLink="/home/tos">Terms of Service</a>.
+                    </p>
+                    <p>
+                        Public collection content is licensed by their individual authors.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

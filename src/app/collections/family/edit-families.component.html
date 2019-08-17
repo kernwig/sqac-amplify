@@ -1,0 +1,81 @@
+<sqac-page-content>
+    <main>
+        <fieldset name="formations" class="content-area form" *ngIf="collection" [disabled]="!isMutable">
+            <ol class="breadcrumb">
+                <li><a [routerLink]="['/collections']">Collections</a></li>
+                <li><a [routerLink]="['/collections', collection.id]">{{collection.name}}</a></li>
+                <li class="active">Families</li>
+            </ol>
+
+            <sqac-only-owner-message *ngIf="!isMutable"></sqac-only-owner-message>
+            <div *ngIf="isMutable" class="alert alert-warning text-center">
+                Few people should ever define families! Defining your own can lead to conflicts.
+            </div>
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <td class="text-center col-xs-8"><b>Name</b></td>
+                    <td class="text-center col-xs-3"><b>Dance Level</b></td>
+                    <td class="col-xs-1"></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let f of collection.families" [ngClass]="{'danger': !f.isAvailable}">
+                    <td class="form-group">
+                        <input type="text" placeholder="Family name" maxlength="40" class="form-control"
+                               [(ngModel)]="f.name" (ngModelChange)="setModified()">
+                    </td>
+                    <td class="form-group">
+                        <select [(ngModel)]="f.level"  class="form-control" (ngModelChange)="setModified()">
+                            <option *ngFor="let level of availableDanceLevels" [value]="level">{{level | danceLevel}}</option>
+                        </select>
+                    </td>
+                    <td class="text-right valign-middle">
+                        <span *ngIf="callSvc.getByFamily(f).length === 0" title="Remove" (click)="delete(f)">
+                            <span class="glyphicon glyphicon-trash text-danger"></span>
+                        </span>
+                    </td>
+                </tr>
+                <tr *ngIf="adding && isMutable" [ngClass]="{'danger': !adding.isAvailable}">
+                    <td class="form-group">
+                        <input type="text" placeholder="New family name" maxlength="40" class="form-control" #addingNameElem
+                               [(ngModel)]="adding.name" (keyup.enter)="addIfComplete(addingNameElem)">
+                    </td>
+                    <td class="form-group">
+                        <select [(ngModel)]="adding.level" class="form-control" (ngModelChange)="addIfComplete(addingNameElem)">
+                            <option *ngFor="let level of availableDanceLevels" [value]="level">{{level | danceLevel}}</option>
+                        </select>
+                    </td>
+                    <td class="text-right valign-middle">
+                        <span title="Clear" (click)="clearAdding(addingNameElem)">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </main>
+
+    <aside>
+        <p>
+            A family is a grouping of related calls. Not quite adhering to conventional nomenclature, in SqAC all
+            calls are members of a family.
+            In the CALLERLAB definitions documents, the numbered lists are what SqAC refers to as families while the
+            various commands within each are SqAC calls. For instance, mainstream #22 Right and Left Thru is a family,
+            consisting of calls with built-in designators such as "Heads Right and Left Thru",
+            "Centers Right and Left Thru", etc..
+        </p>
+        <p>
+            Families are used to organize all the various calls, allowing the dance level to be set once
+            and (in a future version) for entire families to be enable one at a time when using SqAC for teaching.
+        </p>
+
+        <p>
+            To return to your collection list, click on the <span class="text-primary">Collections</span> breadcrumb under the logo.
+            To return to the collection containing these families, click on the <span class="text-primary">{{collection?.name}}</span> breadcrumb.
+        </p>
+
+    </aside>
+</sqac-page-content>

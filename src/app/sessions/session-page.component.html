@@ -1,0 +1,162 @@
+<sqac-page-content>
+    <main *ngIf="session">
+        <fieldset class="content-area form">
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <label>Active Session:</label>
+                    <select class="form-control" style="width: auto; display: inline; margin: 12px;"
+                            [(ngModel)]="session" (ngModelChange)="refresh()">
+                        <option *ngFor="let s of settings.sessions" [ngValue]="s">{{s.name || '(Enter name below)'}}</option>
+                    </select>
+
+                    <button type="button" class="btn btn-danger btn-circle" style="margin-left: 10px"
+                            (click)="deleteConfirmModal.show()" title="Delete Session">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                    <button type="button" class="btn btn-success btn-circle" style="margin-left: 3em"
+                            (click)="createNewSession()" title="Create New">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <p class="pull-left panel-title">About Dance Session</p>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-5 pad-bottom">
+                            <label>Name:</label> &nbsp;
+                            <input type="text" maxlength="20" size="24" class="form-control" style="width: auto; display: inline;"
+                                   [(ngModel)]="session.name" (ngModelChange)="setModified()">
+                        </div>
+                        <div class="col-xs-12 col-sm-7">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <label>Level:</label>
+                                    {{session.level | danceLevel}}
+                                </div>
+                                <div class="col-xs-5">
+                                    <label>Max Difficulty:</label>
+                                    {{session.maxDifficulty | difficulty}}
+                                </div>
+                                <div class="col-xs-4">
+                                    <label>Continuation:</label>
+                                    {{session.continuationProbability}}%
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <label>BPM:</label>
+                                    {{session.bpm}}
+                                </div>
+                                <div class="col-xs-5">
+                                    <label>Avg Difficulty:</label>
+                                    {{Math.round(session.targetDifficulty) | difficulty}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Only Use Modules from...
+                </div>
+                <div class="panel-body">
+                    <div *ngFor="let c of collections" class="checkbox">
+                        <label>
+                            <input type="checkbox" [(ngModel)]="c.enabled" (ngModelChange)="setModified()">
+                            {{c.name}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Only Use Call Families...
+                </div>
+                <div class="panel-body">
+                    Only use module that contain <sqac-switch onText="any" offText="select" onColor="green" offColor="sky-blue" size="small"
+                            [(status)]="useAnyFamily" (statusChange)="setModified()"></sqac-switch>
+                    <span *ngIf="useAnyFamily">call family.</span>
+                    <span *ngIf="!useAnyFamily">call families:</span>
+
+                    <div *ngIf="!useAnyFamily">
+                        <div *ngFor="let level of danceLevels" class="row">
+                            <div class="col-sm-12 pad-top">
+                                <label>{{ level | danceLevel}} families:</label>
+                            </div>
+                            <ng-template ngFor let-f [ngForOf]="families">
+                                <ng-template [ngIf]="f.level === level">
+                                    <div class="col-xs-6 col-sm-4 col-md-3 pad-top checkbox">
+                                        <label>
+                                            <input type="checkbox" [(ngModel)]="f.enabled" (ngModelChange)="setModified()">
+                                            {{f.name}}
+                                        </label>
+                                    </div>
+                                </ng-template>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <!--<pre>{{session | json}}</pre>-->
+    </main>
+
+    <div [config]="{backdrop: 'true'}"
+         class="modal fade" bsModal #deleteConfirmModal="bs-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title pull-left">Delete dance session '{{session?.name}}'?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" (click)="deleteConfirmModal.hide(); onDeleteSession()">
+                        Delete it!
+                    </button>
+                    <button type="button" class="btn btn-success pull-right" (click)="deleteConfirmModal.hide()">
+                        No, Keep my session
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <aside>
+        <p>
+            With sessions, you can track multiple dancer audiences for classes or club dances.
+            Select the session from the top menu, and it becomes the active configuration for the dance.
+            Simply selecting this session from the <span class="text-primary">Session</span> menu has activated it!
+            Head over to the <span class="text-primary">Dance</span> screen to proceed.
+        </p>
+
+        <h4>About Dance Session</h4>
+
+        <p>
+            The session has a short <b>Name</b>. Use this to distinguish it from your other sessions in the Session menu.
+            The other fields, <b>Level</b>, <b>BPM</b>, etc, simply show the current selections within the session.
+            Setting these from the <span class="text-primary">Dance</span> screen automatically updates the current
+            session.
+        </p>
+
+        <h4>Only Use modules from...</h4>
+        <p>
+            Not every collection that you have subscribed to is appropriate for every dance session.
+            Only ✔︎check the collections you want to draw modules from.
+        </p>
+        <h4>Only Use Call Families...</h4>
+        <p>
+            Normally you SqAC will limit itself to module at the dance level that you selected on the
+            <span class="text-primary">Dance</span> screen. If you want to further limit it (such as for a class),
+            flip the switch from <b>any</b> to <b>select</b> and then ✔︎check the families of calls that you want
+            to limit the dance to.
+        </p>
+    </aside>
+</sqac-page-content>

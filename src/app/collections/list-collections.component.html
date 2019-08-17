@@ -1,0 +1,285 @@
+<sqac-page-content>
+    <main *ngIf="!settings" class="alert alert-warning text-center">
+        Sign in to load and create collections.
+    </main>
+
+    <main *ngIf="settings">
+        <ol *ngIf="showOnly && history" class="breadcrumb">
+            <li><a [routerLink]="['/collections']">Collections</a></li>
+            <li><a [routerLink]="['/collections', showOnly.id]">{{showOnly.name}}</a></li>
+            <li class="active">History</li>
+        </ol>
+        <ol *ngIf="showOnly && !history" class="breadcrumb">
+            <li><a [routerLink]="['/collections']">Collections</a></li>
+            <li class="active">{{showOnly.name}}</li>
+        </ol>
+        <div *ngIf="!showOnly" class="text-right">
+            <button type="button" class="btn btn-danger btn-circle btn-lg btn-float-bottom-right"
+                    (click)="onCreateCollection()" title="Create New">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </div>
+
+        <div class="row" style="padding-bottom: 12px" *ngIf="!showOnly">
+            <div class="col-xs-9">
+                <sqac-collection-filter icon="glyphicon-filter" (apply)="applyFilter($event)"
+                                        style="display: inline-block"></sqac-collection-filter>
+                &nbsp;
+                <label *ngIf="collections.length > filteredCollections.length">
+                    {{filteredCollections.length}} of
+                </label>
+                <label>
+                    {{collections.length}} collections
+                </label>
+            </div>
+            <div class="col-xs-1">
+            </div>
+            <div class="col-xs-2 text-right">
+                <a [routerLink]="['/collections/search']">+ Search Online</a>
+            </div>
+        </div>
+
+        <section class="collection-list">
+            <ng-template ngFor let-c [ngForOf]="filteredCollections" let-idx="index">
+
+                <div *ngIf="idx === troubleSectionIdx" role="alert" class="alert alert-danger">
+                    <span class="glyphicon glyphicon-warning-sign"></span>
+                    <strong>Broken collection(s); they cannot be used until fixed:</strong>
+                </div>
+
+                <div *ngIf="idx === localModSectionIdx" role="alert" class="alert alert-warning">
+                    <span class="glyphicon glyphicon-cloud-upload"></span>
+                    <strong>Locally modified collection(s):</strong>
+                </div>
+
+                <div *ngIf="idx === cloudSyncSectionIdx" role="alert" class="alert alert-success">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    <strong>Cloud synchronized collections:</strong>
+                </div>
+
+                <sqac-one-collection [collection]="c" [visibilityIcon]="collectionSvc.getVisibilityIcon(c)"
+                                     [isAuthor]="settings.id === c.authorUserId"
+                                     [isOnHistoryScreen]="!!history"
+                                     (unsubscribe)="openUnsubscribeModal(unsubscribeModal, c)"
+                                     (edit)="openEditModal(editModal, c)"
+                                     (history)="openHistory(c)">
+                </sqac-one-collection>
+            </ng-template>
+        </section>
+
+        <section *ngIf="history">
+            <div *ngIf="history.length" role="alert" class="alert alert-info">
+                <strong>
+                    Click <span class="glyphicon glyphicon-repeat"></span> below
+                    to restore a previous revision from the cloud.
+                </strong>
+            </div>
+
+            <div *ngIf="history.length === 0" role="alert" class="alert alert-info">
+                <strong>
+                    No prior revisions available to be restored.
+                </strong>
+            </div>
+
+            <ng-template ngFor let-c [ngForOf]="history">
+                <sqac-one-collection [collection]="c" [visibilityIcon]="collectionSvc.getVisibilityIcon(c)"
+                                     [isHistory]="true" [isOnHistoryScreen]="true"
+                                     (history)="openRestoreConfirmModal(confirmRestoreModal, c)">
+                </sqac-one-collection>
+            </ng-template>
+        </section>
+    </main>
+
+    <aside>
+        <div *ngIf="!showOnly">
+            <p>
+                This is a list of all collections of setups, families, calls, and modules that you have loaded into your account.
+                It includes the collections that you have created, as well as public collections from other people that you have
+                subscribed to.
+            </p>
+            <p>
+                At the top, you can enter some criteria to <span class="glyphicon glyphicon-filter"></span> filter your collection list. To find more public collections,
+                click on <span class="text-primary">+ Search Online</span>.
+            </p>
+            <p>
+                Each collections is shown as a block summarizing the content of the collection.
+            </p>
+        </div>
+        <div *ngIf="showOnly">
+            <p>
+                This is a summary block about the selected collection.
+            </p>
+        </div>
+        <p>
+            The title line alone is very telling:
+        </p>
+        <ul>
+            <li>If it is green, the collection is ready for use.</li>
+            <li>If it is red, there's a problem. Likely something in it references data in another collection that you don't have. Dig down into the collection to find the problem.</li>
+            <li>The icon on the left indicates if the collection is not loaded <span class="glyphicon glyphicon-warning-sign"></span>,
+                is your private collection <span class="glyphicon glyphicon-lock"></span>,
+                your public (shared with others) collection <span class="glyphicon glyphicon-gift"></span>,
+                or is somebody else's public collection <span class="glyphicon glyphicon-globe"></span>.</li>
+            <li>The edit button <span class="glyphicon glyphicon-edit"></span> lets you modify or delete your collection.</li>
+            <li>Use the unsubscribe button <span class="glyphicon glyphicon-trash"></span> to unload somebody else's collection.</li>
+            <li>The history button <span class="glyphicon glyphicon-time"></span> lets your restore old revisions of your collection.</li>
+        </ul>
+        <p>
+            The <span class="text-primary">Setups</span>, <span class="text-primary">Families</span>, <span class="text-primary">Calls</span>, and <span class="text-primary">Modules</span>
+            buttons show how many of each item are in the collection. Click the button to view or edit the content.
+        </p>
+
+        <p *ngIf="!showOnly">
+            Finally, use the big <span class="btn btn-danger btn-circle"><span class="glyphicon glyphicon-plus"></span></span>
+            to create a new collection.
+        </p>
+
+        <p *ngIf="showOnly">
+            To return to your full collection list, click on the <span class="text-primary">Collections</span> breadcrumb under the logo.
+        </p>
+    </aside>
+</sqac-page-content>
+
+<!-- Edit Modal -->
+<div [config]="{backdrop: 'true'}"
+     class="modal fade" bsModal #editModal="bs-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Edit Collection</h4>
+            </div>
+            <div *ngIf="activeCollection" class="modal-body">
+                <form name="editCollection" novalidate>
+                    <div class="form-group">
+                        <label for="collectionNameInput">Name:</label>
+                        <input type="text" class="form-control" name="collectionNameInput" id="collectionNameInput" maxlength="40" required
+                               [(ngModel)]="activeCollection.name" (ngModelChange)="modifiedCollection(activeCollection)">
+                    </div>
+                    <div class="form-group">
+                        <label for="collectionDescInput">Description:</label>
+                        <textarea class="form-control" name="collectionDescInput" id="collectionDescInput" rows="4"
+                                  [(ngModel)]="activeCollection.description" (ngModelChange)="modifiedCollection(activeCollection)">
+                        </textarea>
+                    </div>
+                    <div class="form-group">
+                        <sqac-switch onText="Public" offText="Private" onColor="green" offColor="red" size="normal"
+                                [(status)]="activeCollection.isPublic" (statusChange)="modifiedCollection(activeCollection)"></sqac-switch> &nbsp;
+                        <span *ngIf="activeCollection.isPublic">Others can find and use your collection, but only you can edit it.</span>
+                        <span *ngIf="!activeCollection.isPublic">Only you know that your collection even exists.</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="collectionLicenseInput">License:</label>
+                        <input type="text" class="form-control" name="collectionLicenseInput" id="collectionLicenseInput" maxlength="40" required
+                               [(ngModel)]="activeCollection.license" (ngModelChange)="modifiedCollection(activeCollection)">
+                        <span>Standard Licenses:</span>
+                        <button *ngFor="let license of predefinedLicenses"
+                                type="button" class="btn btn-default" style="margin: 2px"
+                                [tooltip]="license.description"
+                                (click)="selectLicense(license)">
+                            {{license.name}}
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" (click)="editModal.hide(); destroyModal.show()">
+                    Destroy
+                </button>
+                <button type="button" class="btn btn-primary pull-right" (click)="editModal.hide()">
+                    Done
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Destroy Modal -->
+<div [config]="{backdrop: 'true'}"
+     class="modal fade" bsModal #destroyModal="bs-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title mg-danger pull-left">Destroy Collection</h4>
+            </div>
+            <div *ngIf="activeCollection" class="modal-body">
+                <div class="alert alert-danger" role="alert">
+                    Destroy <i>{{activeCollection.name}}</i>?
+                </div>
+                <div class="text-warning">
+                    If you destroy this collection, everything in it will be lost. There is no recovery!
+                </div>
+                <div *ngIf="activeCollection.isPublic" class="text-warning">
+                    You have shared this collection with others! Destroying it means that nobody else can use
+                    it anymore either.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" disabled>
+                    Delete Now
+                </button>
+                <button type="button" class="btn btn-success pull-right" (click)="destroyModal.hide()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Unsubscribe Modal -->
+<div [config]="{backdrop: 'true'}"
+     class="modal fade" bsModal #unsubscribeModal="bs-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Unsubscribe from Collection</h4>
+            </div>
+            <div *ngIf="activeCollection" class="modal-body">
+                <div class="alert alert-warning" role="alert">
+                    Remove "{{activeCollection.name}}" from your collections list?
+                </div>
+                <div class="text-info">
+                    The collection will simply be removed from your list. You can always subscribe again later.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning pull-left"
+                        (click)="doUnsubscribe(); unsubscribeModal.hide()">
+                    Unsubscribe
+                </button>
+                <button type="button" class="btn btn-success pull-right" (click)="unsubscribeModal.hide()">
+                    Keep
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Confirm Restore Revision Modal -->
+<div [config]="{backdrop: 'true'}"
+     class="modal fade" bsModal #confirmRestoreModal="bs-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Restore older revision of Collection</h4>
+            </div>
+            <div *ngIf="activeCollection" class="modal-body">
+                <div class="alert alert-warning" role="alert">
+                    Revert <em>{{activeCollection.name}}</em> to the revision saved at
+                    {{activeCollection.modified | date:'short'}}?
+                </div>
+                <div class="text-warning">
+                    Any local changes will be lost forever. It <em>will</em> still be possible to restore
+                    the last few revisions saved to the cloud.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" (click)="doRestoreRevision()">
+                    Restore
+                </button>
+                <button type="button" class="btn btn-success pull-right" (click)="confirmRestoreModal.hide()">
+                    Keep Current
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+.module-info {
+    .row {
+        padding-top: 6px;
+    }
+
+    table.hand-flow {
+        border-collapse: separate;
+        border-spacing: 8px 4px;
+
+        td:nth-child(2) {
+            width: 10em;
+            padding-right: 8px;
+        }
+    }
+}
+
+table.sequence {
+    /* Remove extra margin added to the bottom */
+    margin-bottom: 0;
+
+    span.glyphicon-link {
+        top: 20px;
+    }
+}

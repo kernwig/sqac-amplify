@@ -1,0 +1,12 @@
+ng-sidebar-container {
+    height: calc(100vh - 51px);
+}
+
+::ng-deep .help-sidebar {
+    width: 60%;
+
+    &.ng-sidebar--opened {
+        margin: 6px;
+    }
+}
+// .help-backdrop is defined in styles.scss

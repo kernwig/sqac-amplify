@@ -1,0 +1,97 @@
+<div class="panel {{isHistory ? 'panel-default' : !collection.isAvailable ? 'panel-danger' : collection.isCloudBacked ? 'panel-success' : 'panel-warning'}}">
+
+    <div class="panel-heading">
+        <span style="padding-right: 4px">
+            <span class="{{visibilityIcon}}"></span>
+        </span>
+        {{collection.name}}
+        <span *ngIf="!isHistory" class="pull-right">
+            <!--<ng-container *ngIf="!collection.isCloudBacked">-->
+                <!--<span class="glyphicon glyphicon-cloud-upload" tooltip="Locally Modified"></span>-->
+                <!--&nbsp;-->
+            <!--</ng-container>-->
+            <ng-container *ngIf="isAuthor && !isOnHistoryScreen">
+                <span (click)="history.emit()"
+                      class="glyphicon glyphicon-time" tooltip="Revision History"></span>
+                &nbsp;
+                <span class="glyphicon glyphicon-edit" tooltip="Edit"
+                      (click)="edit.emit()"></span>
+            </ng-container>
+
+            <span *ngIf="!isAuthor" class="glyphicon glyphicon-trash" tooltip="Unsubscribe"
+                  (click)="unsubscribe.emit()"></span>
+        </span>
+        <span *ngIf="isHistory" class="pull-right">
+                <span class="glyphicon glyphicon-repeat" tooltip="Restore"
+                      (click)="history.emit()"></span>
+        </span>
+    </div>
+
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-xs-12">
+                <label>Description:</label>
+                {{collection.description}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label>Level:</label>
+                {{collection.level | danceLevel}}
+            </div>
+            <div class="col-sm-3">
+                <label>Difficulty:</label>
+                {{collection.difficulty | difficulty}}
+            </div>
+            <div class="col-sm-2">
+                <label>License:</label>
+                {{collection.license}}
+            </div>
+            <ng-container *ngIf="isOnHistoryScreen">
+                <div class="col-sm-offset-1 col-sm-4 text-large">
+                    <label>Modified:</label>
+                    {{collection.modified | date:'short'}}
+                </div>
+            </ng-container>
+            <ng-container *ngIf="!isOnHistoryScreen">
+                <div class="col-sm-3">
+                    <label>Author:</label>
+                    {{collection.author}}
+                </div>
+                <div class="col-sm-2">
+                    <label>Modified:</label>
+                    {{collection.modified | date:'shortDate'}}
+                </div>
+            </ng-container>
+        </div>
+    </div>
+
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-xs-6 col-sm-3">
+                <button type="button" class="btn {{collection.formations.length > 0 ? 'btn-primary' : 'btn-default'}}"
+                        [routerLink]="['/collections', collection.id, 'setups']" [disabled]="isHistory">
+                    Setups <span class="badge">{{collection.formations.length}}</span>
+                </button>
+            </div>
+            <div class="col-xs-6 col-sm-3">
+                <button type="button" class="btn {{collection.families.length > 0 ? 'btn-primary' : 'btn-default'}}"
+                        [routerLink]="['/collections', collection.id, 'families']" [disabled]="isHistory">
+                    Families <span class="badge">{{collection.families.length}}</span>
+                </button>
+            </div>
+            <div class="col-xs-6 col-sm-3">
+                <button type="button" class="btn {{collection.calls.length > 0 ? 'btn-primary' : 'btn-default'}}"
+                        [routerLink]="['/collections', collection.id, 'calls']" [disabled]="isHistory">
+                    Calls <span class="badge">{{collection.calls.length}}</span>
+                </button>
+            </div>
+            <div class="col-xs-6 col-sm-3">
+                <button type="button" class="btn {{collection.modules.length > 0 ? 'btn-primary' : 'btn-default'}}"
+                        [routerLink]="['/collections', collection.id, 'modules']" [disabled]="isHistory">
+                    Modules <span class="badge">{{collection.modules.length}}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

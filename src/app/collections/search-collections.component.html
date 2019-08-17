@@ -1,0 +1,123 @@
+<sqac-page-content>
+    <main>
+        <ol class="breadcrumb">
+        <li><a [routerLink]="['/collections']">Collections</a></li>
+        <li class="active">Search Online</li>
+        </ol>
+
+        <div *ngIf="!syncSvc.isOnline()" role="alert" class="alert alert-warning">
+            <span class="glyphicon glyphicon-warning-sign"></span>
+            <strong>This feature is unavailable offline.</strong>
+        </div>
+
+        <div *ngIf="syncSvc.isOnline()" class="row" style="padding-bottom: 12px">
+            <div class="col-xs-10">
+                <sqac-collection-filter icon="glyphicon-search" style="display: inline-block"
+                                        (apply)="filter = $event" (enter)="doSearch()">
+                </sqac-collection-filter>
+                <button type="submit" class="btn btn-primary" (click)="doSearch()">Search</button>
+            </div>
+            <div class="col-xs-2">
+                <label>
+                    {{collections.length}} matches
+                </label>
+            </div>
+        </div>
+
+        <div *ngFor="let c of collections"
+             class="panel panel-primary">
+            <div class="panel-heading">
+                <span style="padding-right: 4px">
+                    <span class="glyphicon glyphicon-globe"></span>
+                </span>
+                {{c.name}}
+                <span class="pull-right">
+                    <span *ngIf="settings.collections.has(c.id)" class="glyphicon glyphicon-check"
+                          tooltip="Already in your list"></span>
+
+                    <span *ngIf="!settings.collections.has(c.id)" class="glyphicon glyphicon-download-alt"
+                          tooltip="Subscribe" (click)="subscribe(c)"></span>
+                </span>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label>Description:</label>
+                        {{c.description}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label>Level:</label>
+                        {{c.level | danceLevel}}
+                    </div>
+                    <div class="col-sm-3">
+                        <label>Difficulty:</label>
+                        {{c.difficulty | difficulty}}
+                    </div>
+                    <div class="col-sm-2">
+                        <label>License:</label>
+                        {{c.license}}
+                    </div>
+                    <div class="col-sm-3">
+                        <label>Author:</label>
+                        {{c.author}}
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Modified:</label>
+                        {{c.modified | date:'shortDate'}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-3">
+                        <button type="button" class="btn {{c.formations > 0 ? 'btn-primary' : 'btn-default'}}">
+                            Setups <span class="badge">{{c.formations}}</span>
+                        </button>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                        <button type="button" class="btn {{c.families > 0 ? 'btn-primary' : 'btn-default'}}">
+                            Families <span class="badge">{{c.families}}</span>
+                        </button>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                        <button type="button" class="btn {{c.calls > 0 ? 'btn-primary' : 'btn-default'}}">
+                            Calls <span class="badge">{{c.calls}}</span>
+                        </button>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                        <button type="button" class="btn {{c.modules > 0 ? 'btn-primary' : 'btn-default'}}">
+                            Modules <span class="badge">{{c.modules}}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <aside>
+        <p>
+            From here you can search online for public collections that you may wish to subscribe to.
+        </p>
+        <p>
+            To return to your collection list, click on the <span class="text-primary">Collections</span> breadcrumb under the logo.
+        </p>
+        <p>
+            At the top, enter criteria to <span class="glyphicon glyphicon-search"></span> search online for public collections.
+            (You must enter something in at least one field.)
+        </p>
+        <p>
+            Like on the <span class="text-primary">Collections</span> screen, you will see a block summarizing each collection found by your search.
+            The icon on the left indicates either your public collection <span class="glyphicon glyphicon-gift"></span> or
+            somebody else's public collection <span class="glyphicon glyphicon-globe"></span>.
+        </p>
+        <p>
+            The icon on the right will either indicate that the collection is <span class="glyphicon glyphicon-check"></span>
+            already in your list, or that it is available to <span class="glyphicon glyphicon-download-alt"></span> subscribe to.
+            Click <span class="glyphicon glyphicon-download-alt"></span> to subscribe.
+        </p>
+    </aside>
+</sqac-page-content>

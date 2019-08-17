@@ -1,0 +1,132 @@
+<sqac-page-content>
+    <main>
+        <fieldset name="formations" class="content-area form" *ngIf="collection" [disabled]="!isMutable">
+            <ol class="breadcrumb">
+                <li><a [routerLink]="['/collections']">Collections</a></li>
+                <li><a [routerLink]="['/collections', collection.id]">{{collection.name}}</a></li>
+                <li class="active">Setups</li>
+            </ol>
+
+            <sqac-only-owner-message *ngIf="!isMutable"></sqac-only-owner-message>
+
+            <div *ngIf="isMutable" class="alert alert-warning text-center">
+                Try to avoid adding more Setups! See documentation.
+            </div>
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <td class="text-center col-xs-6"><b>Description</b></td>
+                    <td class="text-center col-xs-2"><b>Notation</b></td>
+                    <td class="text-center col-xs-3"><b>Dance Level</b></td>
+                    <td class="col-xs-1"></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let f of collection.formations"
+                    [ngClass]="{'danger': !f.isAvailable}">
+                    <td class="form-group">
+                        <input type="text" maxlength="40" class="form-control"
+                               [(ngModel)]="f.name" (ngModelChange)="setModified()">
+                    </td>
+                    <td class="form-group" align="center">
+                        <div class="input-group skinny">
+                            <span class="input-group-addon">[</span>
+                            <input type="text" placeholder="short" maxlength="4" class="form-control"
+                                   [(ngModel)]="f.abbreviation" (ngModelChange)="setModified()">
+                            <span class="input-group-addon">]</span>
+                        </div>
+                    </td>
+                    <td class="form-group">
+                        <select [(ngModel)]="f.level"  class="form-control" (ngModelChange)="setModified()">
+                            <option *ngFor="let level of availableDanceLevels" [value]="level">{{level | danceLevel}}</option>
+                        </select>
+                    </td>
+                    <td class="text-right valign-middle">
+                        <span *ngIf="!usedFormations.has(f.id)" title="Remove" (click)="delete(f)">
+                            <span class="glyphicon glyphicon-trash text-danger"></span>
+                        </span>
+                    </td>
+                </tr>
+                <tr *ngIf="adding && isMutable" [ngClass]="{'danger': !adding.isAvailable}">
+                    <td class="form-group">
+                        <input type="text" placeholder="New setup described" maxlength="40" class="form-control" #addingNameElem
+                               [(ngModel)]="adding.name" (keyup.enter)="addIfComplete(addingNameElem)">
+                    </td>
+                    <td class="form-group" align="center">
+                        <div class="input-group skinny">
+                            <span class="input-group-addon">[</span>
+                            <input type="text" placeholder="RFS" maxlength="4" class="form-control"
+                                   [(ngModel)]="adding.abbreviation" (keyup.enter)="addIfComplete(addingNameElem)">
+                            <span class="input-group-addon">]</span>
+                        </div>
+                    </td>
+                    <td class="form-group">
+                        <select [(ngModel)]="adding.level" class="form-control" (ngModelChange)="addIfComplete(addingNameElem)">
+                            <option *ngFor="let level of availableDanceLevels" [value]="level">{{level | danceLevel}}</option>
+                        </select>
+                    </td>
+                    <td class="text-right valign-middle">
+                        <span title="Clear" (click)="clearAdding(addingNameElem)">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </main>
+
+    <aside>
+        <p>
+            This section defines different setups of the dancers in their square.
+            In SqAC, we only deal with setups in so far as the starting and ending points
+            of modules; it does not even know what each setup looks like, only that if one module
+            ends in a certain setup, the next one must start from the same setup.
+            Because the weaving together of modules is so dependent on consistent use of setups, the
+            creation of new ones is not to be taken lightly.
+        </p>
+        <ul>
+            <li>If a module ends in a setup, with particular flow and hands, there must be at least one module that
+                starts from that setup, flow, and hand availability. If not, the dance stops. For this reason
+                alone, its best to restrict the number of setups to ensure the greatest variety.
+            </li>
+        </ul>
+        <p>
+            Nearly all modules you find in the wild will start and end in one of these few formations:
+            squared set, 8-chain, or facing lines. That's it, just those three. Others may be used, but ensure
+            that variety exists.
+        </p>
+        <p>
+            There are many systems for defining setups. CALLERLAB defines them via FASR: Formation,
+            Arrangement, Sequence, Relationship. A notation in the form [AFSR] was
+            used, until things began to shift in May 2017. A new simply notation that appears to be
+            noted as RFS has been announced, but isn't fully explained yet. In this notation, we start
+            with Relationship within foursomes, Formation, and then Sequence is either <b>I</b>n sequence (or
+            simply left out), or <b>O</b>ut of sequence.
+        </p>
+        <p>
+            This new notation fits better with SqACs needs for a small set of possible setups,
+            and so will be used where possible, with fallback to FASR's [AFSR] notation where the new
+            notation isn't known. As CALLERLAB provides more details, SqAC's CALLERLAB collections will be updated.
+        </p>
+        <p class="alert alert-warning">
+            All setups are standard "zero" arrangement.
+        </p>
+        <p>
+            Learn more about setups:
+        </p>
+        <ul>
+            <li><a href="http://callers.gero-teufert.de/english/othersetupsystems.html" target="out">
+                Other Names For Setups by Gero Teufert</a></li>
+            <li><a href="http://all8.com/sd/calling/fasr.htm" target="out">
+                "FASR" and other Caller Terminology by Rich Reel</a></li>
+            <li><a href="https://www.michaelhaworth.org/index.php/corral/58-the-fasr-relationship-mystery" target="out">
+                The FASR Relationship Mystery by Michael Haworth</a></li>
+        </ul>
+        <p>
+            To return to your collection list, click on the <span class="text-primary">Collections</span> breadcrumb under the logo.
+            To return to the collection containing these formations, click on the <span class="text-primary">{{collection?.name}}</span> breadcrumb.
+        </p>
+    </aside>
+</sqac-page-content>

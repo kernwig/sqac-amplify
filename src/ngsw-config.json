@@ -1,0 +1,31 @@
+{
+    "//": "https://medium.com/@webmaxru/a-new-angular-service-worker-creating-automatic-progressive-web-apps-part-1-theory-37d7d7647cc7",
+    "index": "/index.html",
+    "appData": {
+    },
+    "assetGroups": [
+        {
+            "name": "appshell",
+            "installMode": "prefetch",
+            "updateMode": "prefetch",
+            "resources": {
+                "files": [
+                    "/*.html",
+                    "/favicon.ico",
+                    "/manifest.json",
+                    "/assets/*",
+                    "!/ngsw-worker.js",
+                    "!/**/.DS_Store"
+                ],
+                "versionedFiles": [
+                    "/*.bundle.css",
+                    "/*.bundle.js",
+                    "/*.chunk.js",
+                    "/*.woff",
+                    "/*.woff2"
+                ]
+            }
+        }
+    ],
+    "dataGroups": []
+}
