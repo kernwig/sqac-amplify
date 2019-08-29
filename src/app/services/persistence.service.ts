@@ -4,19 +4,10 @@ import {UserSettings, UserSettingsJSON} from "../models/user-settings";
 import {Collection, CollectionJSON} from "../models/collection";
 import {AbstractStorableModel, AbstractStorableModelJSON} from "../models/abstract-storable-model";
 import * as localForage from "localforage";
-import * as feathers from 'feathers';
-import * as hooks from 'feathers-hooks';
-import * as rest from 'feathers-rest/client';
-import * as authentication from 'feathers-authentication-client';
 import {AuthUser} from "../models/auth-user";
 import {SyncService} from "./sync.service";
-const axios = require('axios');
-
-export interface Authenticator {
-    name: string;
-    url: string;
-    cssClass: string;
-}
+import {AmplifyService} from 'aws-amplify-angular';
+import {AuthClass} from 'aws-amplify';
 
 /// Exception thrown by failures in the [PersistenceService].
 export class PersistenceException {
@@ -29,24 +20,6 @@ export class PersistenceException {
     }
 }
 
-// Double-underscore in URL makes these requests bypass the service-worker.
-const AUTHENTICATION_API_PATH = "/authentication__";
-const AUTH_API_PATH = "/auth__";
-const DATA_API_PATH = "/data__";
-
-export const AUTHENTICATORS: Authenticator[] = [
-    {
-        name: 'Google',
-        url: environment.feathersServerUrl + AUTH_API_PATH + '/google',
-        cssClass: 'btn-danger'
-    },
-    {
-        name: 'Facebook',
-        url: environment.feathersServerUrl + AUTH_API_PATH + '/facebook',
-        cssClass: 'btn-primary'
-    },
-];
-
 /**
  * Persistence storage of data content.
  *
@@ -57,9 +30,9 @@ export const AUTHENTICATORS: Authenticator[] = [
 @Injectable()
 export class PersistenceService {
 
-    server: feathers.Application;
-
-    constructor(private syncSvc: SyncService) {
+    constructor(private readonly syncSvc: SyncService,
+                private readonly amplifySvc: AmplifyService,
+    ) {
         localForage.config({
             name: 'SqAC',
             size: 20000000,
@@ -67,26 +40,6 @@ export class PersistenceService {
             version: 2,
             description: 'Stores your login session and data for editing and offline use.'
         });
-
-        this.server = feathers()
-            .configure((rest(environment.feathersServerUrl) as any).axios(axios))
-            .configure(hooks())
-            .configure(authentication({
-                jwtStrategy: 'jwt',
-                path: AUTHENTICATION_API_PATH,
-                storage: window.localStorage
-            }));
-    }
-
-    /**
-     * Use at startup to renew the user authentication.
-     *
-     * @returns {Promise<AuthUser>} the authenticated user, or reject if not signed in.
-     */
-    reAuthenticate(): Promise<AuthUser> {
-        console.log("Attempting to authenticate");
-        return this.server.authenticate({ type: null })
-            .then((response: any) => response.user as AuthUser);
     }
 
     /**
@@ -94,8 +47,8 @@ export class PersistenceService {
      */
     signOut() {
         this.syncSvc.reset();
-        localForage.clear();
-        return this.server.logout();
+        localForage.clear().then();
+        return (this.amplifySvc.auth() as AuthClass).signOut();
     }
 
     /**
@@ -109,29 +62,29 @@ export class PersistenceService {
         // First get local copy
         let json: UserSettingsJSON = (await localForage.getItem(userId)) as UserSettingsJSON;
 
-        // Then ask the server for a newer one
+        // TODO: Then ask the server for a newer one
         if (this.syncSvc.isOnline()) {
-            let params: feathers.Params = json ? {query: {ifModifiedSince: json.modified}} : {};
-            try {
-                let response = await this.server.service(DATA_API_PATH).get(userId, params);
-                // response will be blank (empty string?) if server copy is not newer vis-a-vi isModifiedSince
-                if (response) {
-                    // Use and local save updated version
-                    json = response as UserSettingsJSON;
-                    json.isCloudBacked = true;
-                    localForage.setItem(userId, json);
-                    console.log("Loaded settings", JSON.stringify(json));
-                }
-                else {
-                    console.debug("No change in user settings");
-                }
-            }
-            catch (err) {
-                return this.translateError(err);
-            }
+            // let params: feathers.Params = json ? {query: {ifModifiedSince: json.modified}} : {};
+            // try {
+            //     let response = await this.server.service(DATA_API_PATH).get(userId, params);
+            //     // response will be blank (empty string?) if server copy is not newer vis-a-vi isModifiedSince
+            //     if (response) {
+            //         // Use and local save updated version
+            //         json = response as UserSettingsJSON;
+            //         json.isCloudBacked = true;
+            //         localForage.setItem(userId, json);
+            //         console.log("Loaded settings", JSON.stringify(json));
+            //     }
+            //     else {
+            //         console.debug("No change in user settings");
+            //     }
+            // }
+            // catch (err) {
+            //     return this.translateError(err);
+            // }
         }
 
-        let user = UserSettings.fromJSON(json);
+        const user = UserSettings.fromJSON(json);
         user.isAvailable = true;
         this.syncSvc.reset();
         return user;
@@ -163,25 +116,25 @@ export class PersistenceService {
         // First get local copy
         let json: CollectionJSON = (await localForage.getItem(collectionId)) as CollectionJSON;
 
-        // Then ask the server for a newer one
+        // TODO: Then ask the server for a newer one
         if (this.syncSvc.isOnline()) {
-            let params: feathers.Params = json ? {query: {ifModifiedSince: json.modified}} : {};
-            try {
-                let response = await this.server.service(DATA_API_PATH).get(collectionId, params);
-                // response will be blank (empty string?) if server copy is not newer vis-a-vi isModifiedSince
-                if (response) {
-                    // Use and local save updated version
-                    json = response as CollectionJSON;
-                    json.isCloudBacked = true;
-                    localForage.setItem(collectionId, json);
-                }
-                else {
-                    console.debug("No change in collection " + collectionId);
-                }
-            }
-            catch (err) {
-                return this.translateError(err);
-            }
+            // let params: feathers.Params = json ? {query: {ifModifiedSince: json.modified}} : {};
+            // try {
+            //     let response = await this.server.service(DATA_API_PATH).get(collectionId, params);
+            //     // response will be blank (empty string?) if server copy is not newer vis-a-vi isModifiedSince
+            //     if (response) {
+            //         // Use and local save updated version
+            //         json = response as CollectionJSON;
+            //         json.isCloudBacked = true;
+            //         localForage.setItem(collectionId, json);
+            //     }
+            //     else {
+            //         console.debug("No change in collection " + collectionId);
+            //     }
+            // }
+            // catch (err) {
+            //     return this.translateError(err);
+            // }
         }
 
         return Collection.fromJSON(json);
@@ -191,16 +144,18 @@ export class PersistenceService {
     /// Returns the [Collection] or reject if not found.
     /// Throws [PersistenceException] upon unhandled failure.
     async cloudReloadCollection(collectionId: string): Promise<Collection> {
-        try {
-            let response = await this.server.service(DATA_API_PATH).get(collectionId);
-            let json = response as CollectionJSON;
-            json.isCloudBacked = true;
-            localForage.setItem(collectionId, json);
-            return Collection.fromJSON(json);
-        }
-        catch (err) {
-            return this.translateError(err);
-        }
+        // TODO:
+        throw new PersistenceException(501, 'Not implemented');
+        // try {
+        //     let response = await this.server.service(DATA_API_PATH).get(collectionId);
+        //     let json = response as CollectionJSON;
+        //     json.isCloudBacked = true;
+        //     localForage.setItem(collectionId, json);
+        //     return Collection.fromJSON(json);
+        // }
+        // catch (err) {
+        //     return this.translateError(err);
+        // }
     }
 
     /**
@@ -226,30 +181,34 @@ export class PersistenceService {
      * Search the server for public collections matching the search criteria.
      */
     async findCollections(criteria: object): Promise<CollectionJSON[]> {
-        try {
-            let json = await this.server.service(DATA_API_PATH).find({query: criteria});
-
-            // Return value isn't exactly a CollectionJSON.
-            // All the arrays are only numbers of how many items are in the array on the server.
-            return json as CollectionJSON[];
-        }
-        catch (err) {
-            return this.translateError(err);
-        }
+        // TODO:
+        throw new PersistenceException(501, 'Not implemented');
+        // try {
+        //     let json = await this.server.service(DATA_API_PATH).find({query: criteria});
+        //
+        //     // Return value isn't exactly a CollectionJSON.
+        //     // All the arrays are only numbers of how many items are in the array on the server.
+        //     return json as CollectionJSON[];
+        // }
+        // catch (err) {
+        //     return this.translateError(err);
+        // }
     }
 
     /**
      * Load recent revisions to the given collection.
      */
     async loadHistory(collection: Collection): Promise<Collection[]> {
-        try {
-            const criteria = {id: collection.id};
-            let json = await this.server.service(DATA_API_PATH).find({query: criteria});
-            return (json as CollectionJSON[]).map(c => Collection.fromJSON(c));
-        }
-        catch (err) {
-            return this.translateError(err);
-        }
+        // TODO:
+        throw new PersistenceException(501, 'Not implemented');
+        // try {
+        //     const criteria = {id: collection.id};
+        //     let json = await this.server.service(DATA_API_PATH).find({query: criteria});
+        //     return (json as CollectionJSON[]).map(c => Collection.fromJSON(c));
+        // }
+        // catch (err) {
+        //     return this.translateError(err);
+        // }
     }
 
     /**
@@ -296,20 +255,22 @@ export class PersistenceService {
         model.isCloudBacked = true;
         let json = model.toJSON() as AbstractStorableModelJSON;
 
-        return this.server.service(DATA_API_PATH).update(id, json)
-            .then(() => {
-                // Update local copy
-                localForage.setItem(id, json);
-                return model;
-            })
-            .catch(error => {
-                // Unset changed values in model
-                model.revision--;
-                model.isCloudBacked = false;
-
-                // Return Error
-                return this.translateError(error);
-            });
+        // TODO:
+        throw new PersistenceException(501, 'Not implemented');
+        // return this.server.service(DATA_API_PATH).update(id, json)
+        //     .then(() => {
+        //         // Update local copy
+        //         localForage.setItem(id, json);
+        //         return model;
+        //     })
+        //     .catch(error => {
+        //         // Unset changed values in model
+        //         model.revision--;
+        //         model.isCloudBacked = false;
+        //
+        //         // Return Error
+        //         return this.translateError(error);
+        //     });
     }
 
     /**

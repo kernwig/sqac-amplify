@@ -11,11 +11,9 @@
 
     <div *ngIf="!userSettings && syncSvc.isOnline()" class="container-fluid text-center">
         <hr>
-        <div *ngFor="let auth of authenticators" style="padding: .5em">
-            <a class="btn {{auth.cssClass}}" style="width: 14em" [href]="auth.url">
-                Sign in with {{auth.name}}
-            </a>
-        </div>
+        <amplify-authenticator [signUpConfig]="signUpConfig"
+                               usernameAttributes="email">
+        </amplify-authenticator>
         <hr>
         <p class="text-info small">
             Your account is only used for basic identification, so that you can backup your data and share between your,

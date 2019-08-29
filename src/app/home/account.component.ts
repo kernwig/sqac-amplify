@@ -3,7 +3,6 @@ import {AbstractBaseComponent} from "../shared/abstract-base.component";
 import {UserService} from "../services/user.service";
 import {UserSettings} from "../models/user-settings";
 import {CollectionService} from "../services/collection.service";
-import {Authenticator, AUTHENTICATORS} from "../services/persistence.service";
 import {SyncService} from "../services/sync.service";
 import {takeUntil} from "rxjs/operators";
 
@@ -13,7 +12,35 @@ import {takeUntil} from "rxjs/operators";
 })
 export class AccountComponent extends AbstractBaseComponent implements OnInit {
 
-    readonly authenticators: Authenticator[] = AUTHENTICATORS;
+    readonly signUpConfig = {
+        header: 'Create a new account',
+        hideAllDefaults: true,
+        defaultCountryCode: '1',
+        signUpFields: [
+            {
+                label: 'Name',
+                key: 'name',
+                required: true,
+                displayOrder: 1,
+                type: 'string'
+            },
+            {
+                label: 'Email',
+                key: 'email',
+                required: true,
+                displayOrder: 2,
+                type: 'string',
+            },
+            {
+                label: 'Password',
+                key: 'password',
+                required: true,
+                displayOrder: 3,
+                type: 'password'
+            },
+        ]
+    };
+
     userSettings: UserSettings;
 
     /** Construct */

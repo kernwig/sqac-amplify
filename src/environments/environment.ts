@@ -6,6 +6,4 @@
 export const environment = {
     production: false,
     useServiceWorker: false,
-    feathersServerUrl: 'http://localhost:3030',
-    XfeathersServerUrl: ''
 };
