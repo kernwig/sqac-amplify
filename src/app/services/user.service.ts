@@ -46,19 +46,21 @@ export class UserService {
         this.amplifySvc.authStateChange$
             .subscribe(authState => {
                 if (authState.state === 'signedIn') {
-                    this.onUserAuth(authState.user);
+                    this.onCognitoUserAuth(authState.user);
                 }
                 else {
-                    this.onUserAuth(undefined);
+                    this.onCognitoUserAuth(undefined);
                 }
             });
 
-        // Wait a moment, and try to init from stored authentication
-        setTimeout(() => this.authenticate(), 100);
+        // If offline, wait a moment and then try to init from stored authentication
+        if (!this.syncSvc.isOnline()) {
+            setTimeout(() => this.offlineAuthentication(), 100);
+        }
     }
 
-    private authenticate() {
-        // Try to init existing authenticatication from storage.
+    private offlineAuthentication() {
+        // Try to init existing authentication from storage.
         try {
             const authUserStr = localStorage.getItem(STORAGE_KEY);
             if (authUserStr) {
@@ -67,17 +69,21 @@ export class UserService {
         } catch (err) {
             console.log(err);
         }
+    }
 
-        // If online, try to renew authenticate on network.
+    /**
+     * Try to renew authenticate on network
+     */
+    private renewAuthentication() {
         if (this.syncSvc.isOnline()) {
             const auth = this.amplifySvc.auth() as AuthClass;
             auth.currentSession()
                 .then(() => auth.currentAuthenticatedUser())
                 .then(user => {
-                    this.onUserAuth(user);
+                    this.onCognitoUserAuth(user);
                 })
                 .catch(err => {
-                    console.warn("reAuthenticate failure", err);
+                    console.warn("renewAuthentication failure", err);
                     // No user - make sure storage is clean.
                     return this.persistSvc.signOut();
                 });
@@ -85,19 +91,26 @@ export class UserService {
     }
 
     /**
-     * AuthUser authentication changed. Process it.
+     * Cognito user authentication changed. Process it.
      * @param cognitoUser a CognitoUser https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html#cognito-user-pools-standard-attributes
      */
-    private onUserAuth(cognitoUser: any|undefined) {
+    private onCognitoUserAuth(cognitoUser: any|undefined) {
         const newUser: AuthUser = cognitoUser && cognitoUser.attributes
             ? {
                 id: cognitoUser.attributes.sub,
                 email: cognitoUser.attributes.email,
                 name: cognitoUser.attributes.name || "Unknown",
                 photo: cognitoUser.attributes.picture
-              }
+            }
             : undefined;
 
+        return this.onUserAuth(newUser);
+    }
+
+    /**
+     * AuthUser authentication changed. Process it.
+     */
+    private onUserAuth(newUser: AuthUser|undefined) {
         // Ignore if no change
         if ((this.authUser && newUser && this.authUser.id === newUser.id) || (!this.authUser && !newUser)) {
             console.log("Received user auth, but it didn't change");
