@@ -9,6 +9,13 @@
             "UnauthRoleName": "sqac-amplify-dev-20190817121515-unauthRole",
             "StackName": "sqac-amplify-dev-20190817121515",
             "StackId": "arn:aws:cloudformation:us-west-2:669223130284:stack/sqac-amplify-dev-20190817121515/5856a400-c123-11e9-8d92-021aeadbff90"
+        },
+        "categories": {
+            "auth": {
+                "sqacauth": {
+                    "hostedUIProviderCreds": "[]"
+                }
+            }
         }
     }
 }

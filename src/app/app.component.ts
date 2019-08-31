@@ -93,7 +93,7 @@ export class AppComponent extends AbstractBaseComponent implements OnInit {
     public ngOnInit() {
         console.log("Hello! I'm a "
             + (environment.production ? "production" : "development")
-            + " client talking to my server at " + environment.feathersServerUrl);
+            + " client");
 
         // Subscribe to errors
         this.errorSvc.error$.subscribe((error) => this.showError(error));

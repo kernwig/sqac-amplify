@@ -1,0 +1,63 @@
+{
+    "identityPoolName": "sqac_amplifyf81356f4_identitypool_f81356f4",
+    "allowUnauthenticatedIdentities": true,
+    "resourceNameTruncated": "sqacauf81356f4",
+    "userPoolName": "sqac_amplifyf81356f4_userpool_f81356f4",
+    "autoVerifiedAttributes": [
+        "email"
+    ],
+    "mfaConfiguration": "OPTIONAL",
+    "mfaTypes": [
+        "TOTP"
+    ],
+    "smsAuthenticationMessage": "Your SqAC authentication code is {####}.",
+    "smsVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "Your SqAC verification code",
+    "emailVerificationMessage": "Your SqAC verification code is {####}",
+    "defaultPasswordPolicy": false,
+    "passwordPolicyMinLength": 8,
+    "passwordPolicyCharacters": [],
+    "requiredAttributes": [
+        "email"
+    ],
+    "userpoolClientGenerateSecret": true,
+    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientWriteAttributes": [
+        "email"
+    ],
+    "userpoolClientReadAttributes": [
+        "email"
+    ],
+    "userpoolClientLambdaRole": "sqacauf81356f4_userpoolclient_lambda_role",
+    "userpoolClientSetAttributes": true,
+    "useDefault": "manual",
+    "authSelections": "identityPoolAndUserPool",
+    "resourceName": "sqacauth",
+    "thirdPartyAuth": false,
+    "usernameAttributes": [
+        "email"
+    ],
+    "triggers": "{}",
+    "hostedUI": true,
+    "hostedUIDomainName": "sqac",
+    "authProvidersUserPool": [],
+    "hostedUIProviderMeta": "[]",
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    },
+    "unauthRoleArn": {
+        "Fn::GetAtt": [
+            "UnauthRole",
+            "Arn"
+        ]
+    },
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "permissions": [],
+    "dependsOn": [],
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:4200/\"],\"LogoutURLs\":[\"http://localhost:4200/\"]}"
+}

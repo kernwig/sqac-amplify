@@ -8,6 +8,8 @@ import {BehaviorSubject} from "rxjs";
 import {AuthUser} from "../models/auth-user";
 import {PersistenceService,PersistenceException} from "./persistence.service";
 import {ToastrService} from "ngx-toastr";
+import {AmplifyService} from 'aws-amplify-angular';
+import {AuthClass} from 'aws-amplify';
 
 const STORAGE_KEY = 'user';
 
@@ -36,55 +38,93 @@ export class UserService {
 
     /// Constructor
     constructor(private collectionSvc: CollectionService,
+                private readonly amplifySvc: AmplifyService,
                 private persistSvc: PersistenceService,
                 private syncSvc: SyncService,
                 private toastr: ToastrService
     ) {
-        // Wait a moment, and try to init from stored authentication
-        setTimeout(() => this.authenticate(), 100);
+        this.amplifySvc.authStateChange$
+            .subscribe(authState => {
+                if (authState.state === 'signedIn') {
+                    this.onCognitoUserAuth(authState.user);
+                }
+                else {
+                    this.onCognitoUserAuth(undefined);
+                }
+            });
+
+        // If offline, wait a moment and then try to init from stored authentication
+        if (!this.syncSvc.isOnline()) {
+            setTimeout(() => this.offlineAuthentication(), 100);
+        }
     }
 
-    private authenticate() {
-        // Try to init existing authenticatication from storage.
+    private offlineAuthentication() {
+        // Try to init existing authentication from storage.
         try {
-            let authUserStr = localStorage.getItem(STORAGE_KEY);
+            const authUserStr = localStorage.getItem(STORAGE_KEY);
             if (authUserStr) {
                 this.onUserAuth(JSON.parse(authUserStr));
             }
         } catch (err) {
             console.log(err);
         }
+    }
 
-        // If online, try to renew authenticate on network.
+    /**
+     * Try to renew authenticate on network
+     */
+    private renewAuthentication() {
         if (this.syncSvc.isOnline()) {
-            this.persistSvc.reAuthenticate()
-                .then((user: AuthUser) => this.onUserAuth(user))
+            const auth = this.amplifySvc.auth() as AuthClass;
+            auth.currentSession()
+                .then(() => auth.currentAuthenticatedUser())
+                .then(user => {
+                    this.onCognitoUserAuth(user);
+                })
                 .catch(err => {
-                    console.error("reAuthenticate failure", err);
+                    console.warn("renewAuthentication failure", err);
                     // No user - make sure storage is clean.
-                    this.persistSvc.signOut();
+                    return this.persistSvc.signOut();
                 });
         }
     }
 
     /**
+     * Cognito user authentication changed. Process it.
+     * @param cognitoUser a CognitoUser https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html#cognito-user-pools-standard-attributes
+     */
+    private onCognitoUserAuth(cognitoUser: any|undefined) {
+        const newUser: AuthUser = cognitoUser && cognitoUser.attributes
+            ? {
+                id: cognitoUser.attributes.sub,
+                email: cognitoUser.attributes.email,
+                name: cognitoUser.attributes.name || "Unknown",
+                photo: cognitoUser.attributes.picture
+            }
+            : undefined;
+
+        return this.onUserAuth(newUser);
+    }
+
+    /**
      * AuthUser authentication changed. Process it.
      */
-    private onUserAuth(user: AuthUser) {
+    private onUserAuth(newUser: AuthUser|undefined) {
         // Ignore if no change
-        if ((this.authUser && user && this.authUser.id === user.id) || (!this.authUser && !user)) {
+        if ((this.authUser && newUser && this.authUser.id === newUser.id) || (!this.authUser && !newUser)) {
             console.log("Received user auth, but it didn't change");
             return;
         }
 
-        this.authUser = user;
-        if (user) {
-            console.log("Login", user);
+        this.authUser = newUser;
+        if (this.authUser) {
+            console.log("Login", this.authUser);
 
             // Load the UserSettings, and then notify any listeners that a user is available.
             this.getUserSettings()
                 .then(() => {
-                    return this.setPhotoFromURI(user.photo);
+                    return this.setPhotoFromURI(this.authUser.photo);
                 })
                 .then(() => {
                     // Save user data after
@@ -128,15 +168,18 @@ export class UserService {
      * Will fetch from persistence if not already loaded.
      * @throws [PersistenceException] upon unhandled failure.
      */
-    getUserSettings(): Promise<UserSettings> {
+    async getUserSettings(): Promise<UserSettings> {
         // Initialize on first access...
         if (!this.authUser) {
-            return Promise.reject(new PersistenceException(401, "not authenticated"));
+            throw new PersistenceException(401, "not authenticated");
         }
         else if (this.settings) {
-            return Promise.resolve(this.settings);
+            return this.settings;
         }
         else {
+            // FIXME: Load actual data from cloud
+            return this.createNewSettings();
+/*
             return this.persistSvc.loadUser(this.authUser.id)
                 .then(settings => {
                     console.log("User settings loaded");
@@ -175,6 +218,7 @@ export class UserService {
                         this.syncSvc.setDirty();
                 })
                 .then(() => this.settings);
+ */
         }
     }
 

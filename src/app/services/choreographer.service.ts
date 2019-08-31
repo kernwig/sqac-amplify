@@ -1,3 +1,8 @@
+/*
+ * Square Auto-Choreographer
+ * Copyright (c) 2017-2019, Adam Fanello\
+ * All rights reserved.
+ */
 import {Injectable} from "@angular/core";
 import {Subject} from "rxjs";
 import {Module} from "../models/module";
