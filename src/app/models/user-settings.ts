@@ -71,7 +71,7 @@ export class UserSettings extends AbstractStorableModel {
         else if (this.id.startsWith("facebook"))
             return "Facebook";
         else
-            return "";
+            return "SqAC";
     }
 }
 

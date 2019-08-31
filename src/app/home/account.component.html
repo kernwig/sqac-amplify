@@ -10,10 +10,11 @@
     </div>
 
     <div *ngIf="!userSettings && syncSvc.isOnline()" class="container-fluid text-center">
-        <hr>
-        <amplify-authenticator [signUpConfig]="signUpConfig"
-                               usernameAttributes="email">
-        </amplify-authenticator>
+        <div class="amplify-block">
+            <amplify-authenticator [signUpConfig]="signUpConfig"
+                                   usernameAttributes="email">
+            </amplify-authenticator>
+        </div>
         <hr>
         <p class="text-info small">
             Your account is only used for basic identification, so that you can backup your data and share between your,

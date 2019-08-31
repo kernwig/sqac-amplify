@@ -94,7 +94,7 @@ export class UserService {
                 id: cognitoUser.attributes.sub,
                 email: cognitoUser.attributes.email,
                 name: cognitoUser.attributes.name || "Unknown",
-                photo: cognitoUser.attributes.photo
+                photo: cognitoUser.attributes.picture
               }
             : undefined;
 
@@ -155,15 +155,18 @@ export class UserService {
      * Will fetch from persistence if not already loaded.
      * @throws [PersistenceException] upon unhandled failure.
      */
-    getUserSettings(): Promise<UserSettings> {
+    async getUserSettings(): Promise<UserSettings> {
         // Initialize on first access...
         if (!this.authUser) {
-            return Promise.reject(new PersistenceException(401, "not authenticated"));
+            throw new PersistenceException(401, "not authenticated");
         }
         else if (this.settings) {
-            return Promise.resolve(this.settings);
+            return this.settings;
         }
         else {
+            // FIXME: Load actual data from cloud
+            return this.createNewSettings();
+/*
             return this.persistSvc.loadUser(this.authUser.id)
                 .then(settings => {
                     console.log("User settings loaded");
@@ -202,6 +205,7 @@ export class UserService {
                         this.syncSvc.setDirty();
                 })
                 .then(() => this.settings);
+ */
         }
     }
 
