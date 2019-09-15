@@ -1,13 +1,14 @@
 import {Injectable} from "@angular/core";
-import {environment} from '../../environments/environment';
 import {UserSettings, UserSettingsJSON} from "../models/user-settings";
 import {Collection, CollectionJSON} from "../models/collection";
 import {AbstractStorableModel, AbstractStorableModelJSON} from "../models/abstract-storable-model";
 import * as localForage from "localforage";
-import {AuthUser} from "../models/auth-user";
 import {SyncService} from "./sync.service";
 import {AmplifyService} from 'aws-amplify-angular';
-import {AuthClass} from 'aws-amplify';
+import {AuthClass, StorageClass} from 'aws-amplify';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {Observable, throwError, timer} from 'rxjs';
+import {catchError, concatMap, retryWhen} from 'rxjs/operators';
 
 /// Exception thrown by failures in the [PersistenceService].
 export class PersistenceException {
@@ -25,17 +26,22 @@ export class PersistenceException {
  *
  * There are two levels of persistence:
  * 1. local - Changes are periodically saved to browser storage via LocalForage.
- * 2. cloud - Permanent storage to sqac-server, via Feathers.js. (https://www.feathersjs.com)
+ * 2. cloud - Permanent storage to AWS S3 via Amplify.
  */
 @Injectable()
 export class PersistenceService {
+    /** API to the cloud storage */
+    private readonly cloud: StorageClass;
 
     constructor(private readonly syncSvc: SyncService,
                 private readonly amplifySvc: AmplifyService,
+                private readonly http: HttpClient,
     ) {
+        this.cloud = this.amplifySvc.storage();
+
         localForage.config({
             name: 'SqAC',
-            size: 20000000,
+            size: 20000000, // 20 MB
             storeName: 'SqAC',
             version: 2,
             description: 'Stores your login session and data for editing and offline use.'
@@ -55,33 +61,27 @@ export class PersistenceService {
      * Load [UserSettings] for the authenticated user.
      * Throws [PersistenceException] upon unhandled failure.
      */
-    async loadUser(userId: string): Promise<UserSettings> {
+    async loadUser(): Promise<UserSettings> {
         // Don't care about userId - always load 'settings', which the server translates to current user.
-        userId = 'settings';
+        const settingsKey = 'settings';
 
         // First get local copy
-        let json: UserSettingsJSON = (await localForage.getItem(userId)) as UserSettingsJSON;
+        let json: UserSettingsJSON|null = (await localForage.getItem(settingsKey)) as UserSettingsJSON;
 
-        // TODO: Then ask the server for a newer one
+        // Then ask the server for a newer one
         if (this.syncSvc.isOnline()) {
-            // let params: feathers.Params = json ? {query: {ifModifiedSince: json.modified}} : {};
-            // try {
-            //     let response = await this.server.service(DATA_API_PATH).get(userId, params);
-            //     // response will be blank (empty string?) if server copy is not newer vis-a-vi isModifiedSince
-            //     if (response) {
-            //         // Use and local save updated version
-            //         json = response as UserSettingsJSON;
-            //         json.isCloudBacked = true;
-            //         localForage.setItem(userId, json);
-            //         console.log("Loaded settings", JSON.stringify(json));
-            //     }
-            //     else {
-            //         console.debug("No change in user settings");
-            //     }
-            // }
-            // catch (err) {
-            //     return this.translateError(err);
-            // }
+            const settingsUrl = await this.cloud.get(settingsKey, { level: 'private' });
+            let response = await this.getJSON<UserSettingsJSON>(settingsUrl as string).toPromise();
+            if (!json || response.revision > json.revision) {
+                // Use and local save updated version
+                json = response;
+                json.isCloudBacked = true;
+                localForage.setItem(settingsKey, json).then();
+                console.log("Loaded settings", JSON.stringify(json));
+            }
+            else {
+                console.debug("No change in user settings");
+            }
         }
 
         const user = UserSettings.fromJSON(json);
@@ -97,7 +97,7 @@ export class PersistenceService {
      * @throws {PersistenceException} upon unhandled failure.
      */
     cloudSaveUser(userSettings: UserSettings): Promise<UserSettings> {
-        return this.saveModelToCloud(userSettings, 'settings');
+        return this.saveModelToCloud(userSettings, 'settings', 'private');
     }
 
     /**
@@ -165,7 +165,7 @@ export class PersistenceService {
      * @throws {PersistenceException} upon unhandled failure.
      */
     cloudSaveCollection(collection: Collection): Promise<Collection> {
-        return this.saveModelToCloud(collection, collection.id);
+        return this.saveModelToCloud(collection, collection.id, collection.isPublic ? 'protected' : 'private');
     }
 
     /**
@@ -225,7 +225,7 @@ export class PersistenceService {
             model.isDirty = false;
 
             let json = model.toJSON() as AbstractStorableModelJSON;
-            localForage.setItem(id, json);
+            localForage.setItem(id, json).then();
             console.log("Local stored " + id);
         }
 
@@ -235,11 +235,12 @@ export class PersistenceService {
     /**
      * Save an {AbstractStorableModel}.
      *
-     * @param {AbstractStorableModel} model
-     * @param {string} id
-     * @returns {Promise<AbstractStorableModel>} the modified model, or rejects with {PersistenceException}
+     * @param model
+     * @param id
+     * @param level store as private or protected?
+     * @returns the modified model, or rejects with {PersistenceException}
      */
-    private async saveModelToCloud<T extends AbstractStorableModel>(model: T, id: string): Promise<T> {
+    private async saveModelToCloud<T extends AbstractStorableModel>(model: T, id: string, level: 'private'|'protected'): Promise<T> {
 
         if (model.isDirty) {
             model = await this.saveModelToLocal(model, id);
@@ -247,7 +248,7 @@ export class PersistenceService {
 
         if (model.isCloudBacked) {
             // Already saved.
-            return Promise.resolve(model);
+            return model;
         }
 
         // Save to cloud
@@ -255,42 +256,65 @@ export class PersistenceService {
         model.isCloudBacked = true;
         let json = model.toJSON() as AbstractStorableModelJSON;
 
-        // TODO:
-        throw new PersistenceException(501, 'Not implemented');
-        // return this.server.service(DATA_API_PATH).update(id, json)
-        //     .then(() => {
-        //         // Update local copy
-        //         localForage.setItem(id, json);
-        //         return model;
-        //     })
-        //     .catch(error => {
-        //         // Unset changed values in model
-        //         model.revision--;
-        //         model.isCloudBacked = false;
-        //
-        //         // Return Error
-        //         return this.translateError(error);
-        //     });
+        try {
+            await this.cloud.put(id, json, {level, contentType: "application/json"});
+
+            // Update local copy
+            localForage.setItem(id, json).then();
+            return model;
+        }
+        catch(error) {
+            // Unset changed values in model
+            model.revision--;
+            model.isCloudBacked = false;
+
+            // Return Error
+            throw new PersistenceException(400, error.toString());
+        }
     }
 
     /**
-     * Translate a Response failure to a PersistenceException.
+     * Load JSON content from a URL
+     * @return an `Observable` of the response body as type `T`.
      */
-    private translateError(error: any) {
-        let errMsg;
-        let status = 0;
+    getJSON<T>(url: string): Observable<T> {
+        return this.http.get<T>(url)
+            .pipe(
+                retryWhen(notifier => this.handleRetryNotifier(notifier, 2)),
+                catchError<any, any>(this.handleCloudError)
+            );
+    }
 
-        // Is it a proper feathers error object?
-        if (error.name && error.code) {
-            errMsg = error.name + ': ' + error.message;
-            status = error.code;
+    /**
+     * Handler for retryWhen operator during HTTP requests.
+     */
+    private handleRetryNotifier(notifier: Observable<any>, retries: number): Observable<any> {
+        return notifier.pipe(concatMap((error, count) => {
+            console.log(error); // log error response
+            if (count < retries) {
+                // Wait 1 second before first retry, 2 seconds before 2nd retry, etc
+                return timer(count * 1000 + 1000);
+            }
+            else {
+                return throwError(error);
+            }
+        }));
+    }
+
+    /**
+     * Handler for catchError operator during HTTP requests.
+     */
+    private handleCloudError(error: HttpErrorResponse): Observable<any> {
+        if (error.url && error.status) {
+            // The backend returned an unsuccessful response code.
+            console.error(
+                `Cloud URL ${error.url} returned code #${error.status} - ${error.statusText}: `, error.error);
+            return throwError(new PersistenceException(error.status, error.statusText));
         }
         else {
-            errMsg = error.message ? error.message : error.toString();
+            console.error("Caught error during cloud API request: " + JSON.stringify(error));
+            const msg = error.message || error.toString();
+            return throwError(new PersistenceException(400, msg));
         }
-
-        const ex = new PersistenceException(status, errMsg);
-        console.error(ex.toString());
-        return Promise.reject(ex);
     }
 }

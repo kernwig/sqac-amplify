@@ -177,9 +177,6 @@ export class UserService {
             return this.settings;
         }
         else {
-            // FIXME: Load actual data from cloud
-            return this.createNewSettings();
-/*
             return this.persistSvc.loadUser(this.authUser.id)
                 .then(settings => {
                     console.log("User settings loaded");
@@ -218,7 +215,6 @@ export class UserService {
                         this.syncSvc.setDirty();
                 })
                 .then(() => this.settings);
- */
         }
     }
 
