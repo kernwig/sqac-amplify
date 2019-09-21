@@ -6,14 +6,13 @@ import * as localForage from "localforage";
 import {SyncService} from "./sync.service";
 import {AmplifyService} from 'aws-amplify-angular';
 import {AuthClass, StorageClass} from 'aws-amplify';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Observable, throwError, timer} from 'rxjs';
-import {catchError, concatMap, retryWhen} from 'rxjs/operators';
 
 /// Exception thrown by failures in the [PersistenceService].
 export class PersistenceException {
 
-    constructor(readonly statusCode: number, readonly statusText: string) {
+    constructor(readonly statusCode: number,
+                readonly statusText: string,
+                public readonly error?: Error) {
     }
 
     toString(): string {
@@ -35,7 +34,6 @@ export class PersistenceService {
 
     constructor(private readonly syncSvc: SyncService,
                 private readonly amplifySvc: AmplifyService,
-                private readonly http: HttpClient,
     ) {
         this.cloud = this.amplifySvc.storage();
 
@@ -62,32 +60,43 @@ export class PersistenceService {
      * Throws [PersistenceException] upon unhandled failure.
      */
     async loadUser(): Promise<UserSettings> {
-        // Don't care about userId - always load 'settings', which the server translates to current user.
-        const settingsKey = 'settings';
+        try {
+            // Don't care about userId - always load 'settings', which the server translates to current user.
+            const settingsKey = 'settings';
 
-        // First get local copy
-        let json: UserSettingsJSON|null = (await localForage.getItem(settingsKey)) as UserSettingsJSON;
+            // First get local copy
+            let json: UserSettingsJSON | null = (await localForage.getItem(settingsKey)) as UserSettingsJSON;
 
-        // Then ask the server for a newer one
-        if (this.syncSvc.isOnline()) {
-            const settingsUrl = await this.cloud.get(settingsKey, { level: 'private' });
-            let response = await this.getJSON<UserSettingsJSON>(settingsUrl as string).toPromise();
-            if (!json || response.revision > json.revision) {
-                // Use and local save updated version
-                json = response;
-                json.isCloudBacked = true;
-                localForage.setItem(settingsKey, json).then();
-                console.log("Loaded settings", JSON.stringify(json));
+            // Then ask the server for a newer one
+            if (this.syncSvc.isOnline()) {
+                const downloadedObj = await this.cloud.get(settingsKey, {level: 'private', download: true});
+                try {
+                    const downloadedStr = (downloadedObj as any).Body.toString('utf-8');
+                    const downloadedJson = JSON.parse(downloadedStr) as UserSettingsJSON;
+                    /// let response = await this.getJSON<UserSettingsJSON>(settingsUrl as string).toPromise();
+                    if (!json || downloadedJson.revision > json.revision) {
+                        // Use and local save updated version
+                        json = downloadedJson;
+                        json.isCloudBacked = true;
+                        localForage.setItem(settingsKey, json).then();
+                        console.log("Loaded settings", JSON.stringify(json));
+                    } else {
+                        console.debug("No change in user settings");
+                    }
+                }
+                catch (badCloudUpdate) {
+                    console.error("Fetch of updated settings from cloud failure", badCloudUpdate);
+                }
             }
-            else {
-                console.debug("No change in user settings");
-            }
+
+            const user = UserSettings.fromJSON(json);
+            user.isAvailable = true;
+            this.syncSvc.reset();
+            return user;
         }
-
-        const user = UserSettings.fromJSON(json);
-        user.isAvailable = true;
-        this.syncSvc.reset();
-        return user;
+        catch (error) {
+            throw this.translateError(error);
+        }
     }
 
     /**
@@ -257,7 +266,10 @@ export class PersistenceService {
         let json = model.toJSON() as AbstractStorableModelJSON;
 
         try {
-            await this.cloud.put(id, json, {level, contentType: "application/json"});
+            await this.cloud.put(
+                id, JSON.stringify(json),
+                {level, contentType: "application/json"}
+            );
 
             // Update local copy
             localForage.setItem(id, json).then();
@@ -269,52 +281,26 @@ export class PersistenceService {
             model.isCloudBacked = false;
 
             // Return Error
-            throw new PersistenceException(400, error.toString());
+            throw this.translateError(error);
         }
     }
 
     /**
-     * Load JSON content from a URL
-     * @return an `Observable` of the response body as type `T`.
+     * Translate a Response failure to a PersistenceException.
      */
-    getJSON<T>(url: string): Observable<T> {
-        return this.http.get<T>(url)
-            .pipe(
-                retryWhen(notifier => this.handleRetryNotifier(notifier, 2)),
-                catchError<any, any>(this.handleCloudError)
-            );
-    }
+    private translateError(error: any): PersistenceException {
+        let errMsg;
+        let status = error.statusCode || error.status || error.code || 0;
 
-    /**
-     * Handler for retryWhen operator during HTTP requests.
-     */
-    private handleRetryNotifier(notifier: Observable<any>, retries: number): Observable<any> {
-        return notifier.pipe(concatMap((error, count) => {
-            console.log(error); // log error response
-            if (count < retries) {
-                // Wait 1 second before first retry, 2 seconds before 2nd retry, etc
-                return timer(count * 1000 + 1000);
-            }
-            else {
-                return throwError(error);
-            }
-        }));
-    }
-
-    /**
-     * Handler for catchError operator during HTTP requests.
-     */
-    private handleCloudError(error: HttpErrorResponse): Observable<any> {
-        if (error.url && error.status) {
-            // The backend returned an unsuccessful response code.
-            console.error(
-                `Cloud URL ${error.url} returned code #${error.status} - ${error.statusText}: `, error.error);
-            return throwError(new PersistenceException(error.status, error.statusText));
+        if (error.name) {
+            errMsg = error.name + ': ' + error.message;
         }
         else {
-            console.error("Caught error during cloud API request: " + JSON.stringify(error));
-            const msg = error.message || error.toString();
-            return throwError(new PersistenceException(400, msg));
+            errMsg = error.message ? error.message : error.toString();
         }
+
+        const ex = new PersistenceException(status, errMsg, error);
+        console.error(ex.toString(), error);
+        return ex;
     }
 }
