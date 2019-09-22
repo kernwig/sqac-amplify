@@ -1,0 +1,2433 @@
+{
+	"id": "callerlab-basic",
+	"schemaRev": 1,
+	"created": "2017-01-03T02:07:41.830Z",
+	"modified": "2018-06-10T20:07:01.453Z",
+	"revision": 9,
+	"isCloudBacked": true,
+	"name": "CALLERLAB Basic",
+	"author": "Adam Fanello",
+	"authorUserId": "0000",
+	"description": "Formations, families, and calls for the Basic 1 and Basic 2 dance levels.",
+	"isPublic": true,
+	"difficulty": 2,
+	"level": "B2",
+	"formations": [
+		{
+			"id": "C",
+			"name": "Column with Partner",
+			"abbr": "PC",
+			"level": "B1"
+		},
+		{
+			"id": "B",
+			"name": "Corner Box, Zero-Box",
+			"abbr": "CB",
+			"level": "B1"
+		},
+		{
+			"id": "L",
+			"name": "Partner Lines",
+			"abbr": "PL",
+			"level": "B1"
+		},
+		{
+			"id": "S",
+			"name": "Squared Set, Static Square",
+			"abbr": "PS",
+			"level": "B1"
+		},
+		{
+			"id": "F",
+			"name": "Two Face Partner Lines",
+			"abbr": "PF",
+			"level": "B1"
+		}
+	],
+	"families": [
+		{
+			"id": "1d91b290-1254-11e7-9758-83dc817924b6",
+			"name": "Alamo Style",
+			"level": "B2"
+		},
+		{
+			"id": "9a41eb60-c160-11e6-ef23-3b0feb1c784c",
+			"name": "Allemande Left",
+			"level": "B1"
+		},
+		{
+			"id": "a3b189d0-c160-11e6-ef23-3b0feb1c784c",
+			"name": "Arm Turns",
+			"level": "B1"
+		},
+		{
+			"id": "ff275ef0-c160-11e6-fb31-89e6a6053bb8",
+			"name": "Bend the Line",
+			"level": "B1"
+		},
+		{
+			"id": "122c3790-1254-11e7-9758-83dc817924b6",
+			"name": "Box the Gnat",
+			"level": "B2"
+		},
+		{
+			"id": "6648c780-c160-11e6-fb31-89e6a6053bb8",
+			"name": "California Twirl",
+			"level": "B1"
+		},
+		{
+			"id": "92f604f0-c160-11e6-cea6-632251c8f3f0",
+			"name": "Circle",
+			"level": "B1"
+		},
+		{
+			"id": "84910c60-c160-11e6-fb31-89e6a6053bb8",
+			"name": "Circle to a Line",
+			"level": "B1"
+		},
+		{
+			"id": "33901e70-c160-11e6-fb31-89e6a6053bb8",
+			"name": "Circulate B1",
+			"level": "B1"
+		},
+		{
+			"id": "3cd47910-c160-11e6-fb31-89e6a6053bb8",
+			"name": "Courtesy Turn",
+			"level": "B1"
+		},
+		{
+			"id": "e1481070-15c0-11e7-bd09-47a003b51367",
+			"name": "Cueing",
+			"level": "NO"
+		},
+		{
+			"id": "891fbc40-c160-11e6-fb31-89e6a6053bb8",
+			"name": "Dive Thru",
+			"level": "B1"
+		},
+		{
+			"id": "a50073d0-c160-11e6-fb31-89e6a6053bb8",
+			"name": "Do Paso",
+			"level": "B1"
+		},
+		{
+			"id": "f836f5b0-c160-11e6-a2af-0d39848bf9c4",
+			"name": "Dosado",
+			"level": "B1"
+		},
+		{
+			"id": "3bfb0970-1254-11e7-9758-83dc817924b6",
+			"name": "Double Pass Thru",
+			"level": "B2"
+		},
+		{
+			"id": "311e6d80-1254-11e7-9758-83dc817924b6",
+			"name": "Extend",
+			"level": "B2"
+		},
+		{
+			"id": "571e0ef0-1254-11e7-9758-83dc817924b6",
+			"name": "Ferris Wheel",
+			"level": "B2"
+		},
+		{
+			"id": "415371f0-1254-11e7-9758-83dc817924b6",
+			"name": "First Couple Go/Next Go",
+			"level": "B2"
+		},
+		{
+			"id": "4da48570-1254-11e7-9758-83dc817924b6",
+			"name": "Flutterwheel",
+			"level": "B2"
+		},
+		{
+			"id": "9556d850-c160-11e6-cea6-632251c8f3f0",
+			"name": "Forward & Back",
+			"level": "B1"
+		},
+		{
+			"id": "0a14a740-c160-11e6-fb31-89e6a6053bb8",
+			"name": "Grand Square",
+			"level": "B1"
+		},
+		{
+			"id": "f36cbbe0-c160-11e6-fb31-89e6a6053bb8",
+			"name": "Half Sashay",
+			"level": "B1"
+		},
+		{
+			"id": "86eef660-c160-11e6-fb31-89e6a6053bb8",
+			"name": "Ladies Chain",
+			"level": "B1"
+		},
+		{
+			"id": "a9a3bd20-c160-11e6-fb31-89e6a6053bb8",
+			"name": "Lead Right",
+			"level": "B1"
+		},
+		{
+			"id": "5470f740-c160-11e6-fb31-89e6a6053bb8",
+			"name": "Star",
+			"level": "B1"
+		},
+		{
+			"id": "1b00ce80-1254-11e7-9758-83dc817924b6",
+			"name": "Ocean Wave",
+			"level": "B2"
+		},
+		{
+			"id": "2cdec800-1254-11e7-9758-83dc817924b6",
+			"name": "Pass the Ocean",
+			"level": "B2"
+		},
+		{
+			"id": "7d4eb260-c160-11e6-fb31-89e6a6053bb8",
+			"name": "Pass Thru",
+			"level": "B1"
+		},
+		{
+			"id": "56647c20-c160-11e6-ef92-11470d496f84",
+			"name": "Promenade",
+			"level": "B1"
+		},
+		{
+			"id": "8d6b6950-c160-11e6-ef23-3b0feb1c784c",
+			"name": "Right & Left Grand",
+			"level": "B1"
+		},
+		{
+			"id": "04ea0580-c160-11e6-fb31-89e6a6053bb8",
+			"name": "Right & Left Thru",
+			"level": "B1"
+		},
+		{
+			"id": "2ae7da00-1254-11e7-9758-83dc817924b6",
+			"name": "Run",
+			"level": "B2"
+		},
+		{
+			"id": "9e71ea60-c160-11e6-fb31-89e6a6053bb8",
+			"name": "See Saw",
+			"level": "B1"
+		},
+		{
+			"id": "4be64fb0-c160-11e6-fb31-89e6a6053bb8",
+			"name": "Separate",
+			"level": "B1"
+		},
+		{
+			"id": "0d47c690-1254-11e7-9758-83dc817924b6",
+			"name": "Shoot the Star",
+			"level": "B2"
+		},
+		{
+			"id": "02bcf420-1254-11e7-9758-83dc817924b6",
+			"name": "Slip the Clutch",
+			"level": "B2"
+		},
+		{
+			"id": "a9481a80-c160-11e6-fb31-89e6a6053bb8",
+			"name": "Split Two",
+			"level": "B1"
+		},
+		{
+			"id": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8",
+			"name": "Square Thru",
+			"level": "B1"
+		},
+		{
+			"id": "49e74e90-c160-11e6-fb31-89e6a6053bb8",
+			"name": "Star Thru",
+			"level": "B1"
+		},
+		{
+			"id": "5080f170-1254-11e7-9758-83dc817924b6",
+			"name": "Sweep a Quarter",
+			"level": "B2"
+		},
+		{
+			"id": "1b8be980-c160-11e6-a2af-0d39848bf9c4",
+			"name": "Swing",
+			"level": "B1"
+		},
+		{
+			"id": "27a9c600-1254-11e7-9758-83dc817924b6",
+			"name": "Swing Thru",
+			"level": "B2"
+		},
+		{
+			"id": "fc9777a0-1253-11e7-9758-83dc817924b6",
+			"name": "Thar",
+			"level": "B2"
+		},
+		{
+			"id": "55767970-1254-11e7-9758-83dc817924b6",
+			"name": "Touch 1/4",
+			"level": "B2"
+		},
+		{
+			"id": "166e4e10-1254-11e7-9758-83dc817924b6",
+			"name": "Trade",
+			"level": "B2"
+		},
+		{
+			"id": "544684f0-1254-11e7-9758-83dc817924b6",
+			"name": "Trade By",
+			"level": "B2"
+		},
+		{
+			"id": "446dc650-c160-11e6-fb31-89e6a6053bb8",
+			"name": "Turn Back",
+			"level": "B1"
+		},
+		{
+			"id": "e27bbda0-c160-11e6-fb31-89e6a6053bb8",
+			"name": "Veer",
+			"level": "B1"
+		},
+		{
+			"id": "83a9d620-c160-11e6-fb31-89e6a6053bb8",
+			"name": "Walk Around the Corner",
+			"level": "B1"
+		},
+		{
+			"id": "3987bf80-1254-11e7-9758-83dc817924b6",
+			"name": "Wheel and Deal",
+			"level": "B2"
+		},
+		{
+			"id": "96967dc0-1253-11e7-9758-83dc817924b6",
+			"name": "Wheel Around",
+			"level": "B2"
+		},
+		{
+			"id": "4985d570-1254-11e7-9758-83dc817924b6",
+			"name": "Zoom",
+			"level": "B2"
+		},
+		{
+			"id": "db281610-6ce8-11e8-ba95-ad411b80c23c",
+			"name": "Circulate B2",
+			"level": "B2"
+		}
+	],
+	"calls": [
+		{
+			"id": "39e403e0-15c3-11e7-bd09-47a003b51367",
+			"command": "Allemande Left In Alamo Style and Balance",
+			"beats": 12,
+			"family": "1d91b290-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "d3e1f890-15c2-11e7-bd09-47a003b51367",
+			"command": "Allemande Left in the Alamo Style",
+			"beats": 8,
+			"family": "1d91b290-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "a4b16da0-c160-11e6-ef23-3b0feb1c784c",
+			"command": "Allemande Left (facing)",
+			"beats": 4,
+			"family": "9a41eb60-c160-11e6-ef23-3b0feb1c784c"
+		},
+		{
+			"id": "5518bae0-c160-11e6-ef23-3b0feb1c784c",
+			"command": "Allemande Left A Full Turn Around",
+			"beats": 8,
+			"family": "9a41eb60-c160-11e6-ef23-3b0feb1c784c"
+		},
+		{
+			"id": "cc93c030-6780-11e8-9ff2-f1eec1cec8c6",
+			"command": "Allemande Left your corner",
+			"beats": 6,
+			"family": "9a41eb60-c160-11e6-ef23-3b0feb1c784c"
+		},
+		{
+			"id": "e47aed30-c160-11e6-ef23-3b0feb1c784c",
+			"command": "Find your corner; Allemande Left",
+			"beats": 6,
+			"family": "9a41eb60-c160-11e6-ef23-3b0feb1c784c"
+		},
+		{
+			"id": "fa5af180-c160-11e6-ef23-3b0feb1c784c",
+			"command": "Left Arm Turn 3/4",
+			"beats": 6,
+			"family": "a3b189d0-c160-11e6-ef23-3b0feb1c784c"
+		},
+		{
+			"id": "ce0c0470-c160-11e6-ef23-3b0feb1c784c",
+			"command": "Left Arm Turn Half",
+			"beats": 4,
+			"family": "a3b189d0-c160-11e6-ef23-3b0feb1c784c"
+		},
+		{
+			"id": "0adf4e70-c160-11e6-ef23-3b0feb1c784c",
+			"command": "Right Arm Turn 3/4",
+			"beats": 6,
+			"family": "a3b189d0-c160-11e6-ef23-3b0feb1c784c"
+		},
+		{
+			"id": "07645880-c160-11e6-ef23-3b0feb1c784c",
+			"command": "Right Arm Turn Half",
+			"beats": 4,
+			"family": "a3b189d0-c160-11e6-ef23-3b0feb1c784c"
+		},
+		{
+			"id": "4cc48210-c160-11e6-ef23-3b0feb1c784c",
+			"command": "Turn Corner by the Left (1/2 way)",
+			"beats": 4,
+			"family": "a3b189d0-c160-11e6-ef23-3b0feb1c784c"
+		},
+		{
+			"id": "1c67d4f0-c160-11e6-ef23-3b0feb1c784c",
+			"command": "Turn Corner by the Left (3/4 way)",
+			"beats": 6,
+			"family": "a3b189d0-c160-11e6-ef23-3b0feb1c784c"
+		},
+		{
+			"id": "3f2802d0-c160-11e6-ef23-3b0feb1c784c",
+			"command": "Turn Corner by the Right (1/2 way)",
+			"beats": 4,
+			"family": "a3b189d0-c160-11e6-ef23-3b0feb1c784c"
+		},
+		{
+			"id": "55dcffd0-c160-11e6-ef23-3b0feb1c784c",
+			"command": "Turn Corner by the Right (3/4 way)",
+			"beats": 6,
+			"family": "a3b189d0-c160-11e6-ef23-3b0feb1c784c"
+		},
+		{
+			"id": "3214fee0-c160-11e6-ef23-3b0feb1c784c",
+			"command": "Turn Partner by the Left (1/2 way)",
+			"beats": 4,
+			"family": "a3b189d0-c160-11e6-ef23-3b0feb1c784c"
+		},
+		{
+			"id": "e94db580-c160-11e6-ef23-3b0feb1c784c",
+			"command": "Turn Partner by the Left (3/4 way)",
+			"beats": 6,
+			"family": "a3b189d0-c160-11e6-ef23-3b0feb1c784c"
+		},
+		{
+			"id": "62805200-c160-11e6-ef23-3b0feb1c784c",
+			"command": "Turn Partner by the Right (1/2 way)",
+			"beats": 4,
+			"family": "a3b189d0-c160-11e6-ef23-3b0feb1c784c"
+		},
+		{
+			"id": "185cacf0-c160-11e6-ef23-3b0feb1c784c",
+			"command": "Turn Partner by the Right (3/4 way)",
+			"beats": 6,
+			"family": "a3b189d0-c160-11e6-ef23-3b0feb1c784c"
+		},
+		{
+			"id": "1a547690-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Bend the Line",
+			"beats": 4,
+			"family": "ff275ef0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "e76d2250-15c1-11e7-bd09-47a003b51367",
+			"command": "Box the Gnat",
+			"beats": 4,
+			"family": "122c3790-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "067c2f10-15c2-11e7-bd09-47a003b51367",
+			"command": "Centers Box the Gnat",
+			"beats": 4,
+			"family": "122c3790-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "067c2f11-15c2-11e7-bd09-47a003b51367",
+			"command": "Ends Box the Gnat",
+			"beats": 4,
+			"family": "122c3790-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "067c2f12-15c2-11e7-bd09-47a003b51367",
+			"command": "Heads Box the Gnat",
+			"beats": 4,
+			"family": "122c3790-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "067c2f13-15c2-11e7-bd09-47a003b51367",
+			"command": "Sides Box the Gnat",
+			"beats": 4,
+			"family": "122c3790-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "8558e5b0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "California Twirl",
+			"beats": 4,
+			"family": "6648c780-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "8ed30b70-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Centes California Twirl",
+			"beats": 4,
+			"family": "6648c780-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "52c61bf0-a25e-11e7-9f7d-856c14a073ef",
+			"command": "Heads California Twirl",
+			"beats": 4,
+			"family": "6648c780-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "8b8da470-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Lead couples, California Twirl",
+			"beats": 4,
+			"family": "6648c780-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "7648af70-a25e-11e7-9f7d-856c14a073ef",
+			"command": "Sides California Twirl",
+			"beats": 4,
+			"family": "6648c780-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "c1a2e270-c160-11e6-fd48-a9477d7741b8",
+			"command": "All Circle Left 1/2 Way",
+			"beats": 8,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "47152360-c160-11e6-9651-6f3010b87b37",
+			"command": "All Circle Left 1/4",
+			"beats": 4,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "3e623ab0-c160-11e6-ec15-6317aa55e2b4",
+			"command": "All Circle Left 3/4",
+			"beats": 12,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "85c64a90-c160-11e6-ec15-6317aa55e2b4",
+			"command": "All Circle Left, all the way",
+			"beats": 16,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "090cf850-c160-11e6-f31a-21c3d618426f",
+			"command": "All Circle Right 1/2 Way",
+			"beats": 8,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "6b605e10-c160-11e6-9651-6f3010b87b37",
+			"command": "All Circle Right 1/4",
+			"beats": 4,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "8325af10-c160-11e6-ec15-6317aa55e2b4",
+			"command": "All Circle Right 3/4 Way",
+			"beats": 12,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "97168300-c160-11e6-ec15-6317aa55e2b4",
+			"command": "All Circle Right, Full",
+			"beats": 16,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "b996a380-66ae-11e8-9ce9-0db2bdf77db5",
+			"command": "Centers Circle Left 1/2 Way",
+			"beats": 4,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "774b0ea0-c160-11e6-9651-6f3010b87b37",
+			"command": "Circle Four 1/2 Way",
+			"beats": 4,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "760a0030-6758-11e8-a996-2d9543d835fe",
+			"command": "Circle Four 1/4 Way",
+			"beats": 2,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "d9920dc0-c160-11e6-9651-6f3010b87b37",
+			"command": "Circle Four 2/3 Way",
+			"beats": 6,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "de3e57c0-c160-11e6-9651-6f3010b87b37",
+			"command": "Circle Four All the Way",
+			"beats": 8,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "f1721d40-c160-11e6-9651-6f3010b87b37",
+			"command": "Circle Four Right 1/2 Way",
+			"beats": 4,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "f5a7d7b0-c160-11e6-9651-6f3010b87b37",
+			"command": "Circle Four Right 3/4 Way",
+			"beats": 6,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "fb8a30b0-c160-11e6-9651-6f3010b87b37",
+			"command": "Circle Four Right All the Way",
+			"beats": 8,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "011ac030-c160-11e6-9651-6f3010b87b37",
+			"command": "Circle Two 1/2 Way",
+			"beats": 4,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "1315dea0-c160-11e6-9651-6f3010b87b37",
+			"command": "Circle Two 3/4 Way",
+			"beats": 5,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "102c0520-c160-11e6-9651-6f3010b87b37",
+			"command": "Circle Two Right 1/2 Way",
+			"beats": 4,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "1bd5dc20-c160-11e6-9651-6f3010b87b37",
+			"command": "Circle Two Right 3/4 Way",
+			"beats": 5,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "50fceb90-4ed6-11e7-9927-cf2e96e7914e",
+			"command": "Heads Circle Left 1/2",
+			"beats": 10,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "6f666980-4ed6-11e7-9927-cf2e96e7914e",
+			"command": "Heads Circle Left 1/4",
+			"beats": 6,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "63fd4500-4ed6-11e7-9927-cf2e96e7914e",
+			"command": "Heads Circle Left 3/4",
+			"beats": 14,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "74c4c570-4ed6-11e7-9927-cf2e96e7914e",
+			"command": "Heads Circle Left, all the way",
+			"beats": 18,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "abbb6650-4ed7-11e7-8056-1bcb86ab57d0",
+			"command": "Heads Circle Right 1/2",
+			"beats": 10,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "b75510b0-4ed7-11e7-8056-1bcb86ab57d0",
+			"command": "Heads Circle Right 1/4",
+			"beats": 6,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "b19b2740-4ed7-11e7-8056-1bcb86ab57d0",
+			"command": "Heads Circle Right 3/4",
+			"beats": 14,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "bc87c8c0-4ed7-11e7-8056-1bcb86ab57d0",
+			"command": "Heads Circle Right, all the way",
+			"beats": 18,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "50fceb91-4ed6-11e7-9927-cf2e96e7914e",
+			"command": "Sides Circle Left 1/2",
+			"beats": 10,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "6f666981-4ed6-11e7-9927-cf2e96e7914e",
+			"command": "Sides Circle Left 1/4",
+			"beats": 6,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "63fd4501-4ed6-11e7-9927-cf2e96e7914e",
+			"command": "Sides Circle Left 3/4",
+			"beats": 14,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "74c4c571-4ed6-11e7-9927-cf2e96e7914e",
+			"command": "Sides Circle Left, all the way",
+			"beats": 18,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "abbb6651-4ed7-11e7-8056-1bcb86ab57d0",
+			"command": "Sides Circle Right 1/2",
+			"beats": 10,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "b75510b1-4ed7-11e7-8056-1bcb86ab57d0",
+			"command": "Sides Circle Right 1/4",
+			"beats": 6,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "b19b2741-4ed7-11e7-8056-1bcb86ab57d0",
+			"command": "Sides Circle Right 3/4",
+			"beats": 14,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "bc87c8c1-4ed7-11e7-8056-1bcb86ab57d0",
+			"command": "Sides Circle Right, all the way",
+			"beats": 18,
+			"family": "92f604f0-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "8a0ab880-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Circle to a Line",
+			"beats": 8,
+			"family": "84910c60-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "5e21f230-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Boys Circulate",
+			"beats": 4,
+			"family": "33901e70-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "3a14d1f0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Centers Circulate",
+			"beats": 4,
+			"family": "33901e70-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "695f24b0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Couples Circulate",
+			"beats": 4,
+			"family": "33901e70-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "5b98d650-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Ends Circulate",
+			"beats": 4,
+			"family": "33901e70-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "62199230-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Girls Circulate",
+			"beats": 4,
+			"family": "33901e70-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "837e25b0-17c8-11e7-bba1-b37131c60f0d",
+			"command": "All 8 Circulate",
+			"beats": 4,
+			"family": "db281610-6ce8-11e8-ba95-ad411b80c23c"
+		},
+		{
+			"id": "f1d1de50-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Box Circulate",
+			"beats": 4,
+			"family": "db281610-6ce8-11e8-ba95-ad411b80c23c"
+		},
+		{
+			"id": "be21c070-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Centers Box Circulate",
+			"beats": 4,
+			"family": "db281610-6ce8-11e8-ba95-ad411b80c23c"
+		},
+		{
+			"id": "ad1d3700-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Column Circulate",
+			"beats": 4,
+			"family": "db281610-6ce8-11e8-ba95-ad411b80c23c"
+		},
+		{
+			"id": "a71a5db0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Single File Circulate",
+			"beats": 4,
+			"family": "db281610-6ce8-11e8-ba95-ad411b80c23c"
+		},
+		{
+			"id": "f72b7f50-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Split Circulate",
+			"beats": 4,
+			"family": "db281610-6ce8-11e8-ba95-ad411b80c23c"
+		},
+		{
+			"id": "e2b956e0-66ae-11e8-9ce9-0db2bdf77db5",
+			"command": "Centers Courtesy Turn",
+			"beats": 4,
+			"family": "3cd47910-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "87fd3210-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Courtesy Turn",
+			"beats": 4,
+			"family": "3cd47910-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "d2f4a070-66ae-11e8-9ce9-0db2bdf77db5",
+			"command": "Outsides Courtesy Turn",
+			"beats": 4,
+			"family": "3cd47910-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "6919cf20-15c1-11e7-bd09-47a003b51367",
+			"command": "(Any Cueing, 12 beats)",
+			"beats": 12,
+			"family": "e1481070-15c0-11e7-bd09-47a003b51367"
+		},
+		{
+			"id": "fa563fb0-15c0-11e7-bd09-47a003b51367",
+			"command": "(Any Cueing, 2 beats)",
+			"beats": 2,
+			"family": "e1481070-15c0-11e7-bd09-47a003b51367"
+		},
+		{
+			"id": "fa563fb1-15c0-11e7-bd09-47a003b51367",
+			"command": "(Any Cueing, 4 beats)",
+			"beats": 4,
+			"family": "e1481070-15c0-11e7-bd09-47a003b51367"
+		},
+		{
+			"id": "fa563fb2-15c0-11e7-bd09-47a003b51367",
+			"command": "(Any Cueing, 6 beats)",
+			"beats": 6,
+			"family": "e1481070-15c0-11e7-bd09-47a003b51367"
+		},
+		{
+			"id": "fa563fb3-15c0-11e7-bd09-47a003b51367",
+			"command": "(Any Cueing, 8 beats)",
+			"beats": 8,
+			"family": "e1481070-15c0-11e7-bd09-47a003b51367"
+		},
+		{
+			"id": "d4a0e9a0-4ed7-11e7-8056-1bcb86ab57d0",
+			"command": "Heads come into the middle",
+			"beats": 2,
+			"family": "e1481070-15c0-11e7-bd09-47a003b51367"
+		},
+		{
+			"id": "cf2519d0-a6eb-11e7-bd4c-f91792750361",
+			"command": "Heads step into the center",
+			"beats": 2,
+			"family": "e1481070-15c0-11e7-bd09-47a003b51367"
+		},
+		{
+			"id": "d4a0e9a1-4ed7-11e7-8056-1bcb86ab57d0",
+			"command": "Sides come into the middle",
+			"beats": 2,
+			"family": "e1481070-15c0-11e7-bd09-47a003b51367"
+		},
+		{
+			"id": "cf2519d1-a6eb-11e7-bd4c-f91792750361",
+			"command": "Sides step into the center",
+			"beats": 2,
+			"family": "e1481070-15c0-11e7-bd09-47a003b51367"
+		},
+		{
+			"id": "4cd40c20-a6eb-11e7-bd4c-f91792750361",
+			"command": "Square Your Set",
+			"beats": 2,
+			"family": "e1481070-15c0-11e7-bd09-47a003b51367"
+		},
+		{
+			"id": "8b036000-b6cb-11e7-b3ae-df8187c69248",
+			"command": "You're Home!",
+			"beats": 2,
+			"family": "e1481070-15c0-11e7-bd09-47a003b51367"
+		},
+		{
+			"id": "c65bb320-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Centers Arch, Dive Thru",
+			"beats": 6,
+			"family": "891fbc40-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "be411d60-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Dive Thru",
+			"beats": 6,
+			"family": "891fbc40-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "aa8d59d0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Do Paso",
+			"beats": 12,
+			"family": "a50073d0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "ae8d1020-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Do Paso, it's Partner Left, Corner Right, Partner Left",
+			"beats": 12,
+			"family": "a50073d0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "17115e50-1756-11e7-bff0-13fbda2d416f",
+			"command": "Dosado (facing)",
+			"beats": 6,
+			"family": "f836f5b0-c160-11e6-a2af-0d39848bf9c4"
+		},
+		{
+			"id": "40dc5f30-c160-11e6-a2af-0d39848bf9c4",
+			"command": "Dosado to a Wave",
+			"beats": 6,
+			"family": "f836f5b0-c160-11e6-a2af-0d39848bf9c4"
+		},
+		{
+			"id": "1e253200-c160-11e6-a2af-0d39848bf9c4",
+			"command": "Dosado your Corner",
+			"beats": 6,
+			"family": "f836f5b0-c160-11e6-a2af-0d39848bf9c4"
+		},
+		{
+			"id": "2fda46c0-c160-11e6-a2af-0d39848bf9c4",
+			"command": "Dosado your Corner",
+			"beats": 8,
+			"family": "f836f5b0-c160-11e6-a2af-0d39848bf9c4"
+		},
+		{
+			"id": "343abab0-c160-11e6-a2af-0d39848bf9c4",
+			"command": "Dosado your Partner",
+			"beats": 6,
+			"family": "f836f5b0-c160-11e6-a2af-0d39848bf9c4"
+		},
+		{
+			"id": "f3a14e00-167c-11e7-8663-3d71a51980f1",
+			"command": "Double Pass Thru",
+			"beats": 4,
+			"family": "3bfb0970-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "c8a7b7c0-167c-11e7-8663-3d71a51980f1",
+			"command": "Extend",
+			"beats": 2,
+			"family": "311e6d80-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "11f1f754-167e-11e7-8663-3d71a51980f1",
+			"command": "Ferris Wheel",
+			"beats": 6,
+			"family": "571e0ef0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "1b33c470-167d-11e7-8663-3d71a51980f1",
+			"command": "First Couple Go Left, Next Couple Go Left",
+			"beats": 6,
+			"family": "415371f0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "1b33c471-167d-11e7-8663-3d71a51980f1",
+			"command": "First Couple Go Left, Next Couple Go Right",
+			"beats": 6,
+			"family": "415371f0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "26e73860-167d-11e7-8663-3d71a51980f1",
+			"command": "First Couple Go Right, Next Couple Go Left",
+			"beats": 6,
+			"family": "415371f0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "26e73861-167d-11e7-8663-3d71a51980f1",
+			"command": "First Couple Go Right, Next Couple Go Right",
+			"beats": 6,
+			"family": "415371f0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "b09b2490-167d-11e7-8663-3d71a51980f1",
+			"command": "All Four Ladies Flutterwheel",
+			"beats": 12,
+			"family": "4da48570-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "b92b6890-17c7-11e7-bba1-b37131c60f0d",
+			"command": "Centers Flutterwheel",
+			"beats": 8,
+			"family": "4da48570-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "974bd6b0-17c7-11e7-bba1-b37131c60f0d",
+			"command": "Centers Reverse Flutterwheel",
+			"beats": 8,
+			"family": "4da48570-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "839fcae0-167d-11e7-8663-3d71a51980f1",
+			"command": "Flutterwheel",
+			"beats": 8,
+			"family": "4da48570-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "780c6120-ddf6-11e7-bb59-29d3cf4ca689",
+			"command": "Heads Flutterwheel",
+			"beats": 10,
+			"family": "4da48570-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "ac0d8620-167d-11e7-8663-3d71a51980f1",
+			"command": "Reverse Flutterwheel",
+			"beats": 8,
+			"family": "4da48570-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "780c6121-ddf6-11e7-bb59-29d3cf4ca689",
+			"command": "Sides Flutterwheel",
+			"beats": 10,
+			"family": "4da48570-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "f88a49e0-a6ea-11e7-bd4c-f91792750361",
+			"command": "Forward & Back",
+			"beats": 4,
+			"family": "9556d850-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "557530c0-c160-11e6-8c75-f73c7d9e2ace",
+			"command": "Up To The Middle and Back (far)",
+			"beats": 8,
+			"family": "9556d850-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "17dfcf40-c160-11e6-8c75-f73c7d9e2ace",
+			"command": "Up To The Middle and Back (near)",
+			"beats": 4,
+			"family": "9556d850-c160-11e6-cea6-632251c8f3f0"
+		},
+		{
+			"id": "587aff10-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Heads Face, Grand Square",
+			"beats": 32,
+			"family": "0a14a740-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "4abec2d0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Sides Face, Grand Square",
+			"beats": 32,
+			"family": "0a14a740-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "d0ee0e60-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Centers Half Sashay",
+			"beats": 4,
+			"family": "f36cbbe0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "cd114960-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Centers Rollaway",
+			"beats": 4,
+			"family": "f36cbbe0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "e1c45be0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Half Half Sashay",
+			"beats": 2,
+			"family": "f36cbbe0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "aac2a200-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Half Sashay",
+			"beats": 4,
+			"family": "f36cbbe0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "9be676d0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Heads Half Sashay",
+			"beats": 4,
+			"family": "f36cbbe0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "91a94970-1751-11e7-a666-53f346ef029b",
+			"command": "Heads Rollaway",
+			"beats": 4,
+			"family": "f36cbbe0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "d5fc59c0-6780-11e8-9ff2-f1eec1cec8c6",
+			"command": "Ladies Center, Men Sashay",
+			"beats": 4,
+			"family": "f36cbbe0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "000a4c40-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Ladies In, Men Sashay",
+			"beats": 4,
+			"family": "f36cbbe0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "c2f453f0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Ladies Rollaway",
+			"beats": 4,
+			"family": "f36cbbe0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "11ee6040-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Men Center, Ladies Sashay",
+			"beats": 4,
+			"family": "f36cbbe0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "d9c05b60-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Roll Her Away",
+			"beats": 4,
+			"family": "f36cbbe0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "d30ad3e0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Roll Your Girl Away",
+			"beats": 4,
+			"family": "f36cbbe0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "bfa96eb0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Rollaway",
+			"beats": 4,
+			"family": "f36cbbe0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "a8086400-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Sides Half Sashay",
+			"beats": 4,
+			"family": "f36cbbe0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "91a97080-1751-11e7-a666-53f346ef029b",
+			"command": "Sides Rollaway",
+			"beats": 4,
+			"family": "f36cbbe0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "8f7b4440-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Chain Down the Line",
+			"beats": 8,
+			"family": "86eef660-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "5faa5c60-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Four Ladies Chain",
+			"beats": 8,
+			"family": "86eef660-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "76ad5250-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Four Ladies Chain 3/4",
+			"beats": 10,
+			"family": "86eef660-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "7bf5b540-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Four Ladies Chain Over and Back",
+			"beats": 20,
+			"family": "86eef660-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "b0121ef0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Head Ladies Chain",
+			"beats": 8,
+			"family": "86eef660-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "0c843290-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Head Ladies Chain 3/4",
+			"beats": 10,
+			"family": "86eef660-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "fa34d9a0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Head Ladies Chain Over, and Chain Back",
+			"beats": 16,
+			"family": "86eef660-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "ee0509c0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Side Ladies Chain",
+			"beats": 8,
+			"family": "86eef660-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "5cec74e0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Side Ladies Chain 3/4",
+			"beats": 10,
+			"family": "86eef660-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "07b34990-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Side Ladies Chain Over, and Chain Back",
+			"beats": 16,
+			"family": "86eef660-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "e85f92b0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Two Ladies Chain",
+			"beats": 6,
+			"family": "86eef660-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "16e071f1-b6c5-11e7-8220-49a89f827572",
+			"command": "Heads Lead Left",
+			"beats": 4,
+			"family": "a9a3bd20-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "e2efdc30-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Heads Lead Right",
+			"beats": 4,
+			"family": "a9a3bd20-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "16e071f2-b6c5-11e7-8220-49a89f827572",
+			"command": "Lead Left",
+			"beats": 4,
+			"family": "a9a3bd20-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "f1dd4570-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Lead Right",
+			"beats": 4,
+			"family": "a9a3bd20-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "16e071f0-b6c5-11e7-8220-49a89f827572",
+			"command": "Sides Lead Left",
+			"beats": 4,
+			"family": "a9a3bd20-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "e67b9b00-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Sides Lead Right",
+			"beats": 4,
+			"family": "a9a3bd20-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "cc34caa0-15c2-11e7-bd09-47a003b51367",
+			"command": "Balance",
+			"beats": 4,
+			"family": "1b00ce80-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "7485bd50-15c2-11e7-bd09-47a003b51367",
+			"command": "Step to a Wave",
+			"beats": 1,
+			"family": "1b00ce80-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "ee07e3f0-15c3-11e7-bd09-47a003b51367",
+			"command": "Centers Pass the Ocean",
+			"beats": 4,
+			"family": "2cdec800-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "9702d880-1753-11e7-bff0-13fbda2d416f",
+			"command": "Heads Pass the Ocean",
+			"beats": 4,
+			"family": "2cdec800-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "de5f4104-15c3-11e7-bd09-47a003b51367",
+			"command": "Pass the Ocean",
+			"beats": 4,
+			"family": "2cdec800-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "9702ff90-1753-11e7-bff0-13fbda2d416f",
+			"command": "Sides Pass the Ocean",
+			"beats": 4,
+			"family": "2cdec800-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "b15de500-1751-11e7-a666-53f346ef029b",
+			"command": "Centers Pass Thru",
+			"beats": 2,
+			"family": "7d4eb260-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "ecdbc750-1684-11e7-8539-8168aecfacd8",
+			"command": "Heads Pass Thru",
+			"beats": 4,
+			"family": "7d4eb260-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "4f9c2130-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Left Pull By",
+			"beats": 2,
+			"family": "7d4eb260-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "f4331920-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Pass Thru",
+			"beats": 2,
+			"family": "7d4eb260-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "2fd92dc0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Pull By",
+			"beats": 2,
+			"family": "7d4eb260-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "4db2a0b0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Right Pull By",
+			"beats": 2,
+			"family": "7d4eb260-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "ecdbee60-1684-11e7-8539-8168aecfacd8",
+			"command": "Sides Pass Thru",
+			"beats": 4,
+			"family": "7d4eb260-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "01352d20-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Step Thru",
+			"beats": 2,
+			"family": "7d4eb260-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "60458490-c160-11e6-ef92-11470d496f84",
+			"command": "All Promenade Single File",
+			"beats": 8,
+			"family": "56647c20-c160-11e6-ef92-11470d496f84"
+		},
+		{
+			"id": "6cb3bd00-c160-11e6-ef92-11470d496f84",
+			"command": "Couples Promenade; put the lady in the lead, go single file",
+			"beats": 8,
+			"family": "56647c20-c160-11e6-ef92-11470d496f84"
+		},
+		{
+			"id": "04b8c7e0-c160-11e6-ef92-11470d496f84",
+			"command": "Four Girls Promenade inside the ring",
+			"beats": 8,
+			"family": "56647c20-c160-11e6-ef92-11470d496f84"
+		},
+		{
+			"id": "bfe06bf0-c160-11e6-ef92-11470d496f84",
+			"command": "Heads Promenade 3/4",
+			"beats": 12,
+			"family": "56647c20-c160-11e6-ef92-11470d496f84"
+		},
+		{
+			"id": "a0ac9920-c160-11e6-ef92-11470d496f84",
+			"command": "Heads Promenade Halfway",
+			"beats": 8,
+			"family": "56647c20-c160-11e6-ef92-11470d496f84"
+		},
+		{
+			"id": "53e248a0-c160-11e6-ef92-11470d496f84",
+			"command": "Men Promenade inside",
+			"beats": 8,
+			"family": "56647c20-c160-11e6-ef92-11470d496f84"
+		},
+		{
+			"id": "7b545b40-c160-11e6-ef92-11470d496f84",
+			"command": "Promenade Home (1/2 way)",
+			"beats": 8,
+			"family": "56647c20-c160-11e6-ef92-11470d496f84"
+		},
+		{
+			"id": "05c56110-1755-11e7-bff0-13fbda2d416f",
+			"command": "Promenade Home (1/4 way)",
+			"beats": 4,
+			"family": "56647c20-c160-11e6-ef92-11470d496f84"
+		},
+		{
+			"id": "8ceee320-c160-11e6-ef92-11470d496f84",
+			"command": "Promenade Home (3/4 way)",
+			"beats": 12,
+			"family": "56647c20-c160-11e6-ef92-11470d496f84"
+		},
+		{
+			"id": "cf549160-c160-11e6-ef92-11470d496f84",
+			"command": "Promenade Home (full)",
+			"beats": 16,
+			"family": "56647c20-c160-11e6-ef92-11470d496f84"
+		},
+		{
+			"id": "b0726100-c160-11e6-ef92-11470d496f84",
+			"command": "Promenade, don't stop, don't slow down",
+			"beats": 12,
+			"family": "56647c20-c160-11e6-ef92-11470d496f84"
+		},
+		{
+			"id": "cb56fdf0-c160-11e6-ef92-11470d496f84",
+			"command": "Sides Promenade 3/4",
+			"beats": 12,
+			"family": "56647c20-c160-11e6-ef92-11470d496f84"
+		},
+		{
+			"id": "ad3ba000-c160-11e6-ef92-11470d496f84",
+			"command": "Sides Promenade Halfway",
+			"beats": 8,
+			"family": "56647c20-c160-11e6-ef92-11470d496f84"
+		},
+		{
+			"id": "77dd6780-c160-11e6-ef92-11470d496f84",
+			"command": "Single File Promenade",
+			"beats": 8,
+			"family": "56647c20-c160-11e6-ef92-11470d496f84"
+		},
+		{
+			"id": "e19500c0-c160-11e6-ef92-11470d496f84",
+			"command": "Star Promenade (1/2 way)",
+			"beats": 6,
+			"family": "56647c20-c160-11e6-ef92-11470d496f84"
+		},
+		{
+			"id": "22ffd440-c160-11e6-ef92-11470d496f84",
+			"command": "Star Promenade (3/4 way)",
+			"beats": 9,
+			"family": "56647c20-c160-11e6-ef92-11470d496f84"
+		},
+		{
+			"id": "27772b90-c160-11e6-ef92-11470d496f84",
+			"command": "Star Promenade (full)",
+			"beats": 12,
+			"family": "56647c20-c160-11e6-ef92-11470d496f84"
+		},
+		{
+			"id": "30979890-c160-11e6-ef92-11470d496f84",
+			"command": "Star Promenade (full); back out at home",
+			"beats": 16,
+			"family": "56647c20-c160-11e6-ef92-11470d496f84"
+		},
+		{
+			"id": "809c2c80-c160-11e6-ef92-11470d496f84",
+			"command": "Wrong Way Promenade Home (1/2 way)",
+			"beats": 8,
+			"family": "56647c20-c160-11e6-ef92-11470d496f84"
+		},
+		{
+			"id": "ddb22140-c160-11e6-ef92-11470d496f84",
+			"command": "Wrong Way Promenade Home (3/4 way)",
+			"beats": 8,
+			"family": "56647c20-c160-11e6-ef92-11470d496f84"
+		},
+		{
+			"id": "55ee4870-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Right & Left Grand",
+			"beats": 10,
+			"family": "8d6b6950-c160-11e6-ef23-3b0feb1c784c"
+		},
+		{
+			"id": "5a19f0c0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Weave the Ring",
+			"beats": 10,
+			"family": "8d6b6950-c160-11e6-ef23-3b0feb1c784c"
+		},
+		{
+			"id": "651b2bb0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Wrong Way Grand",
+			"beats": 10,
+			"family": "8d6b6950-c160-11e6-ef23-3b0feb1c784c"
+		},
+		{
+			"id": "2a4095b0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Centers Right & Left Thru",
+			"beats": 6,
+			"family": "04ea0580-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "12ef7fc0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Heads Right & Left Thru",
+			"beats": 6,
+			"family": "04ea0580-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "0b576070-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Right & Left Thru",
+			"beats": 6,
+			"family": "04ea0580-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "271c2430-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Sides Right & Left Thru",
+			"beats": 6,
+			"family": "04ea0580-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "de5f4100-15c3-11e7-bd09-47a003b51367",
+			"command": "Boys Cross Run",
+			"beats": 6,
+			"family": "2ae7da00-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "b76b7b90-15c3-11e7-bd09-47a003b51367",
+			"command": "Boys Run",
+			"beats": 4,
+			"family": "2ae7da00-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "de5f4103-15c3-11e7-bd09-47a003b51367",
+			"command": "Centers Cross Run",
+			"beats": 6,
+			"family": "2ae7da00-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "b76b7b93-15c3-11e7-bd09-47a003b51367",
+			"command": "Centers Run",
+			"beats": 4,
+			"family": "2ae7da00-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "de5f4102-15c3-11e7-bd09-47a003b51367",
+			"command": "Ends Cross Run",
+			"beats": 6,
+			"family": "2ae7da00-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "b76b7b92-15c3-11e7-bd09-47a003b51367",
+			"command": "Ends Run",
+			"beats": 4,
+			"family": "2ae7da00-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "de5f4101-15c3-11e7-bd09-47a003b51367",
+			"command": "Girls Cross Run",
+			"beats": 6,
+			"family": "2ae7da00-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "b76b7b91-15c3-11e7-bd09-47a003b51367",
+			"command": "Girls Run",
+			"beats": 4,
+			"family": "2ae7da00-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "bf3cff00-c160-11e6-fb31-89e6a6053bb8",
+			"command": "See Saw Your Partner",
+			"beats": 8,
+			"family": "9e71ea60-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "900fb880-c72b-11e7-9894-4f3df26bd0de",
+			"command": "Heads Separate",
+			"beats": 2,
+			"family": "4be64fb0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "e7d103c0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Separate Around 1 and come into the middle with a",
+			"beats": 6,
+			"family": "4be64fb0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "a98a0580-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Separate Around 1 To a Line",
+			"beats": 6,
+			"family": "4be64fb0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "224ddaa0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Separate Around 2 and come into the middle with a",
+			"beats": 10,
+			"family": "4be64fb0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "e0de7340-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Separate Around 2 To a Line",
+			"beats": 8,
+			"family": "4be64fb0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "d2a613b0-c72b-11e7-9894-4f3df26bd0de",
+			"command": "Sides Separate",
+			"beats": 2,
+			"family": "4be64fb0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "a08ff5b0-15c1-11e7-bd09-47a003b51367",
+			"command": "Shoot The Star",
+			"beats": 4,
+			"family": "0d47c690-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "c04d1cc0-15c1-11e7-bd09-47a003b51367",
+			"command": "Shoot The Star, Go all the way around",
+			"beats": 6,
+			"family": "0d47c690-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "d1782be0-15bf-11e7-8d11-1ba55c97fee2",
+			"command": "Slip The Clutch",
+			"beats": 2,
+			"family": "02bcf420-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "3e0d4730-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Centers Split 2",
+			"beats": 2,
+			"family": "a9481a80-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "49465b00-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Centers Split the Outsides",
+			"beats": 2,
+			"family": "a9481a80-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "5120da80-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Split The Outside Couple",
+			"beats": 2,
+			"family": "a9481a80-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "79a09a50-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Centers Left Square Thru 1",
+			"beats": 2,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "78151850-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Centers Left Square Thru 2",
+			"beats": 5,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "76c1bd50-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Centers Left Square Thru 3",
+			"beats": 8,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "71adb0d0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Centers Left Square Thru 4",
+			"beats": 10,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "6ffc5750-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Centers Square Thru 1",
+			"beats": 2,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "6df6c350-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Centers Square Thru 2",
+			"beats": 5,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "6c8fe050-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Centers Square Thru 3",
+			"beats": 8,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "66499560-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Centers Square Thru 4",
+			"beats": 10,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "64d7b5e0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Heads Left Square Thru 1",
+			"beats": 2,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "633158e0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Heads Left Square Thru 2",
+			"beats": 5,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "60cdc660-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Heads Left Square Thru 3",
+			"beats": 8,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "5a8ea760-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Heads Left Square Thru 4",
+			"beats": 10,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "18fac810-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Heads Square Thru 1",
+			"beats": 2,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "13655690-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Heads Square Thru 2",
+			"beats": 5,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "0e639990-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Heads Square Thru 3",
+			"beats": 8,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "ff168420-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Heads Square Thru 4",
+			"beats": 10,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "3833cb00-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Left Square Thru 1",
+			"beats": 2,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "36554700-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Left Square Thru 2",
+			"beats": 5,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "34178c00-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Left Square Thru 3",
+			"beats": 8,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "275d7d80-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Left Square Thru 4",
+			"beats": 10,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "58de8660-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Sides Left Square Thru 1",
+			"beats": 2,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "5799f870-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Sides Left Square Thru 2",
+			"beats": 5,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "55dc42e0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Sides Left Square Thru 3",
+			"beats": 8,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "3a247770-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Sides Left Square Thru 4",
+			"beats": 10,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "24f50900-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Sides Square Thru 1",
+			"beats": 2,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "22bd8f90-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Sides Square Thru 2",
+			"beats": 5,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "1de55390-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Sides Square Thru 3",
+			"beats": 8,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "1baeeb90-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Sides Square Thru 4",
+			"beats": 10,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "fca92da0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Square Thru 1",
+			"beats": 2,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "f9cb8920-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Square Thru 2",
+			"beats": 5,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "f67c5e20-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Square Thru 3",
+			"beats": 8,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "e5acc760-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Square Thru 4",
+			"beats": 10,
+			"family": "dfaf6c50-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "1748fc00-2b2a-11e8-ab0e-abc8c431fdaa",
+			"command": "Heads Star Left, full turn to the Corner",
+			"beats": 8,
+			"family": "5470f740-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "e0b9b5a0-a6e8-11e7-986a-a9e366293485",
+			"command": "Heads Star Right, full turn to the Corner",
+			"beats": 8,
+			"family": "5470f740-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "a8d93480-a6e8-11e7-986a-a9e366293485",
+			"command": "Heads to the Center and Star across",
+			"beats": 4,
+			"family": "5470f740-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "6e6f05d0-a6e9-11e7-bd4c-f91792750361",
+			"command": "Ladies Center, Right Hand Star 3/4 way",
+			"beats": 6,
+			"family": "5470f740-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "fa865d70-a6e9-11e7-bd4c-f91792750361",
+			"command": "Ladies Center, Right Hand Star across",
+			"beats": 4,
+			"family": "5470f740-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "ac89f590-a6ea-11e7-bd4c-f91792750361",
+			"command": "Ladies Star Left, all the way around",
+			"beats": 8,
+			"family": "5470f740-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "077cb9f0-aef3-11e7-858a-23e158bbbb16",
+			"command": "Make a Left Hand Star with the heads",
+			"beats": 6,
+			"family": "5470f740-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "077cb9f1-aef3-11e7-858a-23e158bbbb16",
+			"command": "Make a Left Hand Star with the sides",
+			"beats": 6,
+			"family": "5470f740-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "a3580e50-a6e8-11e7-986a-a9e366293485",
+			"command": "Make a Right Hand Star with the heads",
+			"beats": 6,
+			"family": "5470f740-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "81500ce0-a6e8-11e7-986a-a9e366293485",
+			"command": "Make a Right Hand Star with the sides",
+			"beats": 6,
+			"family": "5470f740-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "5f9c6d00-a6e8-11e7-986a-a9e366293485",
+			"command": "Men Center, Right Hand Star 3/4 way",
+			"beats": 6,
+			"family": "5470f740-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "da56ec90-a6e9-11e7-bd4c-f91792750361",
+			"command": "Men Center, Right Hand Star 3/4 way",
+			"beats": 6,
+			"family": "5470f740-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "6b3505f0-a6e8-11e7-986a-a9e366293485",
+			"command": "Men Center, Right Hand Star, back home",
+			"beats": 8,
+			"family": "5470f740-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "997c2ea0-a6ea-11e7-bd4c-f91792750361",
+			"command": "Men Star Left, all the way around",
+			"beats": 8,
+			"family": "5470f740-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "4485a470-2b2a-11e8-ab0e-abc8c431fdaa",
+			"command": "Sides Star Left, full turn to the Corner",
+			"beats": 8,
+			"family": "5470f740-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "5141b160-a6e9-11e7-bd4c-f91792750361",
+			"command": "Sides Star Right, full turn to the Corner",
+			"beats": 8,
+			"family": "5470f740-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "d5d355b0-a6e8-11e7-986a-a9e366293485",
+			"command": "Sides to the Center and Star across",
+			"beats": 4,
+			"family": "5470f740-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "76ff5800-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Centers Star Thru",
+			"beats": 4,
+			"family": "49e74e90-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "794a8080-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Ends Star Thru",
+			"beats": 4,
+			"family": "49e74e90-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "6af64a00-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Heads Star Thru",
+			"beats": 4,
+			"family": "49e74e90-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "740e2b80-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Sides Star Thru",
+			"beats": 4,
+			"family": "49e74e90-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "67474bc0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Star Thru",
+			"beats": 4,
+			"family": "49e74e90-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "f3346b20-6755-11e8-a996-2d9543d835fe",
+			"command": "Centers Sweep 1/4",
+			"beats": 2,
+			"family": "5080f170-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "c9c4a400-167d-11e7-8663-3d71a51980f1",
+			"command": "Sweep 1/4",
+			"beats": 2,
+			"family": "5080f170-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "ead4d7f0-167d-11e7-8663-3d71a51980f1",
+			"command": "Sweep 1/4",
+			"beats": 4,
+			"family": "5080f170-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "83375f10-c160-11e6-a2af-0d39848bf9c4",
+			"command": "Swing Your Corner",
+			"beats": 4,
+			"family": "1b8be980-c160-11e6-a2af-0d39848bf9c4"
+		},
+		{
+			"id": "81145800-c160-11e6-a2af-0d39848bf9c4",
+			"command": "Swing Your Corner",
+			"beats": 4,
+			"family": "1b8be980-c160-11e6-a2af-0d39848bf9c4"
+		},
+		{
+			"id": "6b34ac60-c160-11e6-a2af-0d39848bf9c4",
+			"command": "Swing Your Partner",
+			"beats": 4,
+			"family": "1b8be980-c160-11e6-a2af-0d39848bf9c4"
+		},
+		{
+			"id": "7e171d90-c160-11e6-a2af-0d39848bf9c4",
+			"command": "Swing Your Partner",
+			"beats": 6,
+			"family": "1b8be980-c160-11e6-a2af-0d39848bf9c4"
+		},
+		{
+			"id": "7b520bb0-15c3-11e7-bd09-47a003b51367",
+			"command": "Centers Left Swing Thru",
+			"beats": 6,
+			"family": "27a9c600-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "620a07c0-15c3-11e7-bd09-47a003b51367",
+			"command": "Centers Swing Thru",
+			"beats": 6,
+			"family": "27a9c600-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "b104ad10-1683-11e7-b070-1ba4baa27eb2",
+			"command": "Heads Left Swing Thru",
+			"beats": 8,
+			"family": "27a9c600-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "ab6cca90-1683-11e7-b070-1ba4baa27eb2",
+			"command": "Heads Swing Thru",
+			"beats": 8,
+			"family": "27a9c600-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "6b2592c0-15c3-11e7-bd09-47a003b51367",
+			"command": "Left Swing Thru",
+			"beats": 6,
+			"family": "27a9c600-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "b104ad11-1683-11e7-b070-1ba4baa27eb2",
+			"command": "Sides Left Swing Thru",
+			"beats": 8,
+			"family": "27a9c600-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "ab6cf1a0-1683-11e7-b070-1ba4baa27eb2",
+			"command": "Sides Swing Thru",
+			"beats": 8,
+			"family": "27a9c600-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "4893a0d0-15c3-11e7-bd09-47a003b51367",
+			"command": "Swing Thru",
+			"beats": 6,
+			"family": "27a9c600-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "47fccc10-677e-11e8-9ff2-f1eec1cec8c6",
+			"command": "Allemande Left To An Allemande Thar",
+			"beats": 6,
+			"family": "fc9777a0-1253-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "7f23f810-15bf-11e7-8d11-1ba55c97fee2",
+			"command": "Allemande Left To An Allemande Thar, Go Forward Two, Men Swing In To A Backup Star",
+			"beats": 12,
+			"family": "fc9777a0-1253-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "ca64ccf0-15bf-11e7-8d11-1ba55c97fee2",
+			"command": "Allemande Left To An Allemande Thar, Go Right And Left And Make An Allemande Thar",
+			"beats": 12,
+			"family": "fc9777a0-1253-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "40fc8530-15be-11e7-bfe7-1bfee415a699",
+			"command": "Turn Partner Left a Full Turn, Girls In the Middle of an Allemande Thar",
+			"beats": 8,
+			"family": "fc9777a0-1253-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "50675bd0-15be-11e7-bfe7-1bfee415a699",
+			"command": "Turn Partner Left and Make An Allemande Thar",
+			"beats": 6,
+			"family": "fc9777a0-1253-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "11f1f752-167e-11e7-8663-3d71a51980f1",
+			"command": "Boys Touch 1/4",
+			"beats": 2,
+			"family": "55767970-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "11f1f751-167e-11e7-8663-3d71a51980f1",
+			"command": "Centers Touch 1/4",
+			"beats": 2,
+			"family": "55767970-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "11f1f750-167e-11e7-8663-3d71a51980f1",
+			"command": "Ends Touch 1/4",
+			"beats": 2,
+			"family": "55767970-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "11f1f753-167e-11e7-8663-3d71a51980f1",
+			"command": "Girls Touch 1/4",
+			"beats": 2,
+			"family": "55767970-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "21a64b50-1684-11e7-b070-1ba4baa27eb2",
+			"command": "Heads Touch 1/4",
+			"beats": 4,
+			"family": "55767970-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "d0e1b420-9667-11e7-bd6a-19bdd9c198f6",
+			"command": "Left Touch 1/4",
+			"beats": 2,
+			"family": "55767970-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "21a64b51-1684-11e7-b070-1ba4baa27eb2",
+			"command": "Sides Touch 1/4",
+			"beats": 4,
+			"family": "55767970-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "f3baacf0-167d-11e7-8663-3d71a51980f1",
+			"command": "Touch 1/4",
+			"beats": 2,
+			"family": "55767970-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "16ab1900-15c2-11e7-bd09-47a003b51367",
+			"command": "Boys Trade",
+			"beats": 4,
+			"family": "166e4e10-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "6ce0f3d0-15c2-11e7-bd09-47a003b51367",
+			"command": "Centers Partner Trade",
+			"beats": 4,
+			"family": "166e4e10-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "35331b72-15c2-11e7-bd09-47a003b51367",
+			"command": "Centers Trade",
+			"beats": 4,
+			"family": "166e4e10-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "35331b73-15c2-11e7-bd09-47a003b51367",
+			"command": "Couples Trade",
+			"beats": 6,
+			"family": "166e4e10-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "35331b71-15c2-11e7-bd09-47a003b51367",
+			"command": "Ends Trade",
+			"beats": 4,
+			"family": "166e4e10-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "35331b70-15c2-11e7-bd09-47a003b51367",
+			"command": "Girls Trade",
+			"beats": 4,
+			"family": "166e4e10-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "68e0c850-15c2-11e7-bd09-47a003b51367",
+			"command": "In-facers Partner Trade",
+			"beats": 4,
+			"family": "166e4e10-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "2ed51e20-1754-11e7-bff0-13fbda2d416f",
+			"command": "Leaders Trade",
+			"beats": 4,
+			"family": "166e4e10-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "5ce41660-15c2-11e7-bd09-47a003b51367",
+			"command": "Out-facers Partner Trade",
+			"beats": 4,
+			"family": "166e4e10-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "503b1ee0-15c2-11e7-bd09-47a003b51367",
+			"command": "Partner Trade",
+			"beats": 4,
+			"family": "166e4e10-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "b466f481-ddfd-11e7-bb59-29d3cf4ca689",
+			"command": "Trade by the Left",
+			"beats": 4,
+			"family": "166e4e10-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "b466f480-ddfd-11e7-bb59-29d3cf4ca689",
+			"command": "Trade by the Right",
+			"beats": 4,
+			"family": "166e4e10-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "2ed51e21-1754-11e7-bff0-13fbda2d416f",
+			"command": "Trailers Trade",
+			"beats": 4,
+			"family": "166e4e10-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "ed693e70-167d-11e7-8663-3d71a51980f1",
+			"command": "Trade By",
+			"beats": 4,
+			"family": "544684f0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "50fc7f10-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Boys U-Turn Back",
+			"beats": 2,
+			"family": "446dc650-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "5352a410-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Centers U-Turn Back",
+			"beats": 2,
+			"family": "446dc650-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "578c2f10-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Everybody U-Turn Back",
+			"beats": 2,
+			"family": "446dc650-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "7d139640-1a58-11e8-9a0b-ed51e9ee149b",
+			"command": "Girls U-Turn Back",
+			"beats": 2,
+			"family": "446dc650-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "5e0d3910-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Ladies Backtrack",
+			"beats": 2,
+			"family": "446dc650-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "6da38c80-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Ladies Step Out and Take a Backtrack",
+			"beats": 2,
+			"family": "446dc650-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "ff8f43e0-66ab-11e8-9ce9-0db2bdf77db5",
+			"command": "Outsides U-Turn Back",
+			"beats": 2,
+			"family": "446dc650-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "4c25f0c0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "U-Turn Back",
+			"beats": 2,
+			"family": "446dc650-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "14a5f930-ddff-11e7-bb59-29d3cf4ca689",
+			"command": "Centers Veer Left",
+			"beats": 2,
+			"family": "e27bbda0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "14a5f931-ddff-11e7-bb59-29d3cf4ca689",
+			"command": "Centers Veer Right",
+			"beats": 2,
+			"family": "e27bbda0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "25dca400-6758-11e8-a996-2d9543d835fe",
+			"command": "Heads Veer Left",
+			"beats": 4,
+			"family": "e27bbda0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "47060540-6758-11e8-a996-2d9543d835fe",
+			"command": "Heads Veer Right",
+			"beats": 4,
+			"family": "e27bbda0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "348981d0-6758-11e8-a996-2d9543d835fe",
+			"command": "Sides Veer Left",
+			"beats": 4,
+			"family": "e27bbda0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "47060541-6758-11e8-a996-2d9543d835fe",
+			"command": "Sides Veer Right",
+			"beats": 4,
+			"family": "e27bbda0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "003e2620-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Veer Left",
+			"beats": 2,
+			"family": "e27bbda0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "04eeb5e0-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Veer Right",
+			"beats": 2,
+			"family": "e27bbda0-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "9f261f30-c160-11e6-fb31-89e6a6053bb8",
+			"command": "Walk Around the Corner",
+			"beats": 8,
+			"family": "83a9d620-c160-11e6-fb31-89e6a6053bb8"
+		},
+		{
+			"id": "f071e000-167c-11e7-8663-3d71a51980f1",
+			"command": "Centers Wheel and Deal",
+			"beats": 4,
+			"family": "3987bf80-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "dec3a910-167c-11e7-8663-3d71a51980f1",
+			"command": "Wheel and Deal",
+			"beats": 4,
+			"family": "3987bf80-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "d1137ad0-15b8-11e7-97f7-9971ccbbdb24",
+			"command": "All Wheel Around",
+			"beats": 4,
+			"family": "96967dc0-1253-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "ed5c89c0-15b8-11e7-97f7-9971ccbbdb24",
+			"command": "Boys Wheel Around",
+			"beats": 4,
+			"family": "96967dc0-1253-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "20593620-15b9-11e7-97f7-9971ccbbdb24",
+			"command": "Centers Reverse Wheel Around",
+			"beats": 4,
+			"family": "96967dc0-1253-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "e39136c0-15b8-11e7-97f7-9971ccbbdb24",
+			"command": "Centers Wheel Around",
+			"beats": 4,
+			"family": "96967dc0-1253-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "fe240a30-15b8-11e7-97f7-9971ccbbdb24",
+			"command": "Girls Wheel Around",
+			"beats": 4,
+			"family": "96967dc0-1253-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "a55a6520-15b8-11e7-97f7-9971ccbbdb24",
+			"command": "Heads Wheel Around",
+			"beats": 4,
+			"family": "96967dc0-1253-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "02a94430-15b9-11e7-97f7-9971ccbbdb24",
+			"command": "Reverse Wheel Around",
+			"beats": 4,
+			"family": "96967dc0-1253-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "cb5e7360-15b8-11e7-97f7-9971ccbbdb24",
+			"command": "Sides Wheel Around",
+			"beats": 4,
+			"family": "96967dc0-1253-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "e025f840-15b8-11e7-97f7-9971ccbbdb24",
+			"command": "Wheel Around",
+			"beats": 4,
+			"family": "96967dc0-1253-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "4fa388d0-167d-11e7-8663-3d71a51980f1",
+			"command": "Boys Zoom",
+			"beats": 4,
+			"family": "4985d570-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "4fa388d2-167d-11e7-8663-3d71a51980f1",
+			"command": "Ends Zoom",
+			"beats": 4,
+			"family": "4985d570-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "4fa388d1-167d-11e7-8663-3d71a51980f1",
+			"command": "Girls Zoom",
+			"beats": 4,
+			"family": "4985d570-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "26e73862-167d-11e7-8663-3d71a51980f1",
+			"command": "Zoom",
+			"beats": 4,
+			"family": "4985d570-1254-11e7-9758-83dc817924b6"
+		}
+	],
+	"modules": [
+		{
+			"id": "1e9cdd10-2c97-11e7-96d8-c1c7dbd1564b",
+			"name": "Lines Middle & Back",
+			"level": "B1",
+			"startFormation": "L",
+			"endFormation": "L",
+			"startHandBelle": "any",
+			"startHandBeau": "any",
+			"endHandBelle": "any",
+			"endHandBeau": "any",
+			"startFlowBelle": "forward",
+			"startFlowBeau": "forward",
+			"endFlowBelle": "back",
+			"endFlowBeau": "back",
+			"difficulty": 1,
+			"sequence": [
+				{
+					"call": "17dfcf40-c160-11e6-8c75-f73c7d9e2ace"
+				}
+			],
+			"notes": "Used to free hands and flow."
+		},
+		{
+			"id": "57f705e0-2c97-11e7-96d8-c1c7dbd1564b",
+			"name": "Box Dosado Hands Free",
+			"level": "B1",
+			"startFormation": "B",
+			"endFormation": "B",
+			"startHandBelle": "any",
+			"startHandBeau": "any",
+			"endHandBelle": "any",
+			"endHandBeau": "any",
+			"startFlowBelle": "left",
+			"startFlowBeau": "left",
+			"endFlowBelle": "left",
+			"endFlowBeau": "left",
+			"difficulty": 1,
+			"sequence": [
+				{
+					"call": "17115e50-1756-11e7-bff0-13fbda2d416f"
+				}
+			],
+			"notes": "Used to free hands."
+		},
+		{
+			"id": "9d2da910-9f43-11e7-ae98-8550f2ea95cc",
+			"name": "Corner Box Quick Out",
+			"level": "B1",
+			"startFormation": "B",
+			"endFormation": "S",
+			"startHandBelle": "left",
+			"startHandBeau": "left",
+			"endHandBelle": "any",
+			"endHandBeau": "any",
+			"startFlowBelle": "forward",
+			"startFlowBeau": "forward",
+			"endFlowBelle": "none",
+			"endFlowBeau": "none",
+			"difficulty": 1,
+			"sequence": [
+				{
+					"call": "a4b16da0-c160-11e6-ef23-3b0feb1c784c"
+				},
+				{
+					"call": "05c56110-1755-11e7-bff0-13fbda2d416f"
+				}
+			]
+		}
+	],
+	"license": "©CALLERLAB"
+}
