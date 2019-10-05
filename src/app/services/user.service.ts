@@ -177,10 +177,7 @@ export class UserService {
             return this.settings;
         }
         else {
-            // FIXME: Load actual data from cloud
-            return this.createNewSettings();
-/*
-            return this.persistSvc.loadUser(this.authUser.id)
+            return this.persistSvc.loadUser()
                 .then(settings => {
                     console.log("User settings loaded");
                     this.settings = settings;
@@ -218,7 +215,6 @@ export class UserService {
                         this.syncSvc.setDirty();
                 })
                 .then(() => this.settings);
- */
         }
     }
 
@@ -259,7 +255,7 @@ export class UserService {
         }
         else if (!sendOnly) {
             console.log("Check for updated content on server");
-            let tmp = await this.persistSvc.loadUser(this.authUser.id);
+            let tmp = await this.persistSvc.loadUser();
 
             if (tmp.modified.getTime() > this.settings.modified.getTime()) {
                 await this.toastr.warning("Updated from cloud", "Account");
@@ -290,9 +286,9 @@ export class UserService {
         this.settings.name = user.name;
         this.settings.email = user.email;
 
-        // Default collections
-        ["callerlab-basic","callerlab-mainstream","callerlab-plus","adam-classics"]
-            .forEach(c => this.settings.collections.add(c));
+        // FIXME: Default collections
+        // ["callerlab-basic","callerlab-mainstream","callerlab-plus","adam-classics"]
+        //     .forEach(c => this.settings.collections.add(c));
 
         return this.settings;
     }
