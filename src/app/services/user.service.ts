@@ -79,9 +79,7 @@ export class UserService {
             const auth = this.amplifySvc.auth() as AuthClass;
             auth.currentSession()
                 .then(() => auth.currentAuthenticatedUser())
-                .then(user => {
-                    this.onCognitoUserAuth(user);
-                })
+                .then(user => this.onCognitoUserAuth(user))
                 .catch(err => {
                     console.warn("renewAuthentication failure", err);
                     // No user - make sure storage is clean.
@@ -94,17 +92,27 @@ export class UserService {
      * Cognito user authentication changed. Process it.
      * @param cognitoUser a CognitoUser https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html#cognito-user-pools-standard-attributes
      */
-    private onCognitoUserAuth(cognitoUser: any|undefined) {
-        const newUser: AuthUser = cognitoUser && cognitoUser.attributes
-            ? {
-                id: cognitoUser.attributes.sub,
-                email: cognitoUser.attributes.email,
-                name: cognitoUser.attributes.name || "Unknown",
-                photo: cognitoUser.attributes.picture
-            }
-            : undefined;
+    private async onCognitoUserAuth(cognitoUser: any|undefined) {
+        if (cognitoUser) {
+            // Ignore CognitoUser content. Storage uses the Cognito Identity Pool's
+            // subject ID for the storage path, so that's the one we want to use.
+            let cognitoIdentity = await (this.amplifySvc.auth() as AuthClass).currentUserInfo();
+            console.log("cognitoIdentity", cognitoIdentity);
 
-        return this.onUserAuth(newUser);
+            const newUser: AuthUser = cognitoIdentity && cognitoIdentity.attributes
+                ? {
+                    id: cognitoIdentity.id,
+                    email: cognitoIdentity.attributes.email,
+                    name: cognitoIdentity.attributes.name || "Unknown",
+                    photo: cognitoIdentity.attributes.picture
+                }
+                : undefined;
+
+            return this.onUserAuth(newUser);
+        }
+        else {
+            return this.onUserAuth(undefined);
+        }
     }
 
     /**
