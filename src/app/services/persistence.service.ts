@@ -6,6 +6,9 @@ import * as localForage from "localforage";
 import {SyncService} from "./sync.service";
 import {AmplifyService} from 'aws-amplify-angular';
 import {AuthClass, StorageClass} from 'aws-amplify';
+import {ExpiringValue} from '@sailplane/expiring-value/dist/expiring-value';
+
+const CLOUD_LIST_PERIOD = 10_000; // ten seconds
 
 /// Exception thrown by failures in the [PersistenceService].
 export class PersistenceException {
@@ -32,6 +35,10 @@ export class PersistenceService {
     /** API to the cloud storage */
     private readonly cloud: StorageClass;
 
+    /** Location to the latest revision of all of the user's files. Map key is model id. */
+    private usersLatestFiles = new ExpiringValue<Map<string, StorageLocation>>(
+        () => this.refreshLatestFiles(), CLOUD_LIST_PERIOD);
+
     constructor(private readonly syncSvc: SyncService,
                 private readonly amplifySvc: AmplifyService,
     ) {
@@ -56,35 +63,45 @@ export class PersistenceService {
     }
 
     /**
+     * Does the cloud have a newer revision of a storable model?
+     * @param model
+     */
+    async isNewerInCloud(model: AbstractStorableModel): Promise<boolean> {
+        const latestCloud = (await this.usersLatestFiles.get()).get(model.id);
+        return (latestCloud && latestCloud.revision > model.revision);
+    }
+
+    /**
      * Load UserSettings for the authenticated user.
      * @returns the UserSettings or reject with PersistenceException upon failure.
      */
     async loadUser(): Promise<UserSettings> {
         try {
-            // Don't care about userId - always load 'settings', which the server translates to current user.
-            const location = new StorageLocation('settings');
-
             // First get local copy
-            let json: UserSettingsJSON | null = (await localForage.getItem(location.path)) as UserSettingsJSON;
+            let json: UserSettingsJSON | null = (await localForage.getItem('settings')) as UserSettingsJSON;
 
             // Then ask the server for a newer one
             if (this.syncSvc.isOnline()) {
-                const downloadedObj = await this.cloud.get(location.key, location.toStorageConfig(true));
-                try {
-                    const downloadedStr = (downloadedObj as any).Body.toString('utf-8');
-                    const downloadedJson = JSON.parse(downloadedStr) as UserSettingsJSON;
-                    if (!json || downloadedJson.revision > json.revision) {
-                        // Use and local save updated version
-                        json = downloadedJson;
-                        json.isCloudBacked = true;
-                        localForage.setItem(location.path, json).then();
-                        console.log("Loaded settings", JSON.stringify(json));
-                    } else {
-                        console.debug("No change in user settings");
+                // Load the user's latest settings
+                const settingsLocation = (await this.usersLatestFiles.get()).get('settings');
+
+                if (settingsLocation && settingsLocation.revision > json.revision) {
+                    const downloadedObj = await this.cloud.get(settingsLocation.key, settingsLocation.toStorageConfig(true));
+                    try {
+                        const downloadedStr = (downloadedObj as any).Body.toString('utf-8');
+                        const downloadedJson = JSON.parse(downloadedStr) as UserSettingsJSON;
+                        if (!json || downloadedJson.revision > json.revision) {
+                            // Use and local save updated version
+                            json = downloadedJson;
+                            json.isCloudBacked = true;
+                            localForage.setItem(settingsLocation.path, json).then();
+                            console.log("Loaded settings", JSON.stringify(json));
+                        } else {
+                            console.debug("No change in user settings");
+                        }
+                    } catch (badCloudUpdate) {
+                        console.error("Fetch of updated settings from cloud failure", badCloudUpdate);
                     }
-                }
-                catch (badCloudUpdate) {
-                    console.error("Fetch of updated settings from cloud failure", badCloudUpdate);
                 }
             }
 
@@ -118,40 +135,55 @@ export class PersistenceService {
     }
 
     /**
-     * Load a Collection.
+     * Load all Collections belonging to the user
+     */
+    async loadUserCollectionsFromCloud(): Promise<Collection[]> {
+        const allPrivateCollections = Array.from(
+            (await this.usersLatestFiles.get()).values()
+        ).filter(location => location.id !== 'settings');
+
+        return Promise.all(allPrivateCollections.map(this.cloudLoadCollection));
+    }
+
+    /**
+     * Load a Collection; locally or update from cloud.
      * @returns the Collection or reject with PersistenceException upon failure
      */
-    async loadCollection(collectionPath: string): Promise<Collection> {
+    async loadCollection(collectionModelOrPath: string | Collection): Promise<Collection> {
         try {
             // First get local copy
-            let json: CollectionJSON = (await localForage.getItem(collectionPath)) as CollectionJSON;
+            const location = new StorageLocation(collectionModelOrPath);
+            let model = Collection.fromJSON((await localForage.getItem(location.id)) as CollectionJSON);
 
-            // Then ask the server for a newer one
-            if (this.syncSvc.isOnline()) {
-                const location = new StorageLocation(collectionPath);
-                const downloadedObj = await this.cloud.get(location.key, location.toStorageConfig(true));
-                try {
-                    const downloadedStr = (downloadedObj as any).Body.toString('utf-8');
-                    const downloadedJson = JSON.parse(downloadedStr) as CollectionJSON;
-                    if (!json || downloadedJson.revision > json.revision) {
-                        // Use and local save updated version
-                        json = downloadedJson;
-                        json.isCloudBacked = true;
-                        localForage.setItem(collectionPath, json).then();
-                    }
-                    else {
-                        console.debug("No change in collection " + collectionPath);
-                    }
-                }
-                catch (badCloudUpdate) {
-                    console.error("Fetch of updated settings from cloud failure", badCloudUpdate);
-                }
+            // Then check the server for a newer one
+            if (this.syncSvc.isOnline() && (await this.isNewerInCloud(model))) {
+                model = await this.cloudLoadCollection(location);
             }
 
-            return Collection.fromJSON(json);
+            return model;
         }
         catch (error) {
             throw this.translateError(error);
+        }
+    }
+
+    /**
+     * Helper function to actually load a collection from the cloud
+     * @param location
+     */
+    private async cloudLoadCollection(location: StorageLocation): Promise<Collection> {
+        const downloadedObj = await this.cloud.get(location.key, location.toStorageConfig(true));
+        try {
+            const downloadedStr = (downloadedObj as any).Body.toString('utf-8');
+
+            // Use and local save updated version
+            const json = JSON.parse(downloadedStr) as CollectionJSON;
+            json.isCloudBacked = true;
+            localForage.setItem(location.id, json).then();
+            return Collection.fromJSON(json);
+        }
+        catch (badCloudUpdate) {
+            console.error("Fetch of updated collection from cloud failure", badCloudUpdate);
         }
     }
 
@@ -159,7 +191,7 @@ export class PersistenceService {
     /// Returns the [Collection] or reject if not found.
     /// Throws [PersistenceException] upon unhandled failure.
     async cloudReloadCollection(collectionPath: string): Promise<Collection> {
-        await localForage.removeItem(collectionPath);
+        await localForage.removeItem(new StorageLocation(collectionPath).id);
         return this.loadCollection(collectionPath);
     }
 
@@ -204,16 +236,24 @@ export class PersistenceService {
      * Load recent revisions to the given collection.
      */
     async loadHistory(collection: Collection): Promise<Collection[]> {
-        // TODO:
-        throw new PersistenceException(501, 'Not implemented');
-        // try {
-        //     const criteria = {id: collection.id};
-        //     let json = await this.server.service(DATA_API_PATH).find({query: criteria});
-        //     return (json as CollectionJSON[]).map(c => Collection.fromJSON(c));
-        // }
-        // catch (err) {
-        //     return this.translateError(err);
-        // }
+
+        // Get all private files that start with the collection's id (thus all of it's revisions)
+        const list = await this.cloudList(new StorageLocation(collection.id));
+
+        const results: Collection[] = [];
+        for (const location of list) {
+            const downloadedObj = await this.cloud.get(location.key, location.toStorageConfig(true));
+            try {
+                const downloadedStr = (downloadedObj as any).Body.toString('utf-8');
+                const downloadedJson = JSON.parse(downloadedStr) as CollectionJSON;
+                results.push(Collection.fromJSON(downloadedJson));
+            }
+            catch (badCloudUpdate) {
+                console.error("Fetch of collection from cloud failure", badCloudUpdate);
+            }
+        }
+
+        return results.sort((a, b) => a.revision - b.revision);
     }
 
     private async cloudList(location: StorageLocation): Promise<StorageLocation[]> {
@@ -221,7 +261,6 @@ export class PersistenceService {
         try {
             const results: StorageLocation[] = [];
 
-            // Then ask the server for a newer one
             if (this.syncSvc.isOnline()) {
                 const data = await this.cloud.list(location.key, location.toStorageConfig());
                 for (const item of data.Contents) {
@@ -251,8 +290,9 @@ export class PersistenceService {
             model.isDirty = false;
 
             let json = model.toJSON() as AbstractStorableModelJSON;
-            localForage.setItem(location.path, json).then();
+            localForage.setItem(location.id, json).then();
             console.log("Local stored " + location.path);
+            this.usersLatestFiles.clear();
         }
 
         return model;
@@ -287,7 +327,8 @@ export class PersistenceService {
             );
 
             // Update local copy
-            localForage.setItem(location.path, json).then();
+            localForage.setItem(location.id, json).then();
+            this.usersLatestFiles.clear();
             return model;
         }
         catch(error) {
@@ -298,6 +339,31 @@ export class PersistenceService {
             // Return Error
             throw this.translateError(error);
         }
+    }
+
+    /**
+     * Get a the StorageLocation for the latest revision of all
+     * of the current user's files in the cloud.
+     *
+     * Do not use directly - this is a helper for #usersLatestFiles
+     * and is automatically called when stale.
+     */
+    private async refreshLatestFiles(): Promise<Map<string, StorageLocation>> {
+        const files = new Map<string, StorageLocation>();
+
+        if (this.syncSvc.isOnline()) {
+            const list = await this.cloudList(new StorageLocation(""));
+
+            const files = new Map<string, StorageLocation>();
+            for (const item of list) {
+                const existing = files.get(item.id);
+                if (!existing || existing.revision < item.revision) {
+                    files.set(item.id, item);
+                }
+            }
+        }
+
+        return files;
     }
 
     /**
@@ -321,7 +387,11 @@ export class PersistenceService {
 }
 
 class StorageLocation {
-    /** Location expressed as a single string */
+    /**
+     * Location expressed as a single string.
+     * If public: <identityId>/<id>
+     * If private: <id>+<revision>
+     */
     readonly path: string;
 
     /** Model id */
@@ -338,15 +408,18 @@ class StorageLocation {
 
     /**
      * Convert either an AbstractStorableModel or a path to a one into the S3 storage location.
+     *
+     * @param modelOrPath a data model to make a location out of, or a path to content
+     * @param forcePrivate if true, force to use private location even if modelOrPath can be public
      */
-    constructor(modelOrPath: AbstractStorableModel | string) {
+    constructor(modelOrPath: AbstractStorableModel | string, forcePrivate = false) {
         if (typeof modelOrPath === 'string') {
             // Path is just the ID when private.
-            // When public (whether this user's or another's) the path has the user ID '/' model ID.
+            // When public the path has the user ID '/' model ID, with no +rev.
             const path = modelOrPath as string;
             const slashIdx = path.indexOf('/');
             const plusIdx = path.indexOf('+', slashIdx);
-            if (slashIdx > 0) {
+            if (slashIdx > 0 && !forcePrivate) {
                 this.path = path;
                 this.id = path.substring(slashIdx + 1, plusIdx > slashIdx ? plusIdx : undefined);
                 this.revision = plusIdx > slashIdx ? +path.substring(plusIdx + 1) : undefined;
@@ -362,10 +435,11 @@ class StorageLocation {
             }
         } else if ((modelOrPath as Collection).authorUserId) {
             const collection = modelOrPath as Collection;
+            const isPublic = collection.isPublic && !forcePrivate;
+            this.level = isPublic ? 'protected' : 'private';
             this.id = collection.id;
             this.revision = collection.revision;
-            this.key = collection.id + '+' + collection.revision;
-            this.level = collection.isPublic ? 'protected' : 'private';
+            this.key = isPublic ? collection.id : collection.id + '+' + collection.revision;
             this.identityId = collection.isPublic ? collection.authorUserId : undefined;
             this.path = collection.isPublic ? collection.authorUserId + '/' + this.key : this.key;
         } else {

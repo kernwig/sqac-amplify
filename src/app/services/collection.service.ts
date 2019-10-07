@@ -37,7 +37,6 @@ export class CollectionService extends CachingModelService<Collection> {
      */
     createNew(): Collection {
         let c = Collection.forUser(this.user);
-        this.user.collections.add(c.id);
         this.syncSvc.setDirty(this.user);
         this.add(c);
         this.changed$.next();
@@ -63,34 +62,30 @@ export class CollectionService extends CachingModelService<Collection> {
      * @param user
      * @returns {Promise<Null>}
      */
-    loadFrom(user: UserSettings): Promise<any> {
+    async loadFrom(user: UserSettings): Promise<any> {
         this.clearAll();
         this.user = user;
 
-        let loadAll = Promise.all(Array.from(user.collections)
-            .map(collectionId => {
-                return this.persistSvc.loadCollection(collectionId)
-                    .then(c => this.loaded(c))
-                    .catch(err => {
-                        console.error(err);
-                        this.toastr.warning(err.toString(), "Unable to Load");
-                        return false;
-                    });
-            }));
+        try {
+            // Load own collections
+            (await this.persistSvc.loadUserCollectionsFromCloud())
+                .map(collection => this.loaded(collection));
 
-        return loadAll
-            .then((results: boolean[]) => {
-                // Transform isLoaded:boolean results into a count of collections loaded & display toast.
-                let count = results.map(b => b ? 1 : 0).reduce((count, isUpdated) => isUpdated + count, 0);
-                if (count > 0)
-                    this.toastr.success('Loaded ' + count, "Collections");
+            // Load subscriptions
+            for (const collectionPath of Array.from(user.collections)) {
+                const c = await this.persistSvc.loadCollection(collectionPath);
+                this.loaded(c);
+            }
+        }
+        catch(err) {
+            console.error(err);
+            this.toastr.error( err.toString(), 'Sync Failure', { timeOut: 10000});
+        }
 
-                this.resolveReferences();
-            })
-            .catch(err => {
-                console.error(err);
-                return this.toastr.error( err.toString(), 'Sync Failure', { timeOut: 10000});
-            });
+        if (this.size > 0)
+            this.toastr.success('Loaded ' + this.size, "Collections");
+
+        this.resolveReferences();
     }
 
     /**
@@ -179,41 +174,41 @@ export class CollectionService extends CachingModelService<Collection> {
      * @returns {Promise<any>}
      * @throws PersistenceException upon unhandled failure.
      */
-    sync(sendOnly?: boolean): Promise<any> {
+    async sync(sendOnly?: boolean): Promise<any> {
+        let needToResolve = false;
 
-        return Promise.all(Array.from(this.values())
-            .map(c => {
-                let isMine = c.authorUserId === this.user.id;
+        try {
+            for (const collection of Array.from(this.values())) {
+                let isMine = collection.authorUserId === this.user.id;
 
-                if (isMine && (c.isDirty || !c.isCloudBacked)) {
-                    console.log(`Collection ${c.id} has been locally changed. Save it.`);
-                    return this.persistSvc.cloudSaveCollection(c).then(() => {
-                        this.toastr.success("Saved", c.name);
-                        return false;
-                    });
+                if (isMine && (collection.isDirty || !collection.isCloudBacked)) {
+                    console.log(`Collection ${collection.id} has been locally changed. Save it.`);
+                    await this.persistSvc.cloudSaveCollection(collection);
+                    this.toastr.success("Saved", collection.name);
                 }
-                else if (!sendOnly) {
-                    console.log(`Check for updated content on server for collection ${c.id}`);
-                    return this.persistSvc.loadCollection(c.id)
-                        .then(c => {
-                            let hasChanged = this.loaded(c);
-                            if (hasChanged)
-                                this.toastr.warning("Updated", c.name);
-                            return hasChanged;
-                        })
+                else if (!sendOnly && (await this.persistSvc.isNewerInCloud(collection))) {
+                    console.log(`Load updated content from server for collection ${collection.id}`);
+                    const c = await this.persistSvc.loadCollection(collection);
+                    const hasChanged = this.loaded(c);
+                    if (hasChanged) {
+                        needToResolve = true;
+                        this.toastr.warning("Updated", c.name);
+                    }
                 }
-            }))
-            .then((results: boolean[]) => {
-                // Did something change?
-                if (results.find(b => b))
-                    this.resolveReferences();
-                else
-                    this.toastr.info("No updates received");
-            })
-            .catch(err => {
-                console.error(err);
-                return this.toastr.error(err.toString(), 'Sync Failure', { timeOut: 10000});
-            });
+            }
+
+            // Did something change?
+            if (needToResolve) {
+                this.resolveReferences();
+            }
+            else {
+                this.toastr.info("No updates received");
+            }
+        }
+        catch (err) {
+            console.error(err);
+            return this.toastr.error(err.toString(), 'Sync Failure', { timeOut: 10000});
+        }
     }
 
     /**

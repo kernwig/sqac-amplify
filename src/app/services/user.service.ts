@@ -261,8 +261,8 @@ export class UserService {
             await this.toastr.success("Saved changes", "Account");
             return this.settings;
         }
-        else if (!sendOnly) {
-            console.log("Check for updated content on server");
+        else if (!sendOnly && (await this.persistSvc.isNewerInCloud(this.settings))) {
+            console.log("Read updated content from server");
             let tmp = await this.persistSvc.loadUser();
 
             if (tmp.modified.getTime() > this.settings.modified.getTime()) {
@@ -294,9 +294,9 @@ export class UserService {
         this.settings.name = user.name;
         this.settings.email = user.email;
 
-        // FIXME: Default collections
-        // ["callerlab-basic","callerlab-mainstream","callerlab-plus","adam-classics"]
-        //     .forEach(c => this.settings.collections.add(c));
+        // Default collections
+        ["0000/callerlab-basic", "0000/callerlab-mainstream", "0000/classics"]
+            .forEach(c => this.settings.collections.add(c));
 
         return this.settings;
     }

@@ -13,11 +13,7 @@ export class UserSettings extends AbstractStorableModel {
     email: string;
 
     /**
-     * Storage paths to collections, whether public or private.
-     * May be the user's own collections, or other peoples' public collections that have been imported.
-     * The distinction is easy via [Collection.authorUserId].
-     * (Dev note: When toggling 'public', just add the new path. Old path will be removed when
-     * a 404 happens on load. This prevents loss upon failure during switch.
+     * Storage paths to other's collections that are subscribed to.
      */
     collections: Set<string> = new Set<string>();
 

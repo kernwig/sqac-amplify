@@ -27,6 +27,7 @@
     "@angular/router": "^6.1.10",
     "@angular/service-worker": "^6.1.10",
     "@aws-amplify/ui": "^1.0.23",
+    "@sailplane/expiring-value": "^1.0.0",
     "aws-amplify": "^1.1.36",
     "aws-amplify-angular": "^3.0.11",
     "bootstrap": "^3.3.7",
