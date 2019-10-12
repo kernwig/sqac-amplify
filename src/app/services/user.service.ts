@@ -138,8 +138,7 @@ export class UserService {
                     // Save user data after
                     localStorage.setItem(STORAGE_KEY, JSON.stringify(this.authUser));
                     this.user$.next(this.settings);
-                })
-                .catch(ex => console.error(ex));
+                });
         }
         else {
             console.log("Logout");
@@ -295,7 +294,7 @@ export class UserService {
         this.settings.email = user.email;
 
         // Default collections
-        ["0000/callerlab-basic", "0000/callerlab-mainstream", "0000/classics"]
+        ["0000/callerlab-basic", "0000/callerlab-mainstream", "0000/classics", "0000/ceder-basic"]
             .forEach(c => this.settings.collections.add(c));
 
         return this.settings;

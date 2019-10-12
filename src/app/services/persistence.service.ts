@@ -85,6 +85,10 @@ export class PersistenceService {
                 // Load the user's latest settings
                 const settingsLocation = (await this.usersLatestFiles.get()).get('settings');
 
+                if (!settingsLocation) {
+                    // New user!
+                    throw new PersistenceException(404, "No such user");
+                }
                 if (settingsLocation && settingsLocation.revision > json.revision) {
                     const downloadedObj = await this.cloud.get(settingsLocation.key, settingsLocation.toStorageConfig(true));
                     try {
@@ -142,7 +146,7 @@ export class PersistenceService {
             (await this.usersLatestFiles.get()).values()
         ).filter(location => location.id !== 'settings');
 
-        return Promise.all(allPrivateCollections.map(this.cloudLoadCollection));
+        return Promise.all(allPrivateCollections.map(location => this.cloudLoadCollection(location)));
     }
 
     /**
@@ -156,10 +160,13 @@ export class PersistenceService {
             let model = Collection.fromJSON((await localForage.getItem(location.id)) as CollectionJSON);
 
             // Then check the server for a newer one
-            if (this.syncSvc.isOnline() && (await this.isNewerInCloud(model))) {
+            if (this.syncSvc.isOnline() && (!model || (await this.isNewerInCloud(model)))) {
                 model = await this.cloudLoadCollection(location);
             }
 
+            if (!model) {
+                throw new PersistenceException(0, "Unable to load collection " + location.id);
+            }
             return model;
         }
         catch (error) {
@@ -172,6 +179,7 @@ export class PersistenceService {
      * @param location
      */
     private async cloudLoadCollection(location: StorageLocation): Promise<Collection> {
+        console.debug("cloudLoadCollection", location);
         const downloadedObj = await this.cloud.get(location.key, location.toStorageConfig(true));
         try {
             const downloadedStr = (downloadedObj as any).Body.toString('utf-8');
@@ -262,15 +270,17 @@ export class PersistenceService {
             const results: StorageLocation[] = [];
 
             if (this.syncSvc.isOnline()) {
-                const data = await this.cloud.list(location.key, location.toStorageConfig());
-                for (const item of data.Contents) {
+                const contents = await this.cloud.list(location.key, location.toStorageConfig());
+                console.log("cloudList data", contents);
+                for (const item of contents) {
                     const path = isPrivate
-                        ? item.Key
-                        : item.Owner.ID + '/' + item.Key;
+                        ? item.key
+                        : item.owner.id + '/' + item.key;
                     results.push(new StorageLocation(path));
                 }
             }
 
+            console.debug("Files at", location.path, ':', results);
             return results;
         }
         catch (error) {
@@ -354,15 +364,16 @@ export class PersistenceService {
         if (this.syncSvc.isOnline()) {
             const list = await this.cloudList(new StorageLocation(""));
 
-            const files = new Map<string, StorageLocation>();
             for (const item of list) {
                 const existing = files.get(item.id);
                 if (!existing || existing.revision < item.revision) {
                     files.set(item.id, item);
                 }
             }
+
         }
 
+        console.debug("refreshLatestFiles", Array.from(files.values()));
         return files;
     }
 
