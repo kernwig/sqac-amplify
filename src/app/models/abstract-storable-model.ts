@@ -1,3 +1,4 @@
+/* tslint:disable:member-ordering */
 import { AbstractModel } from './abstract-model';
 
 /**
@@ -9,15 +10,15 @@ export abstract class AbstractStorableModel extends AbstractModel {
     schemaRev: number;
 
     /** Have these settings been modified but not yet saved? */
-    isDirty: boolean = false;
+    isDirty = false;
 
     /** Have changes been saved to the cloud? (Only valid if isDirty == false.) */
-    isCloudBacked: boolean = false;
+    isCloudBacked = false;
 
     /** Date-time first created */
     created: Date;
 
-    /// Date-time last changed and persisted.
+    /** Date-time last changed and persisted. */
     modified: Date;
 
     /** Revision counter of this object. Increments with each cloud save. */
@@ -28,7 +29,7 @@ export abstract class AbstractStorableModel extends AbstractModel {
      * The optional [id] field may be used when given by an external source;
      * otherwise a UUID will be generated.
      */
-    constructor(newestSchemaRev: number, id?: string) {
+    protected constructor(newestSchemaRev: number, id?: string) {
         super(id);
         this.schemaRev = newestSchemaRev;
         this.created = new Date();

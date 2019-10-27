@@ -14,7 +14,7 @@ import {takeUntil} from "rxjs/operators";
         </div>
 
         <!-- STOP Confirmation Modal -->
-        <div [config]="{backdrop: 'true'}"
+        <div [config]="{backdrop: true}"
              class="modal fade" bsModal #stopModal="bs-modal" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
@@ -44,16 +44,17 @@ import {takeUntil} from "rxjs/operators";
 })
 export class StopControlComponent extends AbstractBaseComponent {
 
-    inProgress: boolean = false;
-    isPlaying: boolean = false;
+    inProgress = false;
+    isPlaying = false;
 
     constructor(public choreoSvc: ChoreographerService) {
         super();
         this.choreoSvc.running$.pipe(takeUntil(this.destroy$))
             .subscribe((isRunning: boolean) => {
                 this.isPlaying = isRunning;
-                if (isRunning)
+                if (isRunning) {
                     this.inProgress = true;
+                }
             });
     }
 

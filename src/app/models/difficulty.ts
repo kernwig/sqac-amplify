@@ -23,6 +23,6 @@ export const DifficultyMax = 4;
 @Pipe({name: 'difficulty'})
 export class DifficultyPipe implements PipeTransform {
     transform(value: Difficulty | number) {
-        return DifficultyMap[value] || "Unknown/"+value;
+        return DifficultyMap[value] || "Unknown/" + value;
     }
 }

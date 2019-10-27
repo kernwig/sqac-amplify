@@ -53,7 +53,8 @@
                         </sqac-searchable-input>
                     </td>
                     <td class="form-group">
-                        <input type="text" placeholder="Call command" maxlength="60" class="form-control"
+                        <input #addingNameElem
+                               type="text" placeholder="Call command" maxlength="60" class="form-control"
                                [(ngModel)]="adding.command" (keyup.enter)="addIfComplete(addingNameElem)">
                     </td>
                     <td class="form-group">

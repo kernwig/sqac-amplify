@@ -1,6 +1,6 @@
 /*
  * Square Auto-Choreographer
- * Copyright (c) 2017-2019, Adam Fanello\
+ * Copyright (c) 2017-2019, Adam Fanello
  * All rights reserved.
  */
 import {Injectable} from "@angular/core";
@@ -89,7 +89,7 @@ export class ChoreographerService {
     private moduleStack: ModuleStack;
 
     private readonly rndEngine = RandomJs.engines.mt19937().autoSeed();
-    private readonly rndContinuationRange = RandomJs.integer(0,100);
+    private readonly rndContinuationRange = RandomJs.integer(0, 100);
 
     /**
      * Lookup map of modules that start from a Formation.id as the key.
@@ -101,7 +101,7 @@ export class ChoreographerService {
     private running = false;
 
     /** true pause is initiated, but still calling out the stack */
-    private pausing: boolean = false;
+    private pausing = false;
 
     /** Are we just playing a single module, not a tip? */
     private isPlayModule = false;
@@ -151,8 +151,9 @@ export class ChoreographerService {
         this.haveActiveTip = true;
 
         this.moduleSvc.forEach((module) => {
-            if (module.usedThisTip)
+            if (module.usedThisTip) {
                 module.usedThisTip = undefined;
+            }
         });
 
         this.callList$.next(this.callList);
@@ -174,11 +175,12 @@ export class ChoreographerService {
     /**
      * Play one specific module. Loop if it's a zero, otherwise stop when complete.
      * Must call resume() or next() to actually begin.
-     * @param {Module} module
+     * @param module
      */
     playModule(module: Module) {
-        if (this.running)
+        if (this.running) {
             this.endTip();
+        }
 
         this.beginTip();
 
@@ -232,7 +234,7 @@ export class ChoreographerService {
             }
 
             // Get the current module stack frame and advance the sequence position.
-            let frame = this.moduleStack[this.moduleStack.length - 1];
+            const frame = this.moduleStack[this.moduleStack.length - 1];
             if (frame.seqPos === undefined) {
                 // Begin the new module
                 startedNewModule = true;
@@ -261,11 +263,7 @@ export class ChoreographerService {
                 if (this.isPlayModule) {
                     // Loop the module.
                     this.moduleStack.push({ module: frame.module } as ModuleStackFrame);
-
-                    //// Pause if not in the right formation to keep going.
-                    //if (this.running && frame.module.startFormation.id !== frame.module.endFormation.id) {
-                        this.pausing = true;
-                    //}
+                    this.pausing = true;
                 }
                 // If stack unwound at home, pause.
                 else if (this.moduleStack.length === 0 &&
@@ -288,12 +286,13 @@ export class ChoreographerService {
 
         // Schedule next
         if (this.running) {
-            let waitBeats = this.callList.now ? this.callList.now.call.beats : 1;
+            const waitBeats = this.callList.now ? this.callList.now.call.beats : 1;
             this.nextCallTime += ((60000 / this.bpm) * waitBeats);
-            let delay = this.nextCallTime - window.performance.now();
+            const delay = this.nextCallTime - window.performance.now();
             window.setTimeout(() => {
-                if (this.running)
+                if (this.running) {
                     this.next();
+                }
             }, delay > 0 ? delay : 0);
         }
     }
@@ -302,7 +301,7 @@ export class ChoreographerService {
      * Reset criteria based on the given dance session.
      * (Must call activateCriteria() some time after this.)
      *
-     * @param {DanceSession} danceSession
+     * @param danceSession
      */
     useDanceSession(danceSession: DanceSession) {
         if (danceSession) {
@@ -317,7 +316,7 @@ export class ChoreographerService {
      * Activate any modifications to module selection criteria.
      */
     activateCriteria() {
-        let t0 = performance.now();
+        const t0 = performance.now();
         this.lookupByStartFormations = new Map() as ModulesByCriteriaLookup;
 
         console.debug("Enabled collections: " + (this.session.enabledCollections.size || 'all'));
@@ -325,21 +324,24 @@ export class ChoreographerService {
         console.debug("Max difficulty: " + this.maxDifficulty);
         console.debug("Max level: " + this.maxDanceLevel);
 
-        let acceptCollections = (this.session.enabledCollections.size > 0) ? this.session.enabledCollections : null;
-        let acceptFamilies = (this.session.enabledFamilies.size > 0) ? this.session.enabledFamilies : null;
+        const acceptCollections = (this.session.enabledCollections.size > 0) ? this.session.enabledCollections : null;
+        const acceptFamilies = (this.session.enabledFamilies.size > 0) ? this.session.enabledFamilies : null;
         let moduleCount = 0;
         this.moduleSvc.forEach((module) => {
-            if (acceptCollections && !acceptCollections.has(module.collection.id))
+            if (acceptCollections && !acceptCollections.has(module.collection.id)) {
                 return;
+            }
 
-            if (compareDanceLevels(module.level, this.maxDanceLevel) > 0)
+            if (compareDanceLevels(module.level, this.maxDanceLevel) > 0) {
                 return;
+            }
 
-            if (module.difficulty > this.maxDifficulty)
+            if (module.difficulty > this.maxDifficulty) {
                 return;
+            }
 
             if (acceptFamilies) {
-                for (let seq of module.sequence) {
+                for (const seq of module.sequence) {
                     if (seq.call && !acceptFamilies.has(seq.call.family.id)) {
                         return;
                     }
@@ -353,15 +355,16 @@ export class ChoreographerService {
                 this.lookupByStartFormations.set(startFormationId, formationLookup);
             }
 
-            if (module.usedThisTip)
+            if (module.usedThisTip) {
                 module.usedThisTip = undefined;
+            }
 
             formationLookup.push(module);
             ++moduleCount;
         });
 
-        let t1 = performance.now();
-        console.log(`ActivateCriteria took ${t1-t0} ms to find ${moduleCount} modules`);
+        const t1 = performance.now();
+        console.log(`ActivateCriteria took ${t1 - t0} ms to find ${moduleCount} modules`);
     }
 
     /**
@@ -372,17 +375,15 @@ export class ChoreographerService {
      * @return the next ModuleStackFrame if module found, null if no module to flow to
      */
     private getNextModule(formation: Formation, prev?: Module): ModuleStackFrame|null {
-        let t0 = performance.now();
-        let doResolve = this.rndContinuationRange(this.rndEngine) > this.continuationProbability;
+        const t0 = performance.now();
+        const doResolve = this.rndContinuationRange(this.rndEngine) > this.continuationProbability;
         console.log(`Continue ${this.continuationProbability}% = ${!doResolve}`);
 
         // Find all candidate module based on the current formation.
-        let allCandidates: Module[] = this.lookupByStartFormations.get(formation.id);
+        const allCandidates: Module[] = this.lookupByStartFormations.get(formation.id);
 
         if (allCandidates.length === 0) {
-            let message = //prev
-                //? `No module match for ${formation.abbreviation} beau ${prev.endHandBeau}/${prev.endFlowBeau} & belle ${prev.endHandBelle}/${prev.endFlowBelle}`
-                `No module found that starts from formation ${formation.abbreviation}!`;
+            const message = `No module found that starts from formation ${formation.abbreviation}!`;
             this.toastr.error(message, 'Insufficient Module Variety', {timeOut: 10000});
             console.warn(message);
             this.pause();
@@ -408,14 +409,15 @@ export class ChoreographerService {
         for (let passNum = 1; ; ++passNum) {
 
             // Skip pass 4 if no prev module
-            if (!prev && passNum === 4)
+            if (!prev && passNum === 4) {
                 passNum++;
+            }
 
-            for (let m of allCandidates) {
+            for (const m of allCandidates) {
                 // Pass 1 - Check resolution
                 if (passNum === 1) {
                     // Reject if module resolution doesn't match desire to resolve (or not)
-                    let willResolve = (m.endFormation.id === SQUARED_SET_ID);
+                    const willResolve = (m.endFormation.id === SQUARED_SET_ID);
                     if ((doResolve && !willResolve) || (!doResolve && willResolve)) {
                         continue;
                     }
@@ -431,9 +433,9 @@ export class ChoreographerService {
                         // New avg within 1 level of target, it's fine
                         (Math.abs(this.avgDifficulty.getIf(m.difficulty) - targetDifficulty) < 0.5)
                     ) {
-                        //good
+                        // good
                     } else {
-                        //console.log("Rejected module with difficulty " + m.difficulty);
+                        // console.log("Rejected module with difficulty " + m.difficulty);
                         continue;
                     }
                 }
@@ -452,7 +454,7 @@ export class ChoreographerService {
                         && FlowDirectionMap[prev.endFlowBelle].bad !== m.startFlowBelle
                         && FlowDirectionMap[prev.endFlowBeau].bad !== m.startFlowBeau
                     ) {
-                        //good
+                        // good
                     }
                     else {
                         continue;
@@ -461,26 +463,27 @@ export class ChoreographerService {
 
                 // Got here without rejection? We have a winner!
                 if (prev && passNum === 5) {
-                    console.warn(`No module match for ${formation.abbreviation} beau ${prev.endHandBeau}/${prev.endFlowBeau} & belle ${prev.endHandBelle}/${prev.endFlowBelle}`);
+                    console.warn(`No module match for ${formation.abbreviation} beau ` +
+                        `${prev.endHandBeau}/${prev.endFlowBeau} & belle ${prev.endHandBelle}/${prev.endFlowBelle}`);
                     this.toastr.warning("Bad flow or hand use in next module.");
                 }
 
-                //console.log("Selected difficulty " + m.difficulty);
+                // console.log("Selected difficulty " + m.difficulty);
                 this.avgDifficulty.add(m.difficulty);
                 const explanation = this.generateSelectionExplanation(t0, passNum);
                 return { module: m, explanation } as ModuleStackFrame;
-            }//for each candidate
-        }//for passNum
-    }//getNextModule()
+            }// for each candidate
+        }// for passNum
+    }
 
     /**
      * Explain how the module was selected.
      * Warn the user of a performance problem if it takes more than half a beat to find the next module.
-     * @param {number} startTime
-     * @param {number} passNum How many passes it took to find the module
+     * @param startTime
+     * @param passNum How many passes it took to find the module
      */
     private generateSelectionExplanation(startTime: number, passNum: number): string {
-        let delta = Math.round(performance.now() - startTime);
+        const delta = Math.round(performance.now() - startTime);
 
         // Could check for 60000/bpm/2, but the extra computation seems pointless; it won't be far off from 128 bpm.
         if (delta > 234) {

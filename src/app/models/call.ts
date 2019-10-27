@@ -1,3 +1,4 @@
+/* tslint:disable:member-ordering */
 import { AbstractModel } from './abstract-model';
 import { Family } from "./family";
 import {SearchItem} from "../collections/widget/searchable-input.component";
@@ -36,7 +37,7 @@ export class Call extends AbstractModel implements SearchItem {
 
     /** Initialize content from JSON */
     public static fromJSON(json: CallJSON): Call {
-        let o = new Call(json.id);
+        const o = new Call(json.id);
         o.command = json.command;
         o.beats = json.beats;
         o.family = new Family(json.family);
@@ -54,13 +55,16 @@ export class Call extends AbstractModel implements SearchItem {
     static sort(list: Call[]): Call[] {
         list.sort((a, b) => {
             let c = a.family.name.localeCompare(b.family.name);
-            if (c !== 0)
+            if (c !== 0) {
                 return c;
+            }
             c = a.command.localeCompare(b.command);
-            if (c !== 0)
+            if (c !== 0) {
                 return c;
-            else
+            }
+            else {
                 return a.beats - b.beats;
+            }
         });
 
         return list;
@@ -71,5 +75,5 @@ export interface CallJSON {
     id: string;
     command: string;
     beats: number;
-    family: string; //id ref
+    family: string; // id ref
 }

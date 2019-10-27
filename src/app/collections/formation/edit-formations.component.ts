@@ -33,7 +33,7 @@ export class EditFormationsComponent extends AbstractBaseComponent implements On
     usedFormations = new Set<string>();
 
     /** May these formations be modified? */
-    isMutable: boolean = false;
+    isMutable = false;
 
     /** Construct */
     constructor(private route: ActivatedRoute,
@@ -50,10 +50,10 @@ export class EditFormationsComponent extends AbstractBaseComponent implements On
      * Initialize Page
      */
     ngOnInit() {
-        combineLatest(this.userSvc.user$, this.route.params)
+        combineLatest([this.userSvc.user$, this.route.params])
             .pipe(takeUntil(this.destroy$))
             .subscribe(([user, params]: [UserSettings, Params]) => {
-                let cid = params['cid'];
+                const cid = params['cid'];
                 this.collection = this.collectionSvc.get(cid);
 
                 if (this.collection) {
@@ -63,9 +63,10 @@ export class EditFormationsComponent extends AbstractBaseComponent implements On
                     this.isMutable = (this.collection.authorUserId === user.id);
 
                     // Cache usage information
-                    for (let formation of this.collection.formations) {
-                        if (this.moduleSvc.isFormationReferenced(formation))
+                    for (const formation of this.collection.formations) {
+                        if (this.moduleSvc.isFormationReferenced(formation)) {
                             this.usedFormations.add(formation.id);
+                        }
                     }
                 }
             });
@@ -95,7 +96,7 @@ export class EditFormationsComponent extends AbstractBaseComponent implements On
             this.setModified();
             this.formationSvc.add(this.adding);
 
-            let previous = this.adding;
+            const previous = this.adding;
             this.adding = new Formation();
             this.clearAdding(giveFocus);
             this.adding.level = previous.level; // default to same level

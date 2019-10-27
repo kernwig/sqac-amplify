@@ -1,3 +1,4 @@
+/* tslint:disable:member-ordering */
 import { AbstractModel } from "./abstract-model";
 import { DanceLevel } from "./dance-level";
 import { Difficulty } from "./difficulty";
@@ -52,7 +53,7 @@ export class Module extends AbstractModel {
     /** Difficulty “flavor” */
     difficulty: Difficulty = 1;
 
-    /// Sequence of [Call]s and Interruptions.
+    /** Sequence of [Call]s and Interruptions. */
     sequence = <SequencedItem[]>[];
 
     /** Author notes */
@@ -94,7 +95,7 @@ export class Module extends AbstractModel {
 
     /** Initialize content from JSON */
     public static fromJSON(json: ModuleJSON): Module {
-        let o = new Module(json.id);
+        const o = new Module(json.id);
         o.name = json.name;
         o.level = json.level as DanceLevel;
 

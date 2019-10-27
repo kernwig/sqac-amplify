@@ -29,21 +29,24 @@ export class DancePageComponent extends AbstractBaseComponent implements OnInit 
     ngOnInit() {
         this.choreoSvc.moduleStack$.pipe(takeUntil(this.destroy$))
             .subscribe((stack: ModuleStack) => {
-                if (stack.length === 0)
+                if (stack.length === 0) {
                     this.currentModule = undefined;
-                else
+                }
+                else {
                     this.currentModule = stack[stack.length - 1].module;
+                }
             });
 
         // If collections change (refresh) while on the Dance page,
         // have the Choreo service update.
         this.collectionSvc.changed$.pipe(takeUntil(this.destroy$))
             .subscribe(() => {
-                this.choreoSvc.activateCriteria()
+                this.choreoSvc.activateCriteria();
             });
 
         // Initialize the active session
-        this.userSvc.user$.pipe(takeUntil(this.destroy$))
+        this.userSvc.user$
+            .pipe(takeUntil(this.destroy$))
             .subscribe((settings: UserSettings) => {
                 this.choreoSvc.useDanceSession(settings ? settings.activeSession : null);
                 this.choreoSvc.activateCriteria();

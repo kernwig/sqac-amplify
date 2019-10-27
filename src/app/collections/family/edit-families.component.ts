@@ -17,7 +17,6 @@ import {takeUntil} from "rxjs/operators";
 @Component({
     selector: 'sqac-edit-families',
     templateUrl: './edit-families.component.html',
-    //styleUrls: ['./edit-families.component.scss']
 })
 export class EditFamiliesComponent extends AbstractBaseComponent implements OnInit, OnDestroy {
 
@@ -30,7 +29,7 @@ export class EditFamiliesComponent extends AbstractBaseComponent implements OnIn
     adding: Family;
 
     /** May these families be modified? */
-    isMutable: boolean = false;
+    isMutable = false;
 
     /** Construct */
     constructor(private route: ActivatedRoute,
@@ -46,10 +45,10 @@ export class EditFamiliesComponent extends AbstractBaseComponent implements OnIn
      * Initialize Page
      */
     ngOnInit() {
-        combineLatest(this.userSvc.user$, this.route.params)
+        combineLatest([this.userSvc.user$, this.route.params])
             .pipe(takeUntil(this.destroy$))
             .subscribe(([user, params]: [UserSettings, Params]) => {
-                let cid = params['cid'];
+                const cid = params['cid'];
                 this.collection = this.collectionSvc.get(cid);
 
                 if (this.collection) {
@@ -85,7 +84,7 @@ export class EditFamiliesComponent extends AbstractBaseComponent implements OnIn
             this.setModified();
             this.familySvc.add(this.adding);
 
-            let previous = this.adding;
+            const previous = this.adding;
             this.adding = new Family();
             this.clearAdding(giveFocus);
             this.adding.level = previous.level; // default to same level
@@ -115,8 +114,8 @@ export class EditFamiliesComponent extends AbstractBaseComponent implements OnIn
         this.setModified();
 
         // Purge all calls in Family. (U/I usually does no provide this option, but can be enabled for super-user management.)
-        //this.collection.calls.filter(c => c.family.id === familyToRemove.id).forEach(c => this.callSvc.delete(c));
-        //this.collection.calls = this.collection.calls.filter(c => c.family.id !== familyToRemove.id);
+        // this.collection.calls.filter(c => c.family.id === familyToRemove.id).forEach(c => this.callSvc.delete(c));
+        // this.collection.calls = this.collection.calls.filter(c => c.family.id !== familyToRemove.id);
     }
 
     /**

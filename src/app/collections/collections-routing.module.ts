@@ -33,7 +33,7 @@ const routes: Routes = [
         path: ':cid/families',
         component: EditFamiliesComponent
     },
-    {   //deprecated
+    {   // deprecated
         path: ':cid/formations',
         component: EditFormationsComponent
     },

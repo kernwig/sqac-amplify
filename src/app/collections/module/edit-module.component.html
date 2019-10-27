@@ -164,7 +164,7 @@
                                 </td>
                                 <td class="form-group">
                                     <input type="text" class="form-control" placeholder="alternative command wording" maxlength="60"
-                                               [(ngModel)]="item.altCommand" (ngModelChange)="setModified()">
+                                           [(ngModel)]="item.altCommand" (ngModelChange)="setModified()">
                                 </td>
                                 <td class="valign-middle">
                                     <span class="glyphicon glyphicon-chevron-up" title="Move up" (click)="moveSeqItemDown(itemIdx-1)" *ngIf="itemIdx > 0"></span>
@@ -204,7 +204,7 @@
             </div>
             <!--<pre>{{module | json}}</pre>-->
 
-            <div [config]="{backdrop: 'true'}"
+            <div [config]="{backdrop: true}"
                  class="modal fade" bsModal #deleteConfirmModal="bs-modal" tabindex="-1" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -243,7 +243,7 @@
             </li>
             <li>
                 <b>Difficulty</b> determines whether or not this module will be selected, based on the difficulty
-                slider selections on the <span text="text-primary">Dance</span> screen. Choose <em>Plain</em> for
+                slider selections on the <span class="text-primary">Dance</span> screen. Choose <em>Plain</em> for
                 community and handicapable level. <em>Vanilla</em> must use only standard applications of calls, and
                 so makes for an easy dance. Select <em>Pepper</em> if your module has a bit of spice to it (extended
                 applications), or <em>Tabasco</em> for truly tricky modules.
@@ -297,7 +297,7 @@
         </p>
 
         <p>
-            On the <span text="text-primary">Dance</span> screen, the call's command will display just as entered
+            On the <span class="text-primary">Dance</span> screen, the call's command will display just as entered
             in the call list (without the beats). If this isn't quite what you want to say, just enter
             <b>Alternative Command</b> text in the next box; this will be displayed instead.
             You can randomize specifiers in the <b>Alternative Command</b> by beginning it with the pattern
@@ -316,7 +316,7 @@
             This is useful for sequences such as Heads Square Thru Four and Sides Half Sashey.
         </p>
         <p>
-            To return to the list of modules, click on the <span text="text-primary">Modules</span> breadcrumb under the logo.
+            To return to the list of modules, click on the <span class="text-primary">Modules</span> breadcrumb under the logo.
         </p>
     </aside>
 </sqac-page-content>

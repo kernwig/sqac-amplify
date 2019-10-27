@@ -22,7 +22,7 @@ export const DanceLevelMap = {
 export type DanceLevel = keyof typeof DanceLevelMap;
 export const DanceLevels: string[] = Object.keys(DanceLevelMap);
 
-const danceLevelOrderLookup = new Map<DanceLevel,number>();
+const danceLevelOrderLookup = new Map<DanceLevel, number>();
 
 /**
  * Compare first and second DanceLevel to see which is higher or lower level.
@@ -32,18 +32,22 @@ const danceLevelOrderLookup = new Map<DanceLevel,number>();
  */
 export function compareDanceLevels(first: DanceLevel, second: DanceLevel): number {
     if (danceLevelOrderLookup.size === 0) {
-        for (let ordinal = 0; ordinal < DanceLevels.length; ++ordinal)
+        for (let ordinal = 0; ordinal < DanceLevels.length; ++ordinal) {
             danceLevelOrderLookup.set(DanceLevels[ordinal] as DanceLevel, ordinal);
+        }
     }
 
-    let firstOrdinal = danceLevelOrderLookup.get(first);
-    let secondOrdinal = danceLevelOrderLookup.get(second);
-    if (firstOrdinal === secondOrdinal)
+    const firstOrdinal = danceLevelOrderLookup.get(first);
+    const secondOrdinal = danceLevelOrderLookup.get(second);
+    if (firstOrdinal === secondOrdinal) {
         return 0;
-    else if (firstOrdinal < secondOrdinal)
+    }
+    else if (firstOrdinal < secondOrdinal) {
         return -1;
-    else
+    }
+    else {
         return 1;
+    }
 }
 
 /**
@@ -52,6 +56,6 @@ export function compareDanceLevels(first: DanceLevel, second: DanceLevel): numbe
 @Pipe({name: 'danceLevel'})
 export class DanceLevelPipe implements PipeTransform {
     transform(value: DanceLevel | string) {
-        return DanceLevelMap[value] || "Unknown/"+value;
+        return DanceLevelMap[value] || "Unknown/" + value;
     }
 }

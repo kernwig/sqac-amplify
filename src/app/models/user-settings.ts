@@ -1,3 +1,4 @@
+/* tslint:disable:member-ordering */
 import { AbstractStorableModel, AbstractStorableModelJSON } from "./abstract-storable-model";
 import { DanceSession, DanceSessionJSON } from "./dance-session";
 
@@ -33,7 +34,7 @@ export class UserSettings extends AbstractStorableModel {
 
     /** Serialize this instance into JSON */
     public toJSON(): UserSettingsJSON {
-        let json = super.toJSON() as UserSettingsJSON;
+        const json = super.toJSON() as UserSettingsJSON;
         json.name = this.name;
         json.email = this.email;
         json.collections = Array.from(this.collections);
@@ -45,29 +46,39 @@ export class UserSettings extends AbstractStorableModel {
 
     /** Initialize content from JSON */
     public static fromJSON(json: UserSettingsJSON): UserSettings {
-        let o = new UserSettings(json.id);
+        const o = new UserSettings(json.id);
         AbstractStorableModel.fromAbstractJSON<UserSettings>(json, o);
         o.name = json.name;
         o.email = json.email;
-        if (json.collections)
+        if (json.collections) {
             json.collections.forEach(c => o.collections.add(c));
-        if (json.sessions)
+        }
+        if (json.sessions) {
             json.sessions.forEach(s => o.sessions.push(DanceSession.fromJSON(s)));
-        if (json.activeSession)
+        }
+        if (json.activeSession) {
             o.activeSession = o.sessions.find((session) => session.id === json.activeSession);
+        }
         return o;
     }
 
-    /** Get the name of the authentication provider used by this user. */
+    /**
+     * Get the name of the authentication provider used by this user.
+     * @deprecated no longer useful?
+     */
     getAuthProviderName(): string {
-        if (!this.id)
+        if (!this.id) {
             return "";
-        else if (this.id.startsWith("google"))
+        }
+        else if (this.id.startsWith("google")) {
             return "Google";
-        else if (this.id.startsWith("facebook"))
+        }
+        else if (this.id.startsWith("facebook")) {
             return "Facebook";
-        else
+        }
+        else {
             return "SqAC";
+        }
     }
 }
 

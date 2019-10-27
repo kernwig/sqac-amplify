@@ -12,7 +12,7 @@ export interface HandMeta {
     violation: Hand;
 }
 
-export const HandMap: {[id:string]: HandMeta} = {
+export const HandMap: {[id: string]: HandMeta} = {
     any: {
         displayText: "None/Either",
         violation: null
@@ -32,7 +32,7 @@ export const HandMap: {[id:string]: HandMeta} = {
 };
 
 export type Hand = keyof typeof HandMap;
-//export type Hand = "any"|"left"|"right"|"both";
+// export type Hand = "any"|"left"|"right"|"both";
 
 export const Hands: string[] = Object.keys(HandMap);
 
@@ -42,7 +42,7 @@ export const Hands: string[] = Object.keys(HandMap);
 @Pipe({name: 'hand'})
 export class HandPipe implements PipeTransform {
     transform(value: Hand | string) {
-        let meta: HandMeta = HandMap[value];
-        return meta ? meta.displayText : "Unknown/"+value;
+        const meta: HandMeta = HandMap[value];
+        return meta ? meta.displayText : "Unknown/" + value;
     }
 }

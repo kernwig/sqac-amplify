@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AbstractBaseComponent} from "../../shared/abstract-base.component";
 import {Collection} from "../../models/collection";
 import {UserService} from "../../services/user.service";
@@ -18,13 +18,13 @@ import {takeUntil} from "rxjs/operators";
     templateUrl: './list-modules.component.html',
     styleUrls: ['./list-modules.component.scss']
 })
-export class ListModulesComponent extends AbstractBaseComponent implements OnInit {
+export class ListModulesComponent extends AbstractBaseComponent implements OnInit, OnDestroy {
 
     /** The collection being viewed */
     collection: Collection;
 
     /** May this collection be modified? */
-    isMutable: boolean = false;
+    isMutable = false;
 
     modules: Module[];
 
@@ -44,11 +44,11 @@ export class ListModulesComponent extends AbstractBaseComponent implements OnIni
     }
 
     ngOnInit() {
-        combineLatest(this.userSvc.user$, this.route.params)
+        combineLatest([this.userSvc.user$, this.route.params])
             .pipe(takeUntil(this.destroy$))
             .subscribe((values: [UserSettings, Params]) => {
-                let user = values[0];
-                let cid = values[1]['cid'];
+                const user = values[0];
+                const cid = values[1]['cid'];
                 this.collection = this.collectionSvc.get(cid);
 
                 if (this.collection) {
@@ -63,8 +63,9 @@ export class ListModulesComponent extends AbstractBaseComponent implements OnIni
     }
 
     ngOnDestroy() {
-        if (this.playingModule)
+        if (this.playingModule) {
             this.closePlay();
+        }
 
         this.collectionSvc.localSave(this.collection).then();
 
@@ -82,10 +83,11 @@ export class ListModulesComponent extends AbstractBaseComponent implements OnIni
      * User clicked the Add button
      */
     onCreateModule() {
-        if (!this.collection)
+        if (!this.collection) {
             return;
+        }
 
-        let module = new Module();
+        const module = new Module();
         module.collection = this.collection;
         this.collection.modules.push(module);
         this.moduleSvc.add(module);
@@ -120,35 +122,38 @@ export class ListModulesComponent extends AbstractBaseComponent implements OnIni
             return;
         }
 
-        let summary = new Map();
-        for (let module of this.collection.modules) {
-            if (!module.startFormation || !module.endFormation)
+        const summary = new Map<string, StartFormationSummary>();
+        for (const module of this.collection.modules) {
+            if (!module.startFormation || !module.endFormation) {
                 continue;
+            }
 
-            let start: StartFormationSummary = summary.get(module.startFormation.id);
+            let start = summary.get(module.startFormation.id);
             if (!start) {
-                start = { formation: module.startFormation, ends: new Map<string,EndFormationSummary>()};
+                start = { formation: module.startFormation, endsMap: new Map<string, EndFormationSummary>(), ends: []};
                 summary.set(module.startFormation.id, start);
             }
 
-            let end: EndFormationSummary = start.ends.get(module.endFormation.id);
+            let end: EndFormationSummary = start.endsMap.get(module.endFormation.id);
             if (!end) {
                 end = { formation: module.endFormation, count: 0};
-                start.ends.set(module.endFormation.id, end);
+                start.endsMap.set(module.endFormation.id, end);
             }
             end.count++;
         }
 
         this.formationsSummary = Array.from(summary.values());
-        for (let start of this.formationsSummary) {
-            start.ends = Array.from(start.ends.values());
+        for (const start of this.formationsSummary) {
+            start.ends = Array.from(start.endsMap.values());
+            delete start.endsMap;
         }
     }
 }
 
 interface StartFormationSummary {
     formation: Formation;
-    ends: any;
+    endsMap?: Map<string, EndFormationSummary>;
+    ends: EndFormationSummary[];
 }
 
 interface EndFormationSummary {

@@ -7,6 +7,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 @Component({
     encapsulation: ViewEncapsulation.None,
     selector: 'sqac-switch',
+    // tslint:disable-next-line:max-line-length
     template: `<div #main class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate bootstrap-switch-off" [ngClass]="_sizeClass + ' ' + _disabledClass" (click)="toggleStatus()">
 	<div #container class="bootstrap-switch-container"  [@statusChange]="_statusStr" >
         <span #on class="bootstrap-switch-handle-on" [ngClass]="_onColor" [ngStyle]="{'min-width': _minWidth +'px'}">{{onText}}</span>
@@ -267,7 +268,7 @@ export class BootstrapSwitchComponent implements OnChanges, AfterViewInit, After
 
     private _setDisabled(disabled: boolean): void {
         if (disabled) {
-            this._disabledClass = 'bootstrap-switch-disabled'
+            this._disabledClass = 'bootstrap-switch-disabled';
         } else {
             this._disabledClass = '';
         }
@@ -352,8 +353,8 @@ export class BootstrapSwitchComponent implements OnChanges, AfterViewInit, After
         this._needCalculateWidth = true;
     }
 
-    ngAfterViewChecked(){
-        if(this._needCalculateWidth){
+    ngAfterViewChecked() {
+        if (this._needCalculateWidth) {
             this._calculateWidth();
             this._needCalculateWidth = false;
         }
@@ -363,7 +364,7 @@ export class BootstrapSwitchComponent implements OnChanges, AfterViewInit, After
         for (const propName in changes) {
             if (changes.hasOwnProperty(propName)) {
                 const changedProp = changes[propName];
-                //const from = changedProp.previousValue;
+                // const from = changedProp.previousValue;
                 const value = changedProp.currentValue;
 
                 switch (propName) {
