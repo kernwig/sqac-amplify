@@ -16,14 +16,6 @@ import {LayoutService} from "./services/layout.service";
 
 const largeScreenWidth = 1360;
 
-interface NavMenuItem {
-    display: string;
-    routerLink: string[];
-    showActive: boolean;
-    onNavBar?: boolean;
-    isSessionItem?: boolean;
-}
-
 @Component({
     selector: 'sqac-root',
     templateUrl: './app.component.html',
@@ -32,36 +24,6 @@ interface NavMenuItem {
 export class AppComponent extends AbstractBaseComponent implements OnInit {
     @ViewChild('errorModal') public errorModal: ModalDirective;
 
-    readonly navMenuItems: NavMenuItem[] = [
-        {
-            display: "Home",
-            routerLink: ["/home"],
-            showActive: true
-        },
-        {
-            display: "Dance",
-            routerLink: ["/dance"],
-            showActive: true
-        },
-        {
-            display: "Session",
-            routerLink: ["/sessions"],
-            showActive: true,
-            isSessionItem: true
-        },
-        {
-            display: "Collections",
-            routerLink: ["/collections"],
-            showActive: true
-        },
-        {
-            display: "My Account",
-            routerLink: ["/home/account"],
-            onNavBar: false,
-            showActive: false
-        }
-    ];
-    isNavCollapsed: boolean = true;
     errorTitle: string;
     errorMessages: string[] = [];
     isLargeScreen = false;

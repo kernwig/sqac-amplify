@@ -79,9 +79,7 @@ export class UserService {
             const auth = this.amplifySvc.auth() as AuthClass;
             auth.currentSession()
                 .then(() => auth.currentAuthenticatedUser())
-                .then(user => {
-                    this.onCognitoUserAuth(user);
-                })
+                .then(user => this.onCognitoUserAuth(user))
                 .catch(err => {
                     console.warn("renewAuthentication failure", err);
                     // No user - make sure storage is clean.
@@ -94,17 +92,27 @@ export class UserService {
      * Cognito user authentication changed. Process it.
      * @param cognitoUser a CognitoUser https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html#cognito-user-pools-standard-attributes
      */
-    private onCognitoUserAuth(cognitoUser: any|undefined) {
-        const newUser: AuthUser = cognitoUser && cognitoUser.attributes
-            ? {
-                id: cognitoUser.attributes.sub,
-                email: cognitoUser.attributes.email,
-                name: cognitoUser.attributes.name || "Unknown",
-                photo: cognitoUser.attributes.picture
-            }
-            : undefined;
+    private async onCognitoUserAuth(cognitoUser: any|undefined) {
+        if (cognitoUser) {
+            // Ignore CognitoUser content. Storage uses the Cognito Identity Pool's
+            // subject ID for the storage path, so that's the one we want to use.
+            let cognitoIdentity = await (this.amplifySvc.auth() as AuthClass).currentUserInfo();
+            console.log("cognitoIdentity", cognitoIdentity);
 
-        return this.onUserAuth(newUser);
+            const newUser: AuthUser = cognitoIdentity && cognitoIdentity.attributes
+                ? {
+                    id: cognitoIdentity.id,
+                    email: cognitoIdentity.attributes.email,
+                    name: cognitoIdentity.attributes.name || "Unknown",
+                    photo: cognitoIdentity.attributes.picture
+                }
+                : undefined;
+
+            return this.onUserAuth(newUser);
+        }
+        else {
+            return this.onUserAuth(undefined);
+        }
     }
 
     /**
@@ -130,8 +138,7 @@ export class UserService {
                     // Save user data after
                     localStorage.setItem(STORAGE_KEY, JSON.stringify(this.authUser));
                     this.user$.next(this.settings);
-                })
-                .catch(ex => console.error(ex));
+                });
         }
         else {
             console.log("Logout");
@@ -253,8 +260,8 @@ export class UserService {
             await this.toastr.success("Saved changes", "Account");
             return this.settings;
         }
-        else if (!sendOnly) {
-            console.log("Check for updated content on server");
+        else if (!sendOnly && (await this.persistSvc.isNewerInCloud(this.settings))) {
+            console.log("Read updated content from server");
             let tmp = await this.persistSvc.loadUser();
 
             if (tmp.modified.getTime() > this.settings.modified.getTime()) {
@@ -286,9 +293,9 @@ export class UserService {
         this.settings.name = user.name;
         this.settings.email = user.email;
 
-        // FIXME: Default collections
-        // ["callerlab-basic","callerlab-mainstream","callerlab-plus","adam-classics"]
-        //     .forEach(c => this.settings.collections.add(c));
+        // Default collections
+        ["0000/callerlab-basic", "0000/callerlab-mainstream", "0000/classics", "0000/ceder-basic"]
+            .forEach(c => this.settings.collections.add(c));
 
         return this.settings;
     }

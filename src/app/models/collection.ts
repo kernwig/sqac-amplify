@@ -85,7 +85,11 @@ export class Collection extends AbstractStorableModel {
     }
 
     /** Initialize content from JSON */
-    public static fromJSON(json: CollectionJSON): Collection {
+    public static fromJSON(json?: CollectionJSON): Collection|undefined {
+        if (!json) {
+            return undefined;
+        }
+
         let o = new Collection(json.id);
         AbstractStorableModel.fromAbstractJSON(json, o);
         o.name = json.name;

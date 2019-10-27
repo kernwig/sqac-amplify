@@ -1,0 +1,179 @@
+{
+	"id": "classics",
+	"schemaRev": 1,
+	"created": "2017-01-03T02:07:41.830Z",
+	"modified": "2017-07-29T01:21:36.408Z",
+	"name": "Square Dance Classics",
+    "author": "Adam Fanello",
+    "authorUserId": "0000",
+	"description": "Classic modules from the early days.",
+  "isCloudBacked": true,
+	"isPublic": true,
+	"difficulty": 3,
+	"level": "B2",
+	"formations": [],
+	"families": [],
+	"calls": [],
+	"modules": [
+		{
+			"id": "ac433a10-1757-11e7-bff0-13fbda2d416f",
+			"name": "Original Chicken Plucker",
+			"level": "B1",
+			"startFormation": "S",
+			"endFormation": "S",
+			"startHandBelle": "any",
+			"startHandBeau": "any",
+			"endHandBelle": "any",
+			"endHandBeau": "any",
+			"startFlowBelle": "forward",
+			"startFlowBeau": "forward",
+			"endFlowBelle": "none",
+			"endFlowBeau": "none",
+			"difficulty": "2",
+			"sequence": [
+				{
+					"call": "557530c0-c160-11e6-8c75-f73c7d9e2ace",
+					"altCommand": "One and three forward and back"
+				},
+				{
+					"call": "f4331920-c160-11e6-fb31-89e6a6053bb8"
+				},
+				{
+					"call": "e7d103c0-c160-11e6-fb31-89e6a6053bb8"
+				},
+				{
+					"call": "de3e57c0-c160-11e6-9651-6f3010b87b37",
+					"altCommand": ""
+				},
+				{
+					"call": "f4331920-c160-11e6-fb31-89e6a6053bb8"
+				},
+				{
+					"call": "774b0ea0-c160-11e6-9651-6f3010b87b37"
+				},
+				{
+					"call": "be411d60-c160-11e6-fb31-89e6a6053bb8"
+				},
+				{
+					"call": "f4331920-c160-11e6-fb31-89e6a6053bb8"
+				},
+				{
+					"call": "0b576070-c160-11e6-fb31-89e6a6053bb8"
+				},
+				{
+					"call": "be411d60-c160-11e6-fb31-89e6a6053bb8"
+				},
+				{
+					"call": "f4331920-c160-11e6-fb31-89e6a6053bb8"
+				},
+				{
+					"call": "0b576070-c160-11e6-fb31-89e6a6053bb8",
+					"altCommand": "Right & Left Thru the outside two"
+				},
+				{
+					"call": "be411d60-c160-11e6-fb31-89e6a6053bb8"
+				},
+				{
+					"call": "f4331920-c160-11e6-fb31-89e6a6053bb8"
+				},
+				{
+					"call": "0b576070-c160-11e6-fb31-89e6a6053bb8",
+					"altCommand": "Right & Left Thru the outside two"
+				},
+				{
+					"call": "be411d60-c160-11e6-fb31-89e6a6053bb8"
+				},
+				{
+					"call": "f4331920-c160-11e6-fb31-89e6a6053bb8"
+				},
+				{
+					"call": "a4b16da0-c160-11e6-ef23-3b0feb1c784c"
+				},
+				{
+					"call": "55ee4870-c160-11e6-fb31-89e6a6053bb8",
+					"altCommand": "Grand right and left"
+				},
+				{
+					"call": "7b545b40-c160-11e6-ef92-11470d496f84"
+				}
+			],
+			"notes": "Credit: Bill Shymkus; Jim Mayo\n"
+		},
+		{
+			"id": "box-chicken-plucker",
+			"name": "Boxed Chicken Plucker",
+			"level": "B1",
+			"startFormation": "B",
+			"endFormation": "B",
+			"startHandBelle": "any",
+			"startHandBeau": "any",
+			"endHandBelle": "any",
+			"endHandBeau": "any",
+			"startFlowBelle": "forward",
+			"startFlowBeau": "forward",
+			"endFlowBelle": "forward",
+			"endFlowBeau": "back",
+			"difficulty": "2",
+			"sequence": [
+				{
+					"call": "0b576070-c160-11e6-fb31-89e6a6053bb8"
+				},
+				{
+					"call": "be411d60-c160-11e6-fb31-89e6a6053bb8"
+				},
+				{
+					"call": "f4331920-c160-11e6-fb31-89e6a6053bb8"
+				},
+				{
+					"call": "0b576070-c160-11e6-fb31-89e6a6053bb8"
+				},
+				{
+					"call": "be411d60-c160-11e6-fb31-89e6a6053bb8"
+				},
+				{
+					"call": "f4331920-c160-11e6-fb31-89e6a6053bb8",
+					"altCommand": ""
+				}
+			],
+			"notes": "Credit: Bill Shymkus; Jim Mayo\n"
+		},
+		{
+			"id": "418e1f80-6c31-11e7-ad07-8385e540d287",
+			"name": "Chicken Plucker Trade By",
+			"level": "B2",
+			"startFormation": "B",
+			"endFormation": "B",
+			"startHandBelle": "any",
+			"startHandBeau": "any",
+			"endHandBelle": "any",
+			"endHandBeau": "any",
+			"startFlowBelle": "forward",
+			"startFlowBeau": "forward",
+			"endFlowBelle": "none",
+			"endFlowBeau": "none",
+			"difficulty": 1,
+			"sequence": [
+				{
+					"call": "0b576070-c160-11e6-fb31-89e6a6053bb8"
+				},
+				{
+					"call": "f4331920-c160-11e6-fb31-89e6a6053bb8"
+				},
+				{
+					"call": "ed693e70-167d-11e7-8663-3d71a51980f1"
+				},
+				{
+					"call": "0b576070-c160-11e6-fb31-89e6a6053bb8"
+				},
+				{
+					"call": "f4331920-c160-11e6-fb31-89e6a6053bb8"
+				},
+				{
+					"call": "ed693e70-167d-11e7-8663-3d71a51980f1"
+				}
+			],
+			"notes": "Credit: Bill Shymkus; Jim Mayo\nThe classic upgraded with Trade By."
+		}
+	],
+	"license": "CC0"
+}

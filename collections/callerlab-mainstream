@@ -1,0 +1,486 @@
+{
+	"id": "callerlab-mainstream",
+	"schemaRev": 1,
+	"created": "2017-01-03T02:07:41.830Z",
+	"modified": "2017-12-10T23:28:47.112Z",
+	"revision": 1,
+	"isCloudBacked": true,
+	"name": "CALLERLAB Mainstream",
+    "author": "Adam Fanello",
+    "authorUserId": "0000",
+	"description": "Formations, families, and calls for the Mainstream dance level.",
+	"isPublic": true,
+	"difficulty": 1,
+	"level": "MS",
+	"formations": [],
+	"families": [
+		{
+			"id": "7da026d0-1254-11e7-9758-83dc817924b6",
+			"name": "Cast Off 3/4",
+			"level": "MS"
+		},
+		{
+			"id": "7c05fed0-1254-11e7-9758-83dc817924b6",
+			"name": "Centers In",
+			"level": "MS"
+		},
+		{
+			"id": "592d3fe0-1254-11e7-9758-83dc817924b6",
+			"name": "Cloverleaf",
+			"level": "MS"
+		},
+		{
+			"id": "8c043bd0-1254-11e7-9758-83dc817924b6",
+			"name": "Dixie Style to an Ocean Wave",
+			"level": "MS"
+		},
+		{
+			"id": "6dc57760-1254-11e7-9758-83dc817924b6",
+			"name": "Eight Chain Thru",
+			"level": "MS"
+		},
+		{
+			"id": "8ae7cf50-1254-11e7-9758-83dc817924b6",
+			"name": "Fold",
+			"level": "MS"
+		},
+		{
+			"id": "71b35360-1254-11e7-9758-83dc817924b6",
+			"name": "Hinge",
+			"level": "MS"
+		},
+		{
+			"id": "6fe85760-1254-11e7-9758-83dc817924b6",
+			"name": "Pass to the Center",
+			"level": "MS"
+		},
+		{
+			"id": "a2a318c0-1254-11e7-9758-83dc817924b6",
+			"name": "Recycle",
+			"level": "MS"
+		},
+		{
+			"id": "87089950-1254-11e7-9758-83dc817924b6",
+			"name": "Slide Thru",
+			"level": "MS"
+		},
+		{
+			"id": "8f8cc650-1254-11e7-9758-83dc817924b6",
+			"name": "Spin Chain Thru",
+			"level": "MS"
+		},
+		{
+			"id": "7ff64bd0-1254-11e7-9758-83dc817924b6",
+			"name": "Spin the Top",
+			"level": "MS"
+		},
+		{
+			"id": "91245640-1254-11e7-9758-83dc817924b6",
+			"name": "Tag",
+			"level": "MS"
+		},
+		{
+			"id": "67a292f0-1254-11e7-9758-83dc817924b6",
+			"name": "Turn Thru",
+			"level": "MS"
+		},
+		{
+			"id": "850cc950-1254-11e7-9758-83dc817924b6",
+			"name": "Walk and Dodge",
+			"level": "MS"
+		},
+		{
+			"id": "d9bb9920-d2ea-11e7-a944-bb5a48a3d260",
+			"name": "Scoot Back",
+			"level": "MS"
+		}
+	],
+	"calls": [
+		{
+			"id": "eb924040-2c91-11e7-9d26-c11e7feecd35",
+			"command": "Cast Off 3/4",
+			"beats": 6,
+			"family": "7da026d0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "c0bf7a02-d2e4-11e7-a944-bb5a48a3d260",
+			"command": "Centers In",
+			"beats": 2,
+			"family": "7c05fed0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "15a1d2c0-d2e5-11e7-a944-bb5a48a3d260",
+			"command": "Put Centers In",
+			"beats": 2,
+			"family": "7c05fed0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "4ba3b5a0-d231-11e7-8b66-2def21477aa6",
+			"command": "and Cloverleaf (2-couples)",
+			"beats": 6,
+			"family": "592d3fe0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "f1a009f0-d230-11e7-8b66-2def21477aa6",
+			"command": "Cloverleaf",
+			"beats": 8,
+			"family": "592d3fe0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "cb3d13c2-d2e9-11e7-a944-bb5a48a3d260",
+			"command": "Centers Dixie Style to a Wave",
+			"beats": 6,
+			"family": "8c043bd0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "150b1434-d2e9-11e7-a944-bb5a48a3d260",
+			"command": "Dixie Style to a Wave",
+			"beats": 6,
+			"family": "8c043bd0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "ba597fd0-d2e9-11e7-a944-bb5a48a3d260",
+			"command": "Dixie Style to an Ocean Wave",
+			"beats": 6,
+			"family": "8c043bd0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "cb3d13c3-d2e9-11e7-a944-bb5a48a3d260",
+			"command": "Girls Lead, Dixie Style to an Ocean Wave",
+			"beats": 8,
+			"family": "8c043bd0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "cb3d13c0-d2e9-11e7-a944-bb5a48a3d260",
+			"command": "Heads Dixie Style to a Wave",
+			"beats": 6,
+			"family": "8c043bd0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "cb3d13c1-d2e9-11e7-a944-bb5a48a3d260",
+			"command": "Sides Dixie Style to a Wave",
+			"beats": 6,
+			"family": "8c043bd0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "71fee9b0-d2e3-11e7-a944-bb5a48a3d260",
+			"command": "Eight Chain 1",
+			"beats": 2,
+			"family": "6dc57760-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "d1e56390-d2e3-11e7-a944-bb5a48a3d260",
+			"command": "Eight Chain 2",
+			"beats": 5,
+			"family": "6dc57760-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "d1e56391-d2e3-11e7-a944-bb5a48a3d260",
+			"command": "Eight Chain 3",
+			"beats": 7,
+			"family": "6dc57760-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "d1e56392-d2e3-11e7-a944-bb5a48a3d260",
+			"command": "Eight Chain 4",
+			"beats": 10,
+			"family": "6dc57760-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "d1e56393-d2e3-11e7-a944-bb5a48a3d260",
+			"command": "Eight Chain 5",
+			"beats": 12,
+			"family": "6dc57760-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "d1e56394-d2e3-11e7-a944-bb5a48a3d260",
+			"command": "Eight Chain 6",
+			"beats": 15,
+			"family": "6dc57760-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "d1e56395-d2e3-11e7-a944-bb5a48a3d260",
+			"command": "Eight Chain 7",
+			"beats": 17,
+			"family": "6dc57760-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "d1e56396-d2e3-11e7-a944-bb5a48a3d260",
+			"command": "Eight Chain Thru",
+			"beats": 20,
+			"family": "6dc57760-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "150b1430-d2e9-11e7-a944-bb5a48a3d260",
+			"command": "Boys Cross Fold",
+			"beats": 4,
+			"family": "8ae7cf50-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "f4baadd0-d2e8-11e7-a944-bb5a48a3d260",
+			"command": "Boys Fold",
+			"beats": 2,
+			"family": "8ae7cf50-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "150b1433-d2e9-11e7-a944-bb5a48a3d260",
+			"command": "Centers Cross Fold",
+			"beats": 4,
+			"family": "8ae7cf50-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "f4baadd3-d2e8-11e7-a944-bb5a48a3d260",
+			"command": "Centers Fold",
+			"beats": 2,
+			"family": "8ae7cf50-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "150b1432-d2e9-11e7-a944-bb5a48a3d260",
+			"command": "Ends Cross Fold",
+			"beats": 4,
+			"family": "8ae7cf50-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "f4baadd2-d2e8-11e7-a944-bb5a48a3d260",
+			"command": "Ends Fold",
+			"beats": 2,
+			"family": "8ae7cf50-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "150b1431-d2e9-11e7-a944-bb5a48a3d260",
+			"command": "Girls Cross Fold",
+			"beats": 4,
+			"family": "8ae7cf50-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "f4baadd1-d2e8-11e7-a944-bb5a48a3d260",
+			"command": "Girls Fold",
+			"beats": 2,
+			"family": "8ae7cf50-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "c0bf7a00-d2e4-11e7-a944-bb5a48a3d260",
+			"command": "Boys Hinge",
+			"beats": 2,
+			"family": "71b35360-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "b361d880-d2e4-11e7-a944-bb5a48a3d260",
+			"command": "Centers Hinge",
+			"beats": 2,
+			"family": "71b35360-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "a7ba9990-d2e4-11e7-a944-bb5a48a3d260",
+			"command": "Couples Hinge",
+			"beats": 3,
+			"family": "71b35360-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "c0bf7a01-d2e4-11e7-a944-bb5a48a3d260",
+			"command": "Girls Hinge",
+			"beats": 2,
+			"family": "71b35360-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "71048eb0-d2e4-11e7-a944-bb5a48a3d260",
+			"command": "Hinge",
+			"beats": 2,
+			"family": "71b35360-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "a20a4d10-d2e4-11e7-a944-bb5a48a3d260",
+			"command": "Single Hinge",
+			"beats": 2,
+			"family": "71b35360-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "d1e56397-d2e3-11e7-a944-bb5a48a3d260",
+			"command": "Pass to the Center",
+			"beats": 6,
+			"family": "6fe85760-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "6a11c1a0-2c94-11e7-9d26-c11e7feecd35",
+			"command": "Centers Recycle",
+			"beats": 4,
+			"family": "a2a318c0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "1625dd90-d2ea-11e7-a944-bb5a48a3d260",
+			"command": "Recycle",
+			"beats": 4,
+			"family": "a2a318c0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "5184d050-2c94-11e7-9d26-c11e7feecd35",
+			"command": "Recycle",
+			"beats": 4,
+			"family": "a2a318c0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "e878a390-d2ea-11e7-a944-bb5a48a3d260",
+			"command": "Centers Scoot Back",
+			"beats": 6,
+			"family": "d9bb9920-d2ea-11e7-a944-bb5a48a3d260"
+		},
+		{
+			"id": "e3f51740-d2ea-11e7-a944-bb5a48a3d260",
+			"command": "Scoot Back",
+			"beats": 6,
+			"family": "d9bb9920-d2ea-11e7-a944-bb5a48a3d260"
+		},
+		{
+			"id": "c6c04160-d2ed-11e7-b81e-9d4592219e9f",
+			"command": "Centers Slide Thru",
+			"beats": 6,
+			"family": "87089950-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "9f4d2040-aef2-11e7-858a-23e158bbbb16",
+			"command": "Heads Slide Thru",
+			"beats": 6,
+			"family": "87089950-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "9f4d2041-aef2-11e7-858a-23e158bbbb16",
+			"command": "Sides Slide Thru",
+			"beats": 6,
+			"family": "87089950-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "d8438340-2c92-11e7-9d26-c11e7feecd35",
+			"command": "Slide Thru",
+			"beats": 4,
+			"family": "87089950-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "dd226040-d2e9-11e7-a944-bb5a48a3d260",
+			"command": "Spin Chain Thru",
+			"beats": 16,
+			"family": "8f8cc650-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "19b92fc0-d2e5-11e7-a944-bb5a48a3d260",
+			"command": "Spin The Top",
+			"beats": 8,
+			"family": "7ff64bd0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "6ae852e0-2c91-11e7-9d26-c11e7feecd35",
+			"command": "Centers Half Tag",
+			"beats": 4,
+			"family": "91245640-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "536186f4-2c91-11e7-9d26-c11e7feecd35",
+			"command": "Centers Tag the Line",
+			"beats": 8,
+			"family": "91245640-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "5ad09a70-2c91-11e7-9d26-c11e7feecd35",
+			"command": "Half Tag",
+			"beats": 4,
+			"family": "91245640-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "fa9c4eb0-2c90-11e7-9d26-c11e7feecd35",
+			"command": "Tag the Line",
+			"beats": 6,
+			"family": "91245640-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "536186f0-2c91-11e7-9d26-c11e7feecd35",
+			"command": "Tag the Line - In",
+			"beats": 8,
+			"family": "91245640-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "536186f2-2c91-11e7-9d26-c11e7feecd35",
+			"command": "Tag the Line - Left",
+			"beats": 8,
+			"family": "91245640-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "536186f1-2c91-11e7-9d26-c11e7feecd35",
+			"command": "Tag the Line - Out",
+			"beats": 8,
+			"family": "91245640-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "536186f3-2c91-11e7-9d26-c11e7feecd35",
+			"command": "Tag the Line - Right",
+			"beats": 8,
+			"family": "91245640-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "caf9abc0-d231-11e7-8b66-2def21477aa6",
+			"command": "Boys Turn Thru",
+			"beats": 4,
+			"family": "67a292f0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "caf9abc1-d231-11e7-8b66-2def21477aa6",
+			"command": "Girls Turn Thru",
+			"beats": 4,
+			"family": "67a292f0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "b18f79d0-d231-11e7-8b66-2def21477aa6",
+			"command": "Heads Turn Thru",
+			"beats": 4,
+			"family": "67a292f0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "b18f79d1-d231-11e7-8b66-2def21477aa6",
+			"command": "Sides Turn Thru",
+			"beats": 4,
+			"family": "67a292f0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "7cf28af0-d231-11e7-8b66-2def21477aa6",
+			"command": "Turn Thru",
+			"beats": 4,
+			"family": "67a292f0-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "b77b2330-2c91-11e7-9d26-c11e7feecd35",
+			"command": "Boys Walk, Girls Dodge",
+			"beats": 4,
+			"family": "850cc950-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "b243d740-2c91-11e7-9d26-c11e7feecd35",
+			"command": "Centers Walk and Dodge",
+			"beats": 4,
+			"family": "850cc950-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "c0056ab0-2c91-11e7-9d26-c11e7feecd35",
+			"command": "Girls Walk, Boys Dodge",
+			"beats": 4,
+			"family": "850cc950-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "9a7a35f0-2c91-11e7-9d26-c11e7feecd35",
+			"command": "Walk and Dodge",
+			"beats": 4,
+			"family": "850cc950-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "c6f5caa0-de01-11e7-b76f-9394c327f1f6",
+			"command": "Left Hinge",
+			"beats": 2,
+			"family": "71b35360-1254-11e7-9758-83dc817924b6"
+		},
+		{
+			"id": "d262bfb0-de01-11e7-b76f-9394c327f1f6",
+			"command": "Centers Left Hinge",
+			"beats": 2,
+			"family": "71b35360-1254-11e7-9758-83dc817924b6"
+		}
+	],
+	"modules": [],
+	"license": "©CALLERLAB"
+}
