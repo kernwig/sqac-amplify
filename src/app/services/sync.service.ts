@@ -56,7 +56,7 @@ export class SyncService {
             return this.toastr.warning("Please connect to the Internet and try again.", "Offline");
         }
 
-        let user = userSvc.user$.getValue();
+        const user = userSvc.user$.getValue();
         if (user) {
             try {
                 await collectionSvc.sync(false);

@@ -28,7 +28,7 @@ export class ContinuationControlComponent implements AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit() {
-        let config: noUiSlider.Options = {
+        const config: noUiSlider.Options = {
             start: [this.choreoSvc.continuationProbability],
             range: {
                 min: 0,
@@ -43,17 +43,16 @@ export class ContinuationControlComponent implements AfterViewInit, OnDestroy {
             }
         };
 
-        let elem = this.slider.nativeElement;
+        const elem = this.slider.nativeElement;
         noUiSlider.create(elem, config);
 
         elem.noUiSlider.on('set', (values: any[]) => {
-            let value = Number.parseFloat(values[0]);
-            this.choreoSvc.continuationProbability = value;
+            this.choreoSvc.continuationProbability = Number.parseFloat(values[0]);
         });
     }
 
     ngOnDestroy() {
-        let elem = this.slider.nativeElement;
+        const elem = this.slider.nativeElement;
         elem.noUiSlider.off('set');
         elem.noUiSlider.destroy();
     }
@@ -61,13 +60,17 @@ export class ContinuationControlComponent implements AfterViewInit, OnDestroy {
 
 class ContinuationFormatter {
     to(value: number): string {
-        if (value === 0)
+        if (value === 0) {
             return "Resolve";
-        else if (value === 100)
+        }
+        else if (value === 100) {
             return "Forever";
-        else if (value === 50)
+        }
+        else if (value === 50) {
             return "Even Odds";
-        else
+        }
+        else {
             return value + "%";
+        }
     }
 }

@@ -1,3 +1,4 @@
+/* tslint:disable:max-line-length */
 /**
  * Pre-defined licenses for collections.
  */

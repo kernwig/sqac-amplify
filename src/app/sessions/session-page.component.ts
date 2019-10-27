@@ -27,7 +27,7 @@ interface UiModelItem {
 export class SessionPageComponent extends AbstractBaseComponent implements OnInit, OnDestroy {
 
     /** Make Math object available to template */
-    readonly Math: any = Math;
+    readonly Math = Math;
 
     readonly danceLevels = [];
 
@@ -70,7 +70,7 @@ export class SessionPageComponent extends AbstractBaseComponent implements OnIni
 
         this.router.events
             .pipe(filter(ev => ev instanceof ActivationStart), takeUntil(this.destroy$))
-            .subscribe(ev => this.navigatedAway());
+            .subscribe(() => this.navigatedAway());
 
         this.collectionSvc.changed$.pipe(takeUntil(this.destroy$))
             .subscribe(() => this.refreshUiModels());
@@ -106,34 +106,38 @@ export class SessionPageComponent extends AbstractBaseComponent implements OnIni
     }
     private refreshUiModels() {
         // Wait for session to be defined
-        if (!this.session)
+        if (!this.session) {
             return;
+        }
 
         // Build UI model for Collections
         this.collections = [];
         this.collectionSvc.forEach((c: Collection) => {
-            if (c.modules.length === 0)
+            if (c.modules.length === 0) {
                 return;
+            }
 
             this.collections.push({
                 id: c.id,
                 name: c.name,
                 enabled: this.session.enabledCollections.has(c.id)
-            })
+            });
         });
         this.collections.sort((a, b) => a.name.localeCompare(b.name));
 
         // Build UI model for Families
         DanceLevels.forEach(level => {
-            if (level !== "NO" && compareDanceLevels(level as DanceLevel, this.session.level) <= 0)
+            if (level !== "NO" && compareDanceLevels(level as DanceLevel, this.session.level) <= 0) {
                 this.danceLevels.push(level);
+            }
         });
 
         this.useAnyFamily = (this.session.enabledFamilies.size === 0);
         this.families = [];
         this.familySvc.forEach((f: Family) => {
-            if (compareDanceLevels(f.level, this.session.level) > 0)
+            if (compareDanceLevels(f.level, this.session.level) > 0) {
                 return;
+            }
 
             this.families.push({
                 id: f.id,

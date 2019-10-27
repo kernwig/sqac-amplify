@@ -46,47 +46,48 @@ export interface SearchItem {
         .search-popup { width: 20em; }
     `]
 })
-export class SearchableInputComponent {
+export class SearchableInputComponent<T extends SearchItem> {
     /** Ordered list of available items */
-    @Input() availableItems: SearchItem[];
+    @Input() availableItems: T[];
     /** Current selection to display */
-    @Input() selection: SearchItem;
+    @Input() selection: T;
 
     /** Emit when selection changes */
-    @Output() selectionChange = new EventEmitter<SearchItem>();
+    @Output() selectionChange = new EventEmitter<T>();
 
     /** Show the matches above the input (true) or below (false)? */
-    showAbove: boolean = false;
+    showAbove = false;
 
     @ViewChild('inputBar') inputBar: ElementRef;
     @ViewChild('matchItemList') matchItemList: BsDropdownMenuDirective;
     @ViewChild('scrollIntoView') scrollIntoViewElem: ElementRef;
 
     /** availableItems filtered by search input */
-    matchedItems = [] as SearchItem[];
+    matchedItems = [] as T[];
 
-    highlightMatchIdx: number = 0;
+    highlightMatchIdx = 0;
 
     /**
      * Update matchedItems.
      */
     applySearch(): void {
-        let inputBar: HTMLInputElement = this.inputBar.nativeElement;
-        let search = inputBar.value as string;
+        const inputBar: HTMLInputElement = this.inputBar.nativeElement;
+        const search = inputBar.value as string;
 
         if (search) {
             // Match anything with the characters in the order given
             let exp = '';
-            for (let c of search)
+            for (const c of search) {
                 exp += '.*' + c;
-            let rexp = new RegExp(exp, 'i');
-            let list = this.availableItems
+            }
+            const rexp = new RegExp(exp, 'i');
+            const list = this.availableItems
                 .filter(item => rexp.test(item.searchableName))
-                .sort((a,b) => a.searchableName.length - b.searchableName.length);
+                .sort((a, b) => a.searchableName.length - b.searchableName.length);
             this.matchedItems = list.length > 10 ? list.slice(0, 10) : list;
             this.highlightMatchIdx = 0;
 
-            this.showAbove = inputBar.getBoundingClientRect().top > (window.innerHeight/2);
+            this.showAbove = inputBar.getBoundingClientRect().top > (window.innerHeight / 2);
         }
         else {
             this.clear();
@@ -100,8 +101,7 @@ export class SearchableInputComponent {
     }
 
     /** User clicked on a matchItem */
-    onMatchClick(item: SearchItem) {
-        //this.selection = item;
+    onMatchClick(item: T) {
         this.selectionChange.emit(item);
         this.clear();
     }
@@ -113,38 +113,43 @@ export class SearchableInputComponent {
     }
 
     finish() {
-        if (this.matchedItems && this.highlightMatchIdx < this.matchedItems.length)
+        if (this.matchedItems && this.highlightMatchIdx < this.matchedItems.length) {
             this.onMatchClick(this.matchedItems[this.highlightMatchIdx]);
-        else
+        }
+        else {
             this.clear();
+        }
     }
 
     onKeyup(event: KeyboardEvent) {
+        // noinspection JSDeprecatedSymbols
         switch (event.keyCode) {
-            case 9: //tab
-            case 13: //enter
+            case 9: // tab
+            case 13: // enter
                 this.finish();
                 break;
-            case 27: //etc
+            case 27: // etc
                 this.clear();
                 break;
-            case 33: //page up
+            case 33: // page up
                 this.highlightMatchIdx = 0;
                 event.stopPropagation();
                 event.preventDefault();
                 break;
-            case 34: //page down
-                this.highlightMatchIdx = (this.matchedItems ? this.matchedItems.length-1 : 0);
+            case 34: // page down
+                this.highlightMatchIdx = (this.matchedItems ? this.matchedItems.length - 1 : 0);
                 event.stopPropagation();
                 event.preventDefault();
                 break;
-            case 38: //cursor up
-                if (this.matchedItems)
-                    this.highlightMatchIdx = (this.highlightMatchIdx > 0) ? this.highlightMatchIdx-1 : this.matchedItems.length-1;
+            case 38: // cursor up
+                if (this.matchedItems) {
+                    this.highlightMatchIdx = (this.highlightMatchIdx > 0) ? this.highlightMatchIdx - 1 : this.matchedItems.length - 1;
+                }
                 break;
-            case 40: //cursor down
-                if (this.matchedItems)
-                    this.highlightMatchIdx = (this.highlightMatchIdx < this.matchedItems.length-1) ? this.highlightMatchIdx+1 : 0;
+            case 40: // cursor down
+                if (this.matchedItems) {
+                    this.highlightMatchIdx = (this.highlightMatchIdx < this.matchedItems.length - 1) ? this.highlightMatchIdx + 1 : 0;
+                }
                 break;
         }
     }

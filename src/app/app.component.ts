@@ -61,7 +61,8 @@ export class AppComponent extends AbstractBaseComponent implements OnInit {
         this.errorSvc.error$.subscribe((error) => this.showError(error));
 
         // Subscribe to user changes
-        this.userSvc.user$.pipe(takeUntil(this.destroy$))
+        this.userSvc.user$
+            .pipe(takeUntil(this.destroy$))
             .subscribe(userSettings => {
                 this.userSettings = userSettings;
                 if (!this.userSettings) {
@@ -83,7 +84,7 @@ export class AppComponent extends AbstractBaseComponent implements OnInit {
                 }
                 else {
                     // Scroll to top of window
-                    window.scrollTo(0,0);
+                    window.scrollTo(0, 0);
                 }
             });
 
@@ -103,19 +104,21 @@ export class AppComponent extends AbstractBaseComponent implements OnInit {
         this.showSidebar = this.isLargeScreen;
         window.addEventListener('resize', () => {
             this.isLargeScreen = window.innerWidth > largeScreenWidth;
-            if (this.isLargeScreen)
+            if (this.isLargeScreen) {
                 this.showSidebar = true;
+            }
         });
 
         // Update UI when navigating to a new page
         this.router.events.pipe(filter(ev => ev instanceof ActivationStart))
-            .subscribe((event) => {
+            .subscribe(() => {
                 // Close help and hide button
                 this.layoutSvc.showHelp$.next(undefined);
 
                 // Hide sidebar when navigating away on a small screen
-                if (this.showSidebar && !this.isLargeScreen)
+                if (this.showSidebar && !this.isLargeScreen) {
                     this.showSidebar = false;
+                }
             });
     }
 
@@ -129,8 +132,9 @@ export class AppComponent extends AbstractBaseComponent implements OnInit {
      * Register all the event handlers for application update flow
      */
     appUpdateFlow() {
-        if (!this.swUpdate)
+        if (!this.swUpdate) {
             return;
+        }
 
         console.log("Registering app update flow");
 

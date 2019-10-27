@@ -4,7 +4,6 @@ import {Collection} from "../../models/collection";
 @Component({
     selector: 'sqac-one-collection',
     templateUrl: './one-collection.component.html',
-    //styleUrls: ['./one-collection.component.scss']
 })
 export class OneCollectionComponent {
 
@@ -18,7 +17,7 @@ export class OneCollectionComponent {
     @Input() isOnHistoryScreen = false;
 
     /** Is this an old revision */
-    @Input() isHistory: boolean = false;
+    @Input() isHistory = false;
 
     /** Is the current user the author of this collection? */
     @Input() isAuthor: boolean;

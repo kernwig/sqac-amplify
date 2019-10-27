@@ -18,7 +18,6 @@ import {takeUntil} from "rxjs/operators";
 @Component({
     selector: 'sqac-edit-calls',
     templateUrl: './edit-calls.component.html',
-    //styleUrls: ['./edit-calls.component.scss']
 })
 export class EditCallsComponent extends AbstractBaseComponent implements OnInit, OnDestroy {
 
@@ -34,7 +33,7 @@ export class EditCallsComponent extends AbstractBaseComponent implements OnInit,
     usedCalls = new Set<string>();
 
     /** May these calls be modified? */
-    isMutable: boolean = false;
+    isMutable = false;
 
     /** Construct */
     constructor(private route: ActivatedRoute,
@@ -51,11 +50,11 @@ export class EditCallsComponent extends AbstractBaseComponent implements OnInit,
      * Initialize Page
      */
     ngOnInit() {
-        combineLatest(this.userSvc.user$, this.route.params)
+        combineLatest([this.userSvc.user$, this.route.params])
             .pipe(takeUntil(this.destroy$))
             .subscribe((values: [UserSettings, Params]) => {
-                let user = values[0];
-                let cid = values[1]['cid'];
+                const user = values[0];
+                const cid = values[1]['cid'];
                 this.collection = this.collectionSvc.get(cid);
 
                 if (this.collection) {
@@ -69,9 +68,10 @@ export class EditCallsComponent extends AbstractBaseComponent implements OnInit,
                     Family.sort(this.availableFamilies);
 
                     // Cache usage information
-                    for (let call of this.collection.calls) {
-                        if (this.moduleSvc.isCallReferenced(call))
+                    for (const call of this.collection.calls) {
+                        if (this.moduleSvc.isCallReferenced(call)) {
                             this.usedCalls.add(call.id);
+                        }
                     }
                 }
             });
@@ -96,10 +96,10 @@ export class EditCallsComponent extends AbstractBaseComponent implements OnInit,
      * @param beats value as a string
      */
     setBeats(call: Call, beats: string) {
-        let n = parseInt(beats);
+        const n = Number.parseInt(beats, 10);
         if (Number.isInteger(n)) {
             call.beats = n;
-            this.setModified()
+            this.setModified();
         }
         else {
             console.log("setBeats(call, " + n + ") invalid");
@@ -122,7 +122,7 @@ export class EditCallsComponent extends AbstractBaseComponent implements OnInit,
             call.family = family;
         }
         else {
-            console.log("setFamily(call, "+family+") : Invalid Family");
+            console.log("setFamily(call, " + family + ") : Invalid Family");
         }
     }
 
@@ -134,14 +134,14 @@ export class EditCallsComponent extends AbstractBaseComponent implements OnInit,
 
         if (this.adding.isAvailable) {
             // Add the completed Call(s)
-            let parts = this.adding.command.split('|');
+            const parts = this.adding.command.split('|');
             if (parts.length > 3) {
                 // Bulk add using the |this|and|that| syntax
-                for (let choice = 1; choice < parts.length-1; ++choice) {
-                    let call = new Call();
+                for (let choice = 1; choice < parts.length - 1; ++choice) {
+                    const call = new Call();
                     call.beats = this.adding.beats;
                     call.family = this.adding.family;
-                    call.command = parts[0] + parts[choice] + parts[parts.length-1];
+                    call.command = parts[0] + parts[choice] + parts[parts.length - 1];
                     call.isAvailable = true;
 
                     this.collection.calls.push(call);
@@ -156,7 +156,7 @@ export class EditCallsComponent extends AbstractBaseComponent implements OnInit,
             this.setModified();
             this.familySvc.clearCache();
 
-            let previous = this.adding;
+            const previous = this.adding;
             this.adding = new Call();
             this.clearAdding(giveFocus);
             this.adding.family = previous.family; // default to same family
@@ -173,8 +173,9 @@ export class EditCallsComponent extends AbstractBaseComponent implements OnInit,
         this.adding.beats = null;
         this.adding.isAvailable = true;
 
-        if (giveFocus)
+        if (giveFocus) {
             giveFocus.focus();
+        }
     }
 
     /**

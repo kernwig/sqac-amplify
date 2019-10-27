@@ -38,7 +38,7 @@ export const FlowDirectionMap = {
 };
 
 export type FlowDirection = keyof typeof FlowDirectionMap;
-//export type FlowDirection = "none"|"forward"|"back"|"left"|"right";
+// export type FlowDirection = "none"|"forward"|"back"|"left"|"right";
 
 export const FlowDirections: string[] = Object.keys(FlowDirectionMap);
 
@@ -48,7 +48,7 @@ export const FlowDirections: string[] = Object.keys(FlowDirectionMap);
 @Pipe({name: 'flowDirection'})
 export class FlowDirectionPipe implements PipeTransform {
     transform(value: FlowDirection | string) {
-        let meta: FlowDirectionMeta = FlowDirectionMap[value];
-        return meta ? meta.displayText : "Unknown/"+value;
+        const meta: FlowDirectionMeta = FlowDirectionMap[value];
+        return meta ? meta.displayText : "Unknown/" + value;
     }
 }

@@ -1,3 +1,4 @@
+/* tslint:disable:member-ordering */
 import { AbstractModel } from './abstract-model';
 import { DanceLevel } from "./dance-level";
 import {SearchItem} from "../collections/widget/searchable-input.component";
@@ -9,19 +10,19 @@ import {SearchItem} from "../collections/widget/searchable-input.component";
  */
 export class Formation extends AbstractModel implements SearchItem {
 
-    /// Name given to this formation. Ex: Sashayed Facing Lines
+    /** Name given to this formation. Ex: Sashayed Facing Lines */
     name: string;
 
     /** Short abbreviation of the formation name. Ex: SS */
     abbreviation: string;
 
-    /// CallerLab dance level
+    /** CallerLab dance level */
     level: DanceLevel;
 
     /** Name value for use by SearchableInputComponent */
     get searchableName(): string { return this.abbreviation + " - " + this.name; }
 
-    /// Initialize starting state for a brand new [Formation].
+    /** Initialize starting state for a brand new Formation. */
     constructor(id?: string) {
         super(id);
     }
@@ -38,7 +39,7 @@ export class Formation extends AbstractModel implements SearchItem {
 
     /** Initialize content from JSON */
     public static fromJSON(json: FormationJSON): Formation {
-        let o = new Formation(json.id);
+        const o = new Formation(json.id);
         o.name = json.name;
         o.abbreviation = json.abbr;
         o.level = json.level as DanceLevel;

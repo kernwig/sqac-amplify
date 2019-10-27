@@ -38,8 +38,9 @@ export class CallService extends CachingModelService<Call> {
      * Get a list of calls in the given Family.
      */
     getByFamily(family: Family): Call[] {
-        if (!family.isAvailable)
+        if (!family.isAvailable) {
             return [];
+        }
 
         if (this.lookupByFamily === undefined) {
             this.lookupByFamily = new Map<string, Call[]>();
@@ -62,14 +63,14 @@ export class CallService extends CachingModelService<Call> {
 
         // Resolve references to Family
         super.forEach((call) => {
-            let f = this.familySvc.get(call.family.id);
+            const f = this.familySvc.get(call.family.id);
             if (f) {
                 call.family = f;
                 call.isAvailable = true;
             }
             else {
                 console.log(`Call ${call.id} reference to family ${call.family.id} not found`);
-                call.family.isAvailable = false; //unresolved reference
+                call.family.isAvailable = false; // unresolved reference
                 call.isAvailable = false;
                 allAvailable = false;
             }

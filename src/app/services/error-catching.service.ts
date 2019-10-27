@@ -31,14 +31,13 @@ export class ErrorCatchingService extends ErrorHandler {
     handleError(error: any) {
 
         // Translate into a simple Error
-        let originalError = this.ensureIsError(this.findOriginalError(error));
+        const originalError = this.ensureIsError(this.findOriginalError(error));
 
         // Notify asynchronously, so that it can't delay the super impl.
         setTimeout(() => this.error$.next(originalError));
 
         // Super will print to the console and rethrow.
         super.handleError(error);
-        //throw error;
     }
 
     /**
@@ -46,12 +45,17 @@ export class ErrorCatchingService extends ErrorHandler {
      */
     private findOriginalError(error: any): any {
         while (error) {
-            if (error.originalError) //nested async
+            if (error.originalError) {
+                // nested async
                 error = error.originalError;
-            else if (error.rejection) //Promise rejection
+            }
+            else if (error.rejection) {
+                // Promise rejection
                 error = error.rejection;
-            else
+            }
+            else {
                 break;
+            }
         }
 
         return error;
@@ -78,9 +82,11 @@ export class ErrorCatchingService extends ErrorHandler {
 
             try {
                 const serverMsg = response.json().message;
-                if (serverMsg)
+                if (serverMsg) {
                     e.message = serverMsg;
-            } catch (err) {}
+                }
+            }
+            catch (err) {}
 
             return e;
         }

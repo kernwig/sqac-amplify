@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AbstractBaseComponent} from "../shared/abstract-base.component";
 import {CollectionJSON} from "../models/collection";
 import {UserService} from "../services/user.service";
@@ -13,7 +13,7 @@ import {takeUntil} from "rxjs/operators";
     selector: 'sqac-search-collections',
     templateUrl: './search-collections.component.html',
 })
-export class SearchCollectionsComponent extends AbstractBaseComponent implements OnInit {
+export class SearchCollectionsComponent extends AbstractBaseComponent implements OnInit, OnDestroy {
 
     collections: CollectionJSON[] = [];
     filter: CollectionFilter = {};
@@ -39,13 +39,14 @@ export class SearchCollectionsComponent extends AbstractBaseComponent implements
         return this.userSvc.sync(false)
             .then((newSettings) => {
                 this.settings = newSettings;
-                return this.collectionSvc.loadFrom(this.settings)
+                return this.collectionSvc.loadFrom(this.settings);
             });
     }
 
     doSearch() {
-        if (!this.filter.text && !this.filter.difficulty && !this.filter.level)
+        if (!this.filter.text && !this.filter.difficulty && !this.filter.level) {
             return;
+        }
 
         this.persistenceSvc.findCollections(this.filter)
             .then((results: CollectionJSON[]) => {

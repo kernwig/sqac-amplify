@@ -10,7 +10,7 @@ import {LayoutService} from "../services/layout.service";
     selector: 'sqac-page-content',
     template: `
         <ng-sidebar-container backdropClass="help-backdrop">
-            <ng-sidebar [opened]="layoutSvc.showHelp$|async" [closeOnClickOutside]="true" [closeOnClickBackdrop]="true" [autoFocus]="false" 
+            <ng-sidebar [opened]="layoutSvc.showHelp$|async" [closeOnClickOutside]="true" [closeOnClickBackdrop]="true" [autoFocus]="false"
                         mode="over" position="right" sidebarClass="help-sidebar" [showBackdrop]="true">
                 <div class="panel panel-info">
                     <div class="panel-heading">

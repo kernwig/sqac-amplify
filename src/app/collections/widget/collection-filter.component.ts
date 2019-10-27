@@ -22,7 +22,7 @@ export interface CollectionFilter {
                        [(ngModel)]="filter.text" (ngModelChange)="apply.emit(filter)" (keyup.enter)="enter.emit(null)">
             </div>
             <div class="form-group">
-                <select name="difficulty" class="form-control" 
+                <select name="difficulty" class="form-control"
                         [(ngModel)]="filter.difficulty" (ngModelChange)="apply.emit(filter)">
                     <option *ngFor="let dif of availableDifficulties" [value]="dif">{{dif === 0 ? 'Any' : (dif | difficulty)}}</option>
                 </select>

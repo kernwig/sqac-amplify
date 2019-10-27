@@ -1,4 +1,4 @@
-import {Component, OnInit,} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {CallTemporality, ChoreographerService} from "../services/choreographer.service";
 import {AbstractBaseComponent} from "../shared/abstract-base.component";
 import {takeUntil} from "rxjs/operators";
@@ -27,7 +27,7 @@ import {takeUntil} from "rxjs/operators";
             font-size: 3.3vw;
             height: 3.7vw;
         }
-        
+
         h2, h3 {
             margin-top: 0;
             margin-bottom: 0.7vw;
@@ -42,11 +42,11 @@ import {takeUntil} from "rxjs/operators";
 export class CommandListingComponent extends AbstractBaseComponent implements OnInit {
 
     /** Previous command */
-    prev1: string = '';
+    prev1 = '';
     /** Current command */
-    current: string = '';
+    current = '';
     /** Next command */
-    next: string = '';
+    next = '';
 
 
     constructor(public choreoSvc: ChoreographerService) {
@@ -59,12 +59,12 @@ export class CommandListingComponent extends AbstractBaseComponent implements On
     }
 
     onChoreoCallChange(callTemporality: CallTemporality): void {
-        let pastSize = callTemporality.past.length;
+        const pastSize = callTemporality.past.length;
         if (pastSize === 0) {
             this.prev1 = '';
         }
         else {
-            this.prev1 = callTemporality.past[pastSize-1].displayText;
+            this.prev1 = callTemporality.past[pastSize - 1].displayText;
         }
 
         this.current = callTemporality.now ? callTemporality.now.displayText : '';

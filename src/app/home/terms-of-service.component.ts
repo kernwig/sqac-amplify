@@ -1,14 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
-  selector: 'sqac-terms-of-service',
-  templateUrl: './terms-of-service.component.html'
+    selector: 'sqac-terms-of-service',
+    templateUrl: './terms-of-service.component.html'
 })
-export class TermsOfServiceComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+export class TermsOfServiceComponent {
 }

@@ -41,16 +41,16 @@ export class EditModuleComponent extends AbstractBaseComponent implements OnInit
     module: Module;
 
     /** Module has been modified */
-    isDirty: boolean = false;
+    isDirty = false;
 
     /** Call being added to the sequence. */
     addingCall: Call = undefined;
 
     /** May this module be modified? */
-    isMutable: boolean = false;
+    isMutable = false;
 
     /** Is this module name unique? */
-    isNameUnique: boolean = true;
+    isNameUnique = true;
 
     /** Construct */
     constructor(
@@ -71,14 +71,14 @@ export class EditModuleComponent extends AbstractBaseComponent implements OnInit
      * Initialize Page
      */
     ngOnInit() {
-        combineLatest(this.userSvc.user$, this.route.params)
+        combineLatest([this.userSvc.user$, this.route.params])
             .pipe(takeUntil(this.destroy$))
             .subscribe((values: [UserSettings, Params]) => {
-                let user = values[0];
-                let cid = values[1]['cid'];
+                const user = values[0];
+                const cid = values[1]['cid'];
                 this.collection = this.collectionSvc.get(cid);
 
-                let mid = values[1]['mid'];
+                const mid = values[1]['mid'];
                 this.module = this.moduleSvc.get(mid);
 
                 if (this.collection && this.module) {
@@ -94,7 +94,7 @@ export class EditModuleComponent extends AbstractBaseComponent implements OnInit
                     }
                 }
 
-                window.scrollTo(0,0);
+                window.scrollTo(0, 0);
             });
     }
 
@@ -103,7 +103,7 @@ export class EditModuleComponent extends AbstractBaseComponent implements OnInit
      */
     ngOnDestroy() {
         if (this.collection && this.module && this.isDirty) {
-            let m = this.module;
+            const m = this.module;
 
             // Set available flag
             m.isAvailable = (
@@ -115,11 +115,13 @@ export class EditModuleComponent extends AbstractBaseComponent implements OnInit
             );
 
             if (m.isAvailable) {
-                if (m.difficulty > this.collection.difficulty)
+                if (m.difficulty > this.collection.difficulty) {
                     this.collection.difficulty = m.difficulty;
+                }
 
-                if (compareDanceLevels(m.level, this.collection.level) > 0)
+                if (compareDanceLevels(m.level, this.collection.level) > 0) {
                     this.collection.level = m.level;
+                }
             }
 
             // Store changes.
@@ -135,9 +137,10 @@ export class EditModuleComponent extends AbstractBaseComponent implements OnInit
      */
     getTotalBeats(m: Module) {
         let count = 0;
-        for (let seq of m.sequence) {
-            if (seq.call)
+        for (const seq of m.sequence) {
+            if (seq.call) {
                 count += seq.call.beats;
+            }
         }
 
         return count;
@@ -167,7 +170,7 @@ export class EditModuleComponent extends AbstractBaseComponent implements OnInit
      */
     addSeqItem(call: Call) {
         if (call) {
-            let item = new SequencedItem();
+            const item = new SequencedItem();
             item.call = call;
             this.module.sequence.push(item);
             this.setModifiedLevel();
@@ -187,8 +190,8 @@ export class EditModuleComponent extends AbstractBaseComponent implements OnInit
      * Move a SequenceItem down one position in the sequence.
      */
     moveSeqItemDown(itemIdx: number) {
-        let movingItem = this.module.sequence.splice(itemIdx, 1);
-        this.module.sequence.splice(itemIdx+1, 0, movingItem[0]);
+        const movingItem = this.module.sequence.splice(itemIdx, 1);
+        this.module.sequence.splice(itemIdx + 1, 0, movingItem[0]);
     }
 
     /**
@@ -201,7 +204,7 @@ export class EditModuleComponent extends AbstractBaseComponent implements OnInit
 
     checkUniqueName() {
         this.isNameUnique = true;
-        let iter = this.moduleSvc.values();
+        const iter = this.moduleSvc.values();
         for (let next = iter.next(); !next.done; next = iter.next()) {
             const m = next.value;
             if (m.id !== this.module.id && m.name === this.module.name) {
@@ -225,11 +228,12 @@ export class EditModuleComponent extends AbstractBaseComponent implements OnInit
         this.module.level =
             this.module.sequence.reduce((level: DanceLevel, item: SequencedItem) => {
                 if (item.call) {
-                    let callLevel = item.call.family.level;
+                    const callLevel = item.call.family.level;
                     return (compareDanceLevels(callLevel, level) > 0) ? callLevel : level;
                 }
-                else
+                else {
                     return level;
+                }
             }, "NO" as DanceLevel);
     }
 }

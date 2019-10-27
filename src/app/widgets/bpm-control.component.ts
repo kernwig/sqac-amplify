@@ -53,7 +53,7 @@ export class BpmControlComponent {
     }
 
     @HostListener('window:keydown', ['$event'])
-    hotkeys(ev : KeyboardEvent) {
+    hotkeys(ev: KeyboardEvent) {
         switch (ev.key) {
             case '+':
             case '=': {

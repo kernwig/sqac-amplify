@@ -34,8 +34,8 @@ import {takeUntil} from "rxjs/operators";
 })
 export class PlayControlComponent extends AbstractBaseComponent {
 
-    inProgress: boolean = false;
-    isPlaying: boolean = false;
+    inProgress = false;
+    isPlaying = false;
 
     constructor(public choreoSvc: ChoreographerService,
                 private toastr: ToastrService) {
@@ -43,8 +43,9 @@ export class PlayControlComponent extends AbstractBaseComponent {
         this.choreoSvc.running$.pipe(takeUntil(this.destroy$))
             .subscribe((isRunning: boolean) => {
                 this.isPlaying = isRunning;
-                if (isRunning)
+                if (isRunning) {
                     this.inProgress = true;
+                }
             });
     }
 
@@ -79,24 +80,25 @@ export class PlayControlComponent extends AbstractBaseComponent {
     }
 
     @HostListener('window:keydown', ['$event'])
-    hotkeys(ev : KeyboardEvent) {
+    hotkeys(ev: KeyboardEvent) {
         switch (ev.key) {
             case 'P':
             case 'p': {
-                if (this.isPlaying)
+                if (this.isPlaying) {
                     this.pause();
-                else
+                }
+                else {
                     this.play();
-
+                }
                 break;
             }
 
             case 'ArrowRight':
             case 'N':
             case 'n': {
-                if (!this.isPlaying)
+                if (!this.isPlaying) {
                     this.nextOne();
-
+                }
                 break;
             }
         }

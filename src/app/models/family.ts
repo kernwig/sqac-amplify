@@ -1,3 +1,4 @@
+/* tslint:disable:member-ordering */
 import { AbstractModel } from './abstract-model';
 import { DanceLevel } from "./dance-level";
 import {SearchItem} from "../collections/widget/searchable-input.component";
@@ -15,13 +16,13 @@ export class Family extends AbstractModel implements SearchItem {
     /** Full name of the family. Ex:Right and Left Thru */
     name: string;
 
-    /// CallerLab dance level
+    /** CallerLab dance level */
     level: DanceLevel;
 
     /** Name value for use by SearchableInputComponent */
     get searchableName(): string { return this.name; }
 
-    /// Initialize starting state for a brand new [Family].
+    /** Initialize starting state for a brand new Family. */
     constructor(id?: string) {
         super(id);
     }
@@ -37,7 +38,7 @@ export class Family extends AbstractModel implements SearchItem {
 
     /** Initialize content from JSON */
     public static fromJSON(json: FamilyJSON): Family {
-        let o = new Family(json.id);
+        const o = new Family(json.id);
         o.name = json.name;
         o.level = json.level as DanceLevel;
         return o;

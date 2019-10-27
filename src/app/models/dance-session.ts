@@ -1,13 +1,16 @@
+/* tslint:disable:member-ordering */
 import { AbstractModel } from "./abstract-model";
 import { DanceLevel } from "./dance-level";
 import { Difficulty } from "./difficulty";
 
-/// SqAC may keep track of configuration for many separate dance sessions.
-/// For instance, if multiple classes are being tough, each one is a session.
-/// Child of [UserSettings].
+/**
+ * SqAC may keep track of configuration for many separate dance sessions.
+ * For instance, if multiple classes are being tough, each one is a session.
+ * Child of UserSettings.
+ */
 export class DanceSession extends AbstractModel {
 
-    /// Display name for the session.
+    /** Display name for the session. */
     name: string;
 
     /** Contains ID of each collection that is enabled for current use. */
@@ -16,22 +19,22 @@ export class DanceSession extends AbstractModel {
     /** Contains ID of each Family that is enabled for current use - empty for all */
     enabledFamilies = new Set<string>();
 
-    /// CallerLab dance level
+    /** CallerLab dance level */
     level: DanceLevel = "PL";
 
     /** Beats Per Minute at which to emit choreography */
     bpm = 128.0;
 
     /** Probability driver for continuing to grow the module stack, vs resolving. 0 = end ASAP, 100 = always go deeper */
-    continuationProbability: number = 50;
+    continuationProbability = 50;
 
     /** Maximum difficulty level that may be used when selecting modules */
     maxDifficulty: Difficulty = 2;
 
     /** Desired average difficulty */
-    targetDifficulty: number = 2.0;
+    targetDifficulty = 2.0;
 
-    /// Initialize starting state for a brand new instance.
+    /** Initialize starting state for a brand new instance. */
     constructor(id?: string) {
         super(id);
         this.isAvailable = true;
@@ -54,7 +57,7 @@ export class DanceSession extends AbstractModel {
 
     /** Initialize content from JSON */
     public static fromJSON(json: DanceSessionJSON): DanceSession {
-        let o = new DanceSession(json.id);
+        const o = new DanceSession(json.id);
         o.name = json.name;
         json.enabledCollections.forEach(c => o.enabledCollections.add(c));
         json.enabledFamilies.forEach(f => o.enabledFamilies.add(f));

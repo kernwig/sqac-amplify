@@ -16,7 +16,7 @@ const MAX_LOG_SIZE = 100;
             <div class="panel-body" *ngIf="showBody">
                 <div *ngFor="let line of choreoLog">
                     <span *ngIf="line.charAt(0)===' '">&nbsp;{{line}}</span>
-                    <span *ngIf="line.charAt(0)==='('" class="text-primary">{{line}}</span> 
+                    <span *ngIf="line.charAt(0)==='('" class="text-primary">{{line}}</span>
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@ const MAX_LOG_SIZE = 100;
 export class TipHistoryViewComponent extends AbstractBaseComponent implements OnInit {
 
     choreoLog: string[] = [];
-    showBody: boolean = false;
+    showBody = false;
 
     constructor(public choreoSvc: ChoreographerService) {
         super();
@@ -53,7 +53,7 @@ export class TipHistoryViewComponent extends AbstractBaseComponent implements On
     }
 
     onChoreoCallChange(callTemporality: CallTemporality): void {
-        let item = callTemporality.now;
+        const item = callTemporality.now;
         if (item) {
             this.addToLog(' ' + item.displayText);
         }
@@ -71,7 +71,7 @@ export class TipHistoryViewComponent extends AbstractBaseComponent implements On
     }
 
     @HostListener('window:keydown', ['$event'])
-    hotkeys(ev : KeyboardEvent) {
+    hotkeys(ev: KeyboardEvent) {
         switch (ev.key) {
             case 'H':
             case 'h': {

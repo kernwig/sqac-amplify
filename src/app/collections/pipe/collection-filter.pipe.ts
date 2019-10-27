@@ -23,9 +23,9 @@ export class CollectionFilterPipe implements PipeTransform {
                         (collection.name + collection.author + collection.description).toLocaleUpperCase().includes(searchText)
                     )
                     &&
-                    (!searchDifficulty || collection.difficulty == searchDifficulty)
+                    (!searchDifficulty || collection.difficulty === searchDifficulty)
                     &&
-                    (!criteria.level || collection.level == criteria.level);
+                    (!criteria.level || collection.level === criteria.level);
             });
         }
     }

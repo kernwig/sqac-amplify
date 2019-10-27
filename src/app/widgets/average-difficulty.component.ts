@@ -28,7 +28,7 @@ export class AverageDifficultyComponent implements AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit() {
-        let config: noUiSlider.Options = {
+        const config: noUiSlider.Options = {
             start: [2/*this.choreoSvc.maxDifficulty*/],
             range: {
                 min: DifficultyMin,
@@ -43,7 +43,7 @@ export class AverageDifficultyComponent implements AfterViewInit, OnDestroy {
             }
         };
 
-        let elem = this.slider.nativeElement;
+        const elem = this.slider.nativeElement;
         noUiSlider.create(elem, config);
 
         this.slideDebouncer$
@@ -51,14 +51,14 @@ export class AverageDifficultyComponent implements AfterViewInit, OnDestroy {
             .subscribe(() => this.choreoSvc.activateCriteria());
 
         elem.noUiSlider.on('set', (values: any[]) => {
-            let value = Number.parseFloat(values[0]);
+            const value = Number.parseFloat(values[0]);
             this.choreoSvc.targetDifficulty = value as Difficulty;
             this.slideDebouncer$.next();
         });
     }
 
     ngOnDestroy() {
-        let elem = this.slider.nativeElement;
+        const elem = this.slider.nativeElement;
         elem.noUiSlider.off('set');
         elem.noUiSlider.destroy();
         this.slideDebouncer$.complete();

@@ -36,7 +36,7 @@ export class CollectionService extends CachingModelService<Collection> {
      * Create a new [Collection] owned by the current user.
      */
     createNew(): Collection {
-        let c = Collection.forUser(this.user);
+        const c = Collection.forUser(this.user);
         this.syncSvc.setDirty(this.user);
         this.add(c);
         this.changed$.next();
@@ -77,13 +77,14 @@ export class CollectionService extends CachingModelService<Collection> {
                 this.loaded(c);
             }
         }
-        catch(err) {
+        catch (err) {
             console.error(err);
             this.toastr.error( err.toString(), 'Sync Failure', { timeOut: 10000});
         }
 
-        if (this.size > 0)
+        if (this.size > 0) {
             this.toastr.success('Loaded ' + this.size, "Collections");
+        }
 
         this.resolveReferences();
     }
@@ -94,7 +95,7 @@ export class CollectionService extends CachingModelService<Collection> {
      */
     private loaded(c: Collection): boolean {
         // Did the value change?
-        let old = this.get(c.id);
+        const old = this.get(c.id);
         if (old && c.modified.getTime() === old.modified.getTime()) {
             return false;
         }
@@ -115,12 +116,12 @@ export class CollectionService extends CachingModelService<Collection> {
         this.formationSvc.clearAll();
         this.moduleSvc.clearAll();
 
-        super.forEach(c => {
-            c.formations.forEach(f => this.formationSvc.add(f));
-            c.families.forEach(f => this.familySvc.add(f));
-            c.calls.forEach(c => this.callSvc.add(c));
-            c.modules.forEach(m => {
-                m.collection = c;
+        super.forEach(collection => {
+            collection.formations.forEach(f => this.formationSvc.add(f));
+            collection.families.forEach(f => this.familySvc.add(f));
+            collection.calls.forEach(call => this.callSvc.add(call));
+            collection.modules.forEach(m => {
+                m.collection = collection;
                 this.moduleSvc.add(m);
             });
         });
@@ -156,7 +157,7 @@ export class CollectionService extends CachingModelService<Collection> {
         }
         else {
             // No collection specified, so check them all.
-            let queue = [];
+            const queue = [];
             this.forEach(c => {
                 if (c.isDirty) {
                     queue.push(this.persistSvc.localStoreCollection(c));
@@ -179,7 +180,7 @@ export class CollectionService extends CachingModelService<Collection> {
 
         try {
             for (const collection of Array.from(this.values())) {
-                let isMine = collection.authorUserId === this.user.id;
+                const isMine = collection.authorUserId === this.user.id;
 
                 if (isMine && (collection.isDirty || !collection.isCloudBacked)) {
                     console.log(`Collection ${collection.id} has been locally changed. Save it.`);
@@ -240,13 +241,17 @@ export class CollectionService extends CachingModelService<Collection> {
      * @returns {string}
      */
     getVisibilityIcon(c: Collection): string {
-        if (!c)
+        if (!c) {
             return "glyphicon glyphicon-warning-sign"; // not loaded
-        else if (c.authorUserId !== this.user.id)
-            return "glyphicon glyphicon-globe"; //somebody else's
-        else if (c.isPublic)
-            return "glyphicon glyphicon-gift"; //my public collection
-        else
-            return "glyphicon glyphicon-lock"; //my private collection
+        }
+        else if (c.authorUserId !== this.user.id) {
+            return "glyphicon glyphicon-globe"; // somebody else's
+        }
+        else if (c.isPublic) {
+            return "glyphicon glyphicon-gift"; // my public collection
+        }
+        else {
+            return "glyphicon glyphicon-lock"; // my private collection
+        }
     }
 }

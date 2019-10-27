@@ -57,11 +57,11 @@ export class ListCollectionsComponent extends AbstractBaseComponent implements O
     }
 
     ngOnInit() {
-        combineLatest(this.userSvc.user$, this.route.params)
+        combineLatest([this.userSvc.user$, this.route.params])
             .pipe(takeUntil(this.destroy$))
             .subscribe(([user, params]: [UserSettings, Params]) => {
                 this.settings = user;
-                let cid = params['cid'];
+                const cid = params['cid'];
 
                 if (cid && this.collectionSvc.get(cid)) {
                     this.showOnly = this.collectionSvc.get(cid);
@@ -116,23 +116,24 @@ export class ListCollectionsComponent extends AbstractBaseComponent implements O
      * User clicked the Add button
      */
     onCreateCollection() {
-        if (!this.settings)
+        if (!this.settings) {
             return;
+        }
 
         // Create new collection for the user.
-        let c = this.collectionSvc.createNew(); //triggers call to refreshCollectionList
+        const c = this.collectionSvc.createNew(); // triggers call to refreshCollectionList
         this.openEditModal(this.editModal, c);
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
     }
 
     openEditModal(modal: ModalDirective, collection: Collection) {
         this.activeCollection = collection;
-        modal.show()
+        modal.show();
     }
 
     openUnsubscribeModal(modal: ModalDirective, collection: Collection) {
         this.activeCollection = collection;
-        modal.show()
+        modal.show();
     }
 
     modifiedCollection(collection: Collection) {
@@ -157,8 +158,9 @@ export class ListCollectionsComponent extends AbstractBaseComponent implements O
             }
             else if (c.isCloudBacked) {
                 // If all cloud backed, don't show any section headers
-                if (idx > 0)
+                if (idx > 0) {
                     this.cloudSyncSectionIdx = idx;
+                }
                 return true; // no need to continue
             }
             return false;
@@ -228,7 +230,7 @@ export class ListCollectionsComponent extends AbstractBaseComponent implements O
      * @returns {Promise<boolean>}
      */
     doRestoreRevision() {
-        let oldRev = this.activeCollection;
+        const oldRev = this.activeCollection;
 
         // If just dumping local modifications
         if (!this.showOnly.isCloudBacked && oldRev.revision === this.showOnly.revision) {

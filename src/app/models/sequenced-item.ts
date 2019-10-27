@@ -1,4 +1,5 @@
-import { Call } from "./call";
+/* tslint:disable:member-ordering */
+import {Call} from "./call";
 
 const headSideRexEx = /^\((.+)\/(.+)\)/;
 
@@ -33,8 +34,9 @@ export class SequencedItem /*extends Interruption*/ {
         }
         else {
             let text = this.call.command;
-            if (this.concurrentWithNext)
+            if (this.concurrentWithNext) {
                 text += " and...";
+            }
             return text;
         }
 
@@ -56,7 +58,7 @@ export class SequencedItem /*extends Interruption*/ {
 
     /** Initialize content from JSON */
     public static fromJSON(json: SequencedItemJSON): SequencedItem {
-        let o = new SequencedItem();
+        const o = new SequencedItem();
         o.call = new Call(json.call);
         o.altCommand = json.altCommand;
         o.concurrentWithNext = json.concurrent;

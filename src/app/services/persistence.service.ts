@@ -10,7 +10,7 @@ import {ExpiringValue} from '@sailplane/expiring-value/dist/expiring-value';
 
 const CLOUD_LIST_PERIOD = 10_000; // ten seconds
 
-/// Exception thrown by failures in the [PersistenceService].
+/** Exception thrown by failures in the PersistenceService */
 export class PersistenceException {
 
     constructor(readonly statusCode: number,
@@ -195,9 +195,11 @@ export class PersistenceService {
         }
     }
 
-    /// Load a [Collection] at a specified [path].
-    /// Returns the [Collection] or reject if not found.
-    /// Throws [PersistenceException] upon unhandled failure.
+    /**
+     * Load a Collection at a specified path.
+     * Returns the Collection or reject if not found.
+     * @throws PersistenceException upon unhandled failure.
+     */
     async cloudReloadCollection(collectionPath: string): Promise<Collection> {
         await localForage.removeItem(new StorageLocation(collectionPath).id);
         return this.loadCollection(collectionPath);
@@ -299,7 +301,7 @@ export class PersistenceService {
             model.isCloudBacked = false;
             model.isDirty = false;
 
-            let json = model.toJSON() as AbstractStorableModelJSON;
+            const json = model.toJSON() as AbstractStorableModelJSON;
             localForage.setItem(location.id, json).then();
             console.log("Local stored " + location.path);
             this.usersLatestFiles.clear();
@@ -327,7 +329,7 @@ export class PersistenceService {
         // Save to cloud
         model.revision = model.revision ? model.revision + 1 : 1;
         model.isCloudBacked = true;
-        let json = model.toJSON() as AbstractStorableModelJSON;
+        const json = model.toJSON() as AbstractStorableModelJSON;
 
         try {
             await this.cloud.put(
@@ -341,7 +343,7 @@ export class PersistenceService {
             this.usersLatestFiles.clear();
             return model;
         }
-        catch(error) {
+        catch (error) {
             // Unset changed values in model
             model.revision--;
             model.isCloudBacked = false;
@@ -382,7 +384,7 @@ export class PersistenceService {
      */
     private translateError(error: any): PersistenceException {
         let errMsg;
-        let status = error.statusCode || error.status || error.code || 0;
+        const status = error.statusCode || error.status || error.code || 0;
 
         if (error.name) {
             errMsg = error.name + ': ' + error.message;

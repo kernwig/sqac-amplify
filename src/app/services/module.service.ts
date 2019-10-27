@@ -52,10 +52,10 @@ export class ModuleService extends CachingModelService<Module> {
             }
 
             // Resolve references to Call
-            for (let item of module.sequence) {
+            for (const item of module.sequence) {
 
-                let callId = item.call ? item.call.id : null;
-                let c = this.callSvc.get(callId);
+                const callId = item.call ? item.call.id : null;
+                const c = this.callSvc.get(callId);
                 if (c && c.isAvailable) {
                     item.call = c;
                 }
@@ -73,7 +73,7 @@ export class ModuleService extends CachingModelService<Module> {
         });
 
         console.log(`${availableCount} of ${this.size} modules available`);
-        return (availableCount == this.size);
+        return (availableCount === this.size);
     }
 
     /**
@@ -81,15 +81,20 @@ export class ModuleService extends CachingModelService<Module> {
      */
     isFormationReferenced(formation: Formation): boolean {
         const findId = formation.id;
-        let iter = this.values();
+        const iter = this.values();
         for (;;) {
-            let next = iter.next();
-            if (next.done === true)
+            const next = iter.next();
+            if (next.done === true) {
                 return false;
+            }
 
-            let module = next.value;
-            if ((module.startFormation && module.startFormation.id === findId) || (module.endFormation && module.endFormation.id === findId))
+            const module = next.value;
+            if (
+                (module.startFormation && module.startFormation.id === findId) ||
+                (module.endFormation && module.endFormation.id === findId)
+            ) {
                 return true;
+            }
         }
     }
 
@@ -99,16 +104,19 @@ export class ModuleService extends CachingModelService<Module> {
      */
     isCallReferenced(call: Call): boolean {
         const findId = call.id;
-        let iter = this.values();
+        const iter = this.values();
         for (;;) {
-            let next = iter.next();
-            if (next.done === true)
+            const next = iter.next();
+            if (next.done === true) {
                 return false;
+            }
 
-            let module = next.value;
-            for (let item of module.sequence)
-                if (item.call && item.call.id === findId)
+            const module = next.value;
+            for (const item of module.sequence) {
+                if (item.call && item.call.id === findId) {
                     return true;
+                }
+            }
         }
     }
 }

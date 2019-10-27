@@ -3,19 +3,21 @@ import { AbstractModel } from "../models/abstract-model";
 /**
  * This wraps Map, which can't be extended directly.
  */
-export class CachingModelService<M extends AbstractModel>  {
+export abstract class CachingModelService<M extends AbstractModel>  {
 
-    protected _data = new Map<string,M>();
+    protected _data = new Map<string, M>();
 
     clearAll(): void {
         this._data.clear();
     }
 
     delete(idOrObj: string | M): boolean {
-        if (typeof idOrObj === 'string')
+        if (typeof idOrObj === 'string') {
             return this._data.delete(idOrObj as string);
-        else if (idOrObj instanceof AbstractModel)
+        }
+        else if (idOrObj instanceof AbstractModel) {
             return this._data.delete((idOrObj as AbstractModel).id);
+        }
     }
 
     forEach(callbackfn: (value: M, index: string, map: Map<string, M>) => void, thisArg?: any): void {
@@ -39,13 +41,13 @@ export class CachingModelService<M extends AbstractModel>  {
         return this._data.size;
     }
 
-    entries(): IterableIterator<[string, M]> {
-        return this._data.entries();
-    }
+    // entries(): IterableIterator<[string, M]> {
+    //     return this._data.entries();
+    // }
 
-    keys(): IterableIterator<string> {
-        return this._data.keys();
-    }
+    // keys(): IterableIterator<string> {
+    //     return this._data.keys();
+    // }
 
     values(): IterableIterator<M> {
         return this._data.values();
@@ -55,7 +57,7 @@ export class CachingModelService<M extends AbstractModel>  {
      * Helper function to find something in a lookup, creating an entry if
      * it doesn't exist. Used for building the lookups, not when accessing.
      */
-    protected getOrCreate(lookup: Map<string,M[]>, model: AbstractModel): M[] {
+    protected getOrCreate(lookup: Map<string, M[]>, model: AbstractModel): M[] {
         let list = lookup.get(model.id);
         if (list == undefined) {
             list = [] as M[];
