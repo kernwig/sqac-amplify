@@ -51,3 +51,4 @@ amplify/backend/awscloudformation
 build/
 aws-exports.js
 awsconfiguration.json
+amplify/backend/function/S3Trigger08755fbf/dist/
