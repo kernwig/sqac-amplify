@@ -60,7 +60,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "sqac-amplify-dev-20190817121515-deployment",
-					"S3Key": "amplify-builds/S3Trigger08755fbf-4e4f3663674a71437337-build.zip"
+					"S3Key": "amplify-builds/S3Trigger08755fbf-666c5468746d5a4d3079-build.zip"
 				}
 			}
 		},

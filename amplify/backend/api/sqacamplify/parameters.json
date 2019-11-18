@@ -1,0 +1,11 @@
+{
+    "AppSyncApiName": "sqacamplify",
+    "DynamoDBBillingMode": "PROVISIONED",
+    "DynamoDBEnableServerSideEncryption": "false",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authsqacauth",
+            "Outputs.UserPoolId"
+        ]
+    }
+}
