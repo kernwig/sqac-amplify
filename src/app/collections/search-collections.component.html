@@ -32,11 +32,11 @@
                 </span>
                 {{c.name}}
                 <span class="pull-right">
-                    <span *ngIf="settings.collections.has(c.id)" class="glyphicon glyphicon-check"
-                          tooltip="Already in your list"></span>
+                    <span *ngIf="c.isSubscribed" class="glyphicon glyphicon-check"
+                          tooltip="Already in your list" placement="left"></span>
 
-                    <span *ngIf="!settings.collections.has(c.id)" class="glyphicon glyphicon-download-alt"
-                          tooltip="Subscribe" (click)="subscribe(c)"></span>
+                    <span *ngIf="!c.isSubscribed" class="glyphicon glyphicon-download-alt"
+                          tooltip="Subscribe" placement="left" (click)="subscribe(c)"></span>
                 </span>
             </div>
 

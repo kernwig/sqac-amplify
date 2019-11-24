@@ -27,7 +27,7 @@ export class ListCollectionsComponent extends AbstractBaseComponent implements O
 
     collections: Collection[] = [];
     filteredCollections: Collection[] = [];
-    appliedFilter: CollectionFilter = {};
+    appliedFilter: CollectionFilter;
 
     /** If set, only showing this one collection */
     showOnly = undefined;

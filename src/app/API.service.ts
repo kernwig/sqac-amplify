@@ -2,8 +2,6 @@
 //  This file was automatically generated and should not be edited.
 import { Injectable } from "@angular/core";
 import API, { graphqlOperation } from "@aws-amplify/api";
-import { GraphQLResult } from "@aws-amplify/api/lib/types";
-import * as Observable from "zen-observable";
 
 export type ModelCollectionFilterInput = {
   id?: ModelIDFilterInput | null;
@@ -21,6 +19,7 @@ export type ModelCollectionFilterInput = {
   calls?: ModelIntFilterInput | null;
   modules?: ModelIntFilterInput | null;
   license?: ModelStringFilterInput | null;
+  searchText?: ModelStringFilterInput | null;
   and?: Array<ModelCollectionFilterInput | null> | null;
   or?: Array<ModelCollectionFilterInput | null> | null;
   not?: ModelCollectionFilterInput | null;
@@ -81,6 +80,7 @@ export type GetCollectionQuery = {
   calls: number | null;
   modules: number;
   license: string;
+  searchText: string;
 };
 
 export type ListCollectionsQuery = {

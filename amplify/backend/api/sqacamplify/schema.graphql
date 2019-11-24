@@ -18,4 +18,7 @@ type Collection
   calls: Int
   modules: Int!
   license: String!
+
+  ## Lowercase name+author+description. DynamoDB can't do case-insensitive search
+  searchText: String!
 }

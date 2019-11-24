@@ -16,6 +16,7 @@ query GetCollection($id: ID!) {
     calls
     modules
     license
+    searchText
   }
 }
 query ListCollections(
@@ -40,6 +41,7 @@ query ListCollections(
       calls
       modules
       license
+      searchText
     }
     nextToken
   }

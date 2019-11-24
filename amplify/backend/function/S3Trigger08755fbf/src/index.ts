@@ -81,8 +81,8 @@ async function processNewPrivateFile(bucket: string, key: string): Promise<void>
     if (oldCollection.revision >= 0) {
         const oldKey = getPrivateCollectionKey(oldCollection);
         try {
+            console.log("Purged old revision");
             await deleteFile(bucket, oldKey);
-            console.log("Purged old revision:");
         }
         catch (notFound) {}
     }

@@ -225,24 +225,6 @@ export class PersistenceService {
     }
 
     /**
-     * Search the server for public collections matching the search criteria.
-     */
-    async findCollections(criteria: object): Promise<CollectionJSON[]> {
-        // TODO:
-        throw new PersistenceException(501, 'Not implemented');
-        // try {
-        //     let json = await this.server.service(DATA_API_PATH).find({query: criteria});
-        //
-        //     // Return value isn't exactly a CollectionJSON.
-        //     // All the arrays are only numbers of how many items are in the array on the server.
-        //     return json as CollectionJSON[];
-        // }
-        // catch (err) {
-        //     return this.translateError(err);
-        // }
-    }
-
-    /**
      * Load recent revisions to the given collection.
      */
     async loadHistory(collection: Collection): Promise<Collection[]> {

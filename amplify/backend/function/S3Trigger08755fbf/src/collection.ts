@@ -16,6 +16,8 @@ export interface CollectionJSON {
     calls: any[] | number;
     modules: any[] | number;
     license: string;
+    // Lowercase name+author+description
+    searchText?: string;
 }
 
 export function isCollection(key: string): boolean {
