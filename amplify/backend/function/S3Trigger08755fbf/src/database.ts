@@ -13,7 +13,7 @@ export function writeToDatabase(collection: CollectionJSON): Promise<void> {
     }).promise().then(() => undefined);
 }
 
-export function removeFromDatabase(collection: CollectionJSON): Promise<void> {
+export function removeFromDatabase(collection: {id: string}): Promise<void> {
     console.log("Removing collection", collection.id, "from database");
     return dynamo.delete({
         TableName: ddbTableName,

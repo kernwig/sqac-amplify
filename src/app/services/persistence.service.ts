@@ -212,7 +212,7 @@ export class PersistenceService {
      * @throws {PersistenceException} upon unhandled failure.
      */
     cloudSaveCollection(collection: Collection): Promise<Collection> {
-        return this.saveModelToCloud(collection, new StorageLocation(collection));
+        return this.saveModelToCloud(collection, new StorageLocation(collection, true));
     }
 
     /**
@@ -221,7 +221,7 @@ export class PersistenceService {
      * @returns {Promise<Collection>} the modified model.
      */
     localStoreCollection(collection: Collection): Promise<Collection> {
-        return this.saveModelToLocal(collection, new StorageLocation(collection));
+        return this.saveModelToLocal(collection, new StorageLocation(collection, true));
     }
 
     /**
@@ -248,7 +248,7 @@ export class PersistenceService {
     async loadHistory(collection: Collection): Promise<Collection[]> {
 
         // Get all private files that start with the collection's id (thus all of it's revisions)
-        const list = await this.cloudList(new StorageLocation(collection.id));
+        const list = await this.cloudList(new StorageLocation(collection.id, true));
 
         const results: Collection[] = [];
         for (const location of list) {
@@ -278,7 +278,7 @@ export class PersistenceService {
                     const path = isPrivate
                         ? item.key
                         : item.owner.id + '/' + item.key;
-                    results.push(new StorageLocation(path));
+                    results.push(new StorageLocation(path, isPrivate));
                 }
             }
 
@@ -329,6 +329,7 @@ export class PersistenceService {
         // Save to cloud
         model.revision = model.revision ? model.revision + 1 : 1;
         model.isCloudBacked = true;
+        location = new StorageLocation(model, true);
         const json = model.toJSON() as AbstractStorableModelJSON;
 
         try {

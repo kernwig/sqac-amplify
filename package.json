@@ -14,7 +14,7 @@
     "serve:prod": "npm run build:prod && npm run serve:dist",
     "lint": "ng lint",
     "clean": "rm -R dist/",
-    "amplify:S3Trigger08755fbf": "cp amplify/backend/amplify-meta.json amplify/backend/function/S3Trigger08755fbf/src/ && tsc"
+    "amplify:S3Trigger08755fbf": "cd amplify/backend/function/S3Trigger08755fbf/src/ && npm run build"
   },
   "dependencies": {
     "@angular/animations": "^6.1.10",
