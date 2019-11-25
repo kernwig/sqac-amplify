@@ -2,7 +2,7 @@ import {S3Event, S3EventRecord, S3Handler} from 'aws-lambda';
 import {deleteFile, loadFile, saveFile} from './storage';
 import {
     CollectionJSON,
-    disectCollectionkey,
+    disectCollectionKey,
     getPrivateCollectionKey,
     isCollection,
     isPrivateFile,
@@ -99,6 +99,6 @@ async function processNewPublicFile(bucket: string, key: string): Promise<void> 
 }
 
 async function processRemovedPublicFile(bucket: string, key: string): Promise<void> {
-    const collection = disectCollectionkey(key);
+    const collection = disectCollectionKey(key);
     await removeFromDatabase({id: collection.id!});
 }

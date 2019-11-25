@@ -31,7 +31,7 @@ export function isPrivateFile(key: string): boolean {
 /**
  * Gleam what Collection data we can from an S3 key.
  */
-export function disectCollectionkey(key: string): Partial<CollectionJSON> {
+export function disectCollectionKey(key: string): Partial<CollectionJSON> {
     const [level, authorUserId, file] = key.split('/');
     const plusPos = file.lastIndexOf('+');
     return {
@@ -43,7 +43,7 @@ export function disectCollectionkey(key: string): Partial<CollectionJSON> {
 }
 
 export function privateToPublicCollectionKey(key: string): string {
-    const collection = disectCollectionkey(key);
+    const collection = disectCollectionKey(key);
     return 'protected/' + collection.authorUserId + '/' + collection.id;
 }
 
