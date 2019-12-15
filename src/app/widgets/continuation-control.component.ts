@@ -22,7 +22,7 @@ import * as noUiSlider from "nouislider";
 })
 export class ContinuationControlComponent implements AfterViewInit, OnDestroy {
 
-    @ViewChild('slider') slider: ElementRef;
+    @ViewChild('slider', { static: true }) slider: ElementRef;
 
     constructor(public choreoSvc: ChoreographerService) {
     }
