@@ -8,11 +8,16 @@ import {CollectionFilter} from "../widget/collection-filter.component";
 })
 export class CollectionFilterPipe implements PipeTransform {
 
-    transform(list: Collection[], criteria: CollectionFilter): Collection[] {
-        const searchText = criteria.text ? criteria.text.toLocaleUpperCase() : null;
-        const searchDifficulty = (criteria.difficulty as any) === '0' ? 0 : criteria.difficulty;
+    transform(list: Collection[], criteria?: CollectionFilter): Collection[] {
+        if (!criteria) {
+            return list;
+        }
 
-        if (!searchText && !searchDifficulty && !criteria.level) {
+        const searchText = criteria.text.toLocaleLowerCase();
+        const searchDifficulty = +criteria.difficulty;
+        const searchLevel = criteria.level;
+
+        if (!searchText && !searchDifficulty && !searchLevel) {
             return list;
         }
         else {
@@ -20,12 +25,12 @@ export class CollectionFilterPipe implements PipeTransform {
                 return (
                         !searchText
                         ||
-                        (collection.name + collection.author + collection.description).toLocaleUpperCase().includes(searchText)
+                        (collection.name + collection.author + collection.description).toLocaleLowerCase().includes(searchText)
                     )
                     &&
                     (!searchDifficulty || collection.difficulty === searchDifficulty)
                     &&
-                    (!criteria.level || collection.level === criteria.level);
+                    (!searchLevel || collection.level === searchLevel);
             });
         }
     }

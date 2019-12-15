@@ -5,24 +5,33 @@ import {UserService} from "../services/user.service";
 import {CollectionService} from "../services/collection.service";
 import {UserSettings} from "../models/user-settings";
 import {CollectionFilter} from "./widget/collection-filter.component";
-import {PersistenceService} from "../services/persistence.service";
 import {SyncService} from "../services/sync.service";
 import {takeUntil} from "rxjs/operators";
+import {APIService, ModelCollectionFilterInput} from '../API.service';
+
+interface CollectionView extends CollectionJSON {
+    path: string;
+    isSubscribed: boolean;
+}
 
 @Component({
     selector: 'sqac-search-collections',
     templateUrl: './search-collections.component.html',
+    styles: [`
+        sqac-collection-filter { padding-right: 1em; }
+    `]
 })
 export class SearchCollectionsComponent extends AbstractBaseComponent implements OnInit, OnDestroy {
 
-    collections: CollectionJSON[] = [];
-    filter: CollectionFilter = {};
+    collections: CollectionView[] = [];
+    filter?: CollectionFilter;
     settings: UserSettings;
 
     constructor(public collectionSvc: CollectionService,
                 public userSvc: UserService,
                 public syncSvc: SyncService,
-                private persistenceSvc: PersistenceService) {
+                private readonly cloudAPI: APIService,
+    ) {
         super();
     }
 
@@ -43,19 +52,41 @@ export class SearchCollectionsComponent extends AbstractBaseComponent implements
             });
     }
 
-    doSearch() {
-        if (!this.filter.text && !this.filter.difficulty && !this.filter.level) {
+    async doSearch() {
+        if (!this.filter || (!this.filter.text && !this.filter.difficulty && !this.filter.level)) {
             return;
         }
 
-        this.persistenceSvc.findCollections(this.filter)
-            .then((results: CollectionJSON[]) => {
-                this.collections = results;
+        const criteria: ModelCollectionFilterInput = { and: [] };
+        if (this.filter.text) {
+            criteria.and.push({
+                searchText: { contains: this.filter.text.toLocaleLowerCase() }
             });
+        }
+        if (this.filter.difficulty) {
+            criteria.and.push({
+                difficulty: { eq: this.filter.difficulty }
+            });
+        }
+        if (this.filter.level) {
+            criteria.and.push({
+                level: { eq: this.filter.level }
+            });
+        }
+
+        const list = await this.cloudAPI.ListCollections(criteria, 1000);
+        this.collections = (list.items as any[]) as CollectionView[];
+
+        // Add view properties
+        this.collections.forEach(col => {
+            col.path = col.authorUserId + '/' + col.id;
+            col.isSubscribed = (col.authorUserId === this.settings.id) || this.settings.collections.has(col.path);
+        });
     }
 
-    subscribe(collection: CollectionJSON) {
-        this.settings.collections.add(collection.id);
+    subscribe(collection: CollectionView) {
+        collection.isSubscribed = true;
+        this.settings.collections.add(collection.path);
         this.settings.isDirty = true;
     }
 }

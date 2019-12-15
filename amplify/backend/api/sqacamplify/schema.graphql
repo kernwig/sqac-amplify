@@ -1,0 +1,24 @@
+type Collection
+  # Store in DynamoDB, disable mutations and subscriptions
+  @model( mutations: null, subscriptions: null)
+{
+  id: ID!
+  created: String!
+  modified: String!
+  revision: Int!
+
+  name: String!
+  author: String!
+  authorUserId: String!
+  description: String!
+  difficulty: Int!
+  level: String!
+  formations: Int
+  families: Int
+  calls: Int
+  modules: Int!
+  license: String!
+
+  ## Lowercase name+author+description. DynamoDB can't do case-insensitive search
+  searchText: String!
+}

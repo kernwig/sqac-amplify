@@ -4,6 +4,7 @@ import {NgModule} from '@angular/core';
 import {AmplifyAngularModule, AmplifyService, AmplifyModules} from 'aws-amplify-angular';
 import Auth from '@aws-amplify/auth';
 import Storage from '@aws-amplify/storage';
+import API from "@aws-amplify/api";
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -50,6 +51,7 @@ const toastOptions = {
             useFactory:  () => {
                 return AmplifyModules({
                     Auth,
+                    API,
                     Storage,
                 });
             }

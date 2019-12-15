@@ -212,7 +212,7 @@ export class PersistenceService {
      * @throws {PersistenceException} upon unhandled failure.
      */
     cloudSaveCollection(collection: Collection): Promise<Collection> {
-        return this.saveModelToCloud(collection, new StorageLocation(collection));
+        return this.saveModelToCloud(collection, new StorageLocation(collection, true));
     }
 
     /**
@@ -221,25 +221,7 @@ export class PersistenceService {
      * @returns {Promise<Collection>} the modified model.
      */
     localStoreCollection(collection: Collection): Promise<Collection> {
-        return this.saveModelToLocal(collection, new StorageLocation(collection));
-    }
-
-    /**
-     * Search the server for public collections matching the search criteria.
-     */
-    async findCollections(criteria: object): Promise<CollectionJSON[]> {
-        // TODO:
-        throw new PersistenceException(501, 'Not implemented');
-        // try {
-        //     let json = await this.server.service(DATA_API_PATH).find({query: criteria});
-        //
-        //     // Return value isn't exactly a CollectionJSON.
-        //     // All the arrays are only numbers of how many items are in the array on the server.
-        //     return json as CollectionJSON[];
-        // }
-        // catch (err) {
-        //     return this.translateError(err);
-        // }
+        return this.saveModelToLocal(collection, new StorageLocation(collection, true));
     }
 
     /**
@@ -248,7 +230,7 @@ export class PersistenceService {
     async loadHistory(collection: Collection): Promise<Collection[]> {
 
         // Get all private files that start with the collection's id (thus all of it's revisions)
-        const list = await this.cloudList(new StorageLocation(collection.id));
+        const list = await this.cloudList(new StorageLocation(collection.id, true));
 
         const results: Collection[] = [];
         for (const location of list) {
@@ -278,7 +260,7 @@ export class PersistenceService {
                     const path = isPrivate
                         ? item.key
                         : item.owner.id + '/' + item.key;
-                    results.push(new StorageLocation(path));
+                    results.push(new StorageLocation(path, isPrivate));
                 }
             }
 
@@ -329,6 +311,7 @@ export class PersistenceService {
         // Save to cloud
         model.revision = model.revision ? model.revision + 1 : 1;
         model.isCloudBacked = true;
+        location = new StorageLocation(model, true);
         const json = model.toJSON() as AbstractStorableModelJSON;
 
         try {
