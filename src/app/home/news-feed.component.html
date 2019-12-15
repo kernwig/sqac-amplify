@@ -3,212 +3,123 @@
         <h1>News</h1>
         <div class="row">
             <div class="col-sm-10">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="panel-title">
-                            More Mobile Style
-                            <span class="pull-right">
-                                November 11, 2018
-                            </span>
-                        </div>
-                    </div>
-                    <div class="panel-body">
-                        <p>
-                            Square Dance calling is done on the move, so SqAC should have mobile style user interface,
-                            should it not?
-                        </p>
-                        <p>
-                            User interfaces have never been my strongest skill, but I continue to learn. While this
-                            update still can't be called slick, it has taken another step toward being more like a
-                            native app than a web site. The navigation menu is now under the hamburger menu at the
-                            top-left corner, and documentation is now under the
-                            <span class="glyphicon glyphicon-question-sign"></span> icon at the top-right of screens
-                            that have documentation. (This screen does not.)
-                        </p>
-                        <p>
-                            This is just the beginning. My next step is a total redesign of the <i>Dance</i> screen
-                            to make it more usable. I have found it... not so great. The new design will take more
-                            cues from physical module cards of calling yore, while retaining the advantage of a
-                            computerized assistant. Look for that upgrade in the coming months.
-                        </p>
-                        <p>
-                            If you have suggestions on how SqAC can be made more useful, drop me an email or use the
-                            <i>Report a Bug</i> link to the right. (You can use it for feature requests, not just bugs.)
-                        </p>
-                        <blockquote>
-                            <footer>Adam Fanello</footer>
-                        </blockquote>
-                    </div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="panel-title">
-                            Wonders of Binary Bias
-                            <span class="pull-right">
-                                June 10, 2018
-                            </span>
-                        </div>
-                    </div>
-                    <div class="panel-body">
-                        <p>
-                            I called a guest tip last Tuesday and tried to use SqAC for it. Boy was I embarrassed
-                            when it seemed like the same modules were being used over and over... and after I thought
-                            I just fixed that! This weekend️ I took another look at the code and (this is nerdy, feel free to skip):
-                        </p>
-                        <ul>
-                            <li>
-                                Swapped in an improved pseudo-random number generator that accounts for binary bias.
-                            </li>
-                            <li>
-                                Replaced the scattershot approach to finding the best next module with a
-                                targeted and consistent algorithm.
-                            </li>
-                        </ul>
-                        <p>
-                            While at it, I made some related enhancements and found and fixed a couple other problems:
-                        </p>
-                        <ul>
-                            <li>
-                                Added some details about how each module is chosen into the tip history display,
-                                to provide a clue the next time the selection quality seems poor.
-                                Also added display of start and end formation to the
-                                module name displayed above the call list, because it's useful to see!
-                            </li>
-                            <li>
-                                Sometimes session restrictions weren't initially applied
-                                to the module selector; it is now.
-                            </li>
-                            <li>
-                                Ignores the impossible should you select of average difficulty greater than max difficulty;
-                                which would certainly skew the selections.
-                            </li>
-                        </ul>
-                        <p>
-                            Finally, I split the <i>Circulate</i> family into <i>Circulate B1</i> and <i>Circulate B2</i>.
-                            Even though there's really only one Circulate family, the CALLERLAB teaching order calls for
-                            teaching some in Basic 1 and some later in Basic 2.
-                            Also, community dance programs tend to only teach the simple (Basic 1) calls.
-                            This allows you to select only <i>Circulate B1</i> for your dance session.
-                        </p>
-                        <blockquote>
-                            <footer>Adam Fanello</footer>
-                        </blockquote>
-                    </div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="panel-title">
-                            Incremental Improvements Keep Coming!
-                            <span class="pull-right">
-                                June 3, 2018
-                            </span>
-                        </div>
-                    </div>
-                    <div class="panel-body">
-                        <p>
-                            This release includes a hodge podge of enhancements and bug fixes to make SqAC better still.
-                        </p>
-                        <ul>
-                            <li>
-                                There was a feature to avoid using the same module twice in one tip. This never seemed to
-                                work though, because it didn't. Now it does.
-                            </li>
-                            <li>
-                                When naming a module, a little warning tells you in the name is already used by another
-                                module. You <i>can</i> have the same name if you want, but I sure found this helpful
-                                when entering 300+ new basic modules from Ceder.net.
-                            </li>
-                            <li>
-                                The <i>Alternative Command</i> for a call in a module may now start with text like
-                                <code>(Heads/Sides)</code> or <code>(Side/Head)</code>, and the when danced it'll
-                                now automatically choose one word at random and display that. This allows a single
-                                get-in module to work two different ways.
-                            </li>
-                            <li>
-                                I was curious about the distribution of the 383 modules now in the Ceder.net Basic
-                                collection, so now after all the list of modules in a collection there's a dandy little
-                                table called <i>Summary of Start &amp; End Formations</i>.
-                            </li>
-                        </ul>
+                <sqac-news-item date="2018-11-11" headline="More Mobile Style">
+                    <p>
+                        Square Dance calling is done on the move, so SqAC should have mobile style user interface,
+                        should it not?
+                    </p>
+                    <p>
+                        User interfaces have never been my strongest skill, but I continue to learn. While this
+                        update still can't be called slick, it has taken another step toward being more like a
+                        native app than a web site. The navigation menu is now under the hamburger menu at the
+                        top-left corner, and documentation is now under the
+                        <span class="glyphicon glyphicon-question-sign"></span> icon at the top-right of screens
+                        that have documentation. (This screen does not.)
+                    </p>
+                    <p>
+                        This is just the beginning. My next step is a total redesign of the <i>Dance</i> screen
+                        to make it more usable. I have found it... not so great. The new design will take more
+                        cues from physical module cards of calling yore, while retaining the advantage of a
+                        computerized assistant. Look for that upgrade in the coming months.
+                    </p>
+                    <p>
+                        If you have suggestions on how SqAC can be made more useful, drop me an email or use the
+                        <i>Report a Bug</i> link to the right. (You can use it for feature requests, not just bugs.)
+                    </p>
+                </sqac-news-item>
+                <sqac-news-item date="2018-06-10" headline="Wonders of Binary Bias">
+                    <p>
+                        I called a guest tip last Tuesday and tried to use SqAC for it. Boy was I embarrassed
+                        when it seemed like the same modules were being used over and over... and after I thought
+                        I just fixed that! This weekend️ I took another look at the code and (this is nerdy, feel free to skip):
+                    </p>
+                    <ul>
+                        <li>
+                            Swapped in an improved pseudo-random number generator that accounts for binary bias.
+                        </li>
+                        <li>
+                            Replaced the scattershot approach to finding the best next module with a
+                            targeted and consistent algorithm.
+                        </li>
+                    </ul>
+                    <p>
+                        While at it, I made some related enhancements and found and fixed a couple other problems:
+                    </p>
+                    <ul>
+                        <li>
+                            Added some details about how each module is chosen into the tip history display,
+                            to provide a clue the next time the selection quality seems poor.
+                            Also added display of start and end formation to the
+                            module name displayed above the call list, because it's useful to see!
+                        </li>
+                        <li>
+                            Sometimes session restrictions weren't initially applied
+                            to the module selector; it is now.
+                        </li>
+                        <li>
+                            Ignores the impossible should you select of average difficulty greater than max difficulty;
+                            which would certainly skew the selections.
+                        </li>
+                    </ul>
+                    <p>
+                        Finally, I split the <i>Circulate</i> family into <i>Circulate B1</i> and <i>Circulate B2</i>.
+                        Even though there's really only one Circulate family, the CALLERLAB teaching order calls for
+                        teaching some in Basic 1 and some later in Basic 2.
+                        Also, community dance programs tend to only teach the simple (Basic 1) calls.
+                        This allows you to select only <i>Circulate B1</i> for your dance session.
+                    </p>
+                </sqac-news-item>
+                <sqac-news-item date="2018-06-03" headline="Incremental Improvements Keep Coming!">
+                    <p>
+                        This release includes a hodge podge of enhancements and bug fixes to make SqAC better still.
+                    </p>
+                    <ul>
+                        <li>
+                            There was a feature to avoid using the same module twice in one tip. This never seemed to
+                            work though, because it didn't. Now it does.
+                        </li>
+                        <li>
+                            When naming a module, a little warning tells you in the name is already used by another
+                            module. You <i>can</i> have the same name if you want, but I sure found this helpful
+                            when entering 300+ new basic modules from Ceder.net.
+                        </li>
+                        <li>
+                            The <i>Alternative Command</i> for a call in a module may now start with text like
+                            <code>(Heads/Sides)</code> or <code>(Side/Head)</code>, and the when danced it'll
+                            now automatically choose one word at random and display that. This allows a single
+                            get-in module to work two different ways.
+                        </li>
+                        <li>
+                            I was curious about the distribution of the 383 modules now in the Ceder.net Basic
+                            collection, so now after all the list of modules in a collection there's a dandy little
+                            table called <i>Summary of Start &amp; End Formations</i>.
+                        </li>
+                    </ul>
 
-                        <p>
-                            Did I mention that there are now three times as many modules in the
-                            Ceder.net Basic Selections collection? 🎉
-                        </p>
-                        <blockquote>
-                            <footer>Adam Fanello</footer>
-                        </blockquote>
-                    </div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="panel-title">
-                            More Browser Support &amp; Bug fixes
-                            <span class="pull-right">
-                                April 4, 2018
-                            </span>
-                        </div>
-                    </div>
-                    <div class="panel-body">
-                        <p>
-                            SqAC is now supported in Firefox, Safari, and Microsoft Edge (not IE), as well as
-                            Google Chrome.
-                            (It actually was working with the previous release, but thought I'd mention it.)
-                        </p>
-                        <p>
-                            Bug fixes address an error that sometimes appears on Dance page, preventing accidental
-                            page reload in Chrome, and ensuring that when you click to a new screen,
-                            you find yourself at the top of it!
-                        </p>
-                        <p>
-                            On a final note, there's now a collection for the
-                            <a href="http://abcsquaredancing.com/" target="abc">
-                                ABC Community Square Dance Program <span class="glyphicon glyphicon-new-window"></span>
-                            </a>. Find it in <a routerLink="/collections/search">Search Online</a>.
-                        </p>
-                        <blockquote>
-                            <footer>Adam Fanello</footer>
-                        </blockquote>
-                    </div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="panel-title">
-                            Bug fixes &amp; Unsubscribe
-                            <span class="pull-right">
-                                February 25, 2018
-                            </span>
-                        </div>
-                    </div>
-                    <div class="panel-body">
-                        <p>
-                            Various bug fixes involving adding warnings, signing in/out, styling of menu on a
-                            mobile device, more informative prompt on Apple Safari browser, and the call selection
-                            popup when defining a module is properly positioned again.
-                        </p>
-                        <p>
-                            Finally enabled ability to unsubscribe from a collection that you no longer wish to have
-                            available. (Don't unsubscribe from the CALLERLAB collections that define the calls,
-                            or things won't work so well. 😲)
-                        </p>
-                        <p>
-                            Also, the "CALLERLAB SSD" collections now contain patter for all twelve lessons.
-                        </p>
-                        <blockquote>
-                            <footer>Adam Fanello</footer>
-                        </blockquote>
-                    </div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="panel-title">
-                            Offline Editing &amp; Revision History / Rollback
-                            <span class="pull-right">
-                                January 13, 2018
-                            </span>
-                        </div>
-                    </div>
-                    <div class="panel-body">
+                    <p>
+                        Did I mention that there are now three times as many modules in the
+                        Ceder.net Basic Selections collection? 🎉
+                    </p>
+                </sqac-news-item>
+                <sqac-news-item date="2018-04-04" headline="More Browser Support &amp; Bug fixes">
+                    <p>
+                        SqAC is now supported in Firefox, Safari, and Microsoft Edge (not IE), as well as
+                        Google Chrome.
+                        (It actually was working with the previous release, but thought I'd mention it.)
+                    </p>
+                    <p>
+                        Bug fixes address an error that sometimes appears on Dance page, preventing accidental
+                        page reload in Chrome, and ensuring that when you click to a new screen,
+                        you find yourself at the top of it!
+                    </p>
+                    <p>
+                        On a final note, there's now a collection for the
+                        <a href="http://abcsquaredancing.com/" target="abc">
+                            ABC Community Square Dance Program <span class="glyphicon glyphicon-new-window"></span>
+                        </a>. Find it in <a routerLink="/collections/search">Search Online</a>.
+                    </p>
+                </sqac-news-item>
+                <sqac-news-item date="2018-01-13" headline="Offline Editing &amp; Revision History / Rollback">
                         <p>
                             Offline support has been coming incrementally. I'm pleased to report that as of today's
                             release, you can even edit your collections offline. You're device's storage is now the
@@ -220,21 +131,8 @@
                             <span class="glyphicon glyphicon-time"></span> to see these older revisions and revert
                             back to them if you made a mistake. Cool, huh?
                         </p>
-                        <blockquote>
-                            <footer>Adam Fanello</footer>
-                        </blockquote>
-                    </div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="panel-title">
-                            Progressive Web App
-                            <span class="pull-right">
-                                November 11, 2017
-                            </span>
-                        </div>
-                    </div>
-                    <div class="panel-body">
+                </sqac-news-item>
+                <sqac-news-item date="2017-11-11" headline="Progressive Web App">
                         <p>
                             A Progressive Web App is a application that uses modern web capabilities to deliver a native-like experience for users,
                             while still working as an ordinary web app on older systems.
@@ -255,21 +153,10 @@
                             The bad news is, only Chrome and Firefox fully supports PWA <i>right now</i>.
                             Microsoft and Apple are working on it though, with support expected in 2018.
                         </p>
-                        <blockquote>
-                            <footer>Adam Fanello</footer>
-                        </blockquote>
-                    </div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="panel-title">
-                            Dance Sessions + random tweaks
-                            <span class="pull-right">
-                                October 21, 2017
-                            </span>
-                        </div>
-                    </div>
-                    <div class="panel-body">
+                </sqac-news-item>
+                <a *ngIf="!showMore" style="cursor: pointer;" (click)="showMore = true">Show older...<p></a>
+                <ng-container *ngIf="showMore">
+                <sqac-news-item date="2017-10-21" headline="Dance Sessions + random tweaks">
                         <p>
                             There's a whole new section of the app called <span class="text-primary">Sessions</span>.
                             With it you can track multiple dancer audiences for classes or club dances.
@@ -302,11 +189,7 @@
                             Finally, I took a couple steps toward making SqAC work offline. You <i>probably</i>
                             won't notice them yet, but they are steps toward that goal.
                         </p>
-                        <blockquote>
-                            <footer>Adam Fanello</footer>
-                        </blockquote>
-                    </div>
-                </div>
+                </sqac-news-item>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <div class="panel-title">
@@ -549,6 +432,7 @@
                         </blockquote>
                     </div>
                 </div>
+                </ng-container>
             </div>
             <div class="col-sm-2">
                 <div class="well">
