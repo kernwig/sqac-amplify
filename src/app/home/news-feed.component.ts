@@ -5,5 +5,4 @@ import {Component} from "@angular/core";
     templateUrl: './news-feed.component.html',
 })
 export class NewsFeedComponent {
-    showMore = false;
 }
