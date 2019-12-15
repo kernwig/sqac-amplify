@@ -28,7 +28,7 @@ export class ListModulesComponent extends AbstractBaseComponent implements OnIni
 
     modules: Module[];
 
-    @ViewChild("playModal") playModal: ModalDirective;
+    @ViewChild("playModal", { static: true }) playModal: ModalDirective;
     playingModule: Module;
 
     /** Summary of formations of modules in this collection */

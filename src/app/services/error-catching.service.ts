@@ -1,5 +1,4 @@
 import { Injectable, ErrorHandler } from '@angular/core';
-import {Response, ResponseType} from "@angular/http";
 import {Subject} from "rxjs";
 
 /**
@@ -73,21 +72,11 @@ export class ErrorCatchingService extends ErrorHandler {
         else if (thrown.name && thrown.message) {
             return thrown as Error;
         }
-        else if (thrown instanceof Response) {
-            const response = thrown as Response;
-            const e = new HttpError(response.toString());
-            e.name = (response.type === ResponseType.Cors ? "CORS" : "Server") + " Communication Failure";
-            e.status = response.status;
-            e.statusText = response.statusText;
-
-            try {
-                const serverMsg = response.json().message;
-                if (serverMsg) {
-                    e.message = serverMsg;
-                }
-            }
-            catch (err) {}
-
+        else if (thrown.status && thrown.statusText) {
+            const e = new HttpError(thrown.toString());
+            e.name = "Server Communication Failure";
+            e.status = thrown.status;
+            e.statusText = thrown.statusText;
             return e;
         }
         else {

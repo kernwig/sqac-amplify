@@ -19,7 +19,7 @@ import {debounceTime} from "rxjs/operators";
 })
 export class AverageDifficultyComponent implements AfterViewInit, OnDestroy {
 
-    @ViewChild('slider') slider: ElementRef;
+    @ViewChild('slider', { static: true }) slider: ElementRef;
 
     /** Delay processing slider changes until it stops changing */
     private slideDebouncer$ = new Subject();

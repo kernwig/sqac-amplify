@@ -224,11 +224,11 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 })
 export class BootstrapSwitchComponent implements OnChanges, AfterViewInit, AfterViewChecked {
 
-    @ViewChild('on') _onSpan: ElementRef;
-    @ViewChild('off') _offSpan: ElementRef;
-    @ViewChild('mid') _midSpan: ElementRef;
-    @ViewChild('container') _container: ElementRef;
-    @ViewChild('main') _main: ElementRef;
+    @ViewChild('on', { static: true }) _onSpan: ElementRef;
+    @ViewChild('off', { static: true }) _offSpan: ElementRef;
+    @ViewChild('mid', { static: true }) _midSpan: ElementRef;
+    @ViewChild('container', { static: true }) _container: ElementRef;
+    @ViewChild('main', { static: true }) _main: ElementRef;
 
 
     // public properties

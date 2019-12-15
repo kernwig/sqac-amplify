@@ -23,7 +23,7 @@ export class ListCollectionsComponent extends AbstractBaseComponent implements O
 
     readonly predefinedLicenses = Licenses.All;
 
-    @ViewChild("editModal") editModal: ModalDirective;
+    @ViewChild("editModal", { static: true }) editModal: ModalDirective;
 
     collections: Collection[] = [];
     filteredCollections: Collection[] = [];

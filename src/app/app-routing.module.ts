@@ -15,19 +15,19 @@ const routes: Routes = [
     },
     {
         path: 'home',
-        loadChildren: 'app/home/home.module#HomeModule'
+        loadChildren: () => import('app/home/home.module').then(m => m.HomeModule)
     },
     {
         path: 'collections',
-        loadChildren: 'app/collections/collections.module#CollectionsModule'
+        loadChildren: () => import('app/collections/collections.module').then(m => m.CollectionsModule)
     },
     {
         path: 'dance',
-        loadChildren: 'app/dance/dance.module#DanceModule'
+        loadChildren: () => import('app/dance/dance.module').then(m => m.DanceModule)
     },
     {
         path: 'sessions',
-        loadChildren: 'app/sessions/sessions.module#SessionsModule'
+        loadChildren: () => import('app/sessions/sessions.module').then(m => m.SessionsModule)
     }
 ];
 

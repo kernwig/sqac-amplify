@@ -22,7 +22,7 @@ const largeScreenWidth = 1360;
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent extends AbstractBaseComponent implements OnInit {
-    @ViewChild('errorModal') public errorModal: ModalDirective;
+    @ViewChild('errorModal', { static: true }) public errorModal: ModalDirective;
 
     errorTitle: string;
     errorMessages: string[] = [];
