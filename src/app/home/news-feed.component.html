@@ -3,6 +3,24 @@
         <h1>News</h1>
         <div class="row">
             <div class="col-sm-10">
+                <sqac-news-item date="202-01-01" headline="Backend Revamp, New Login, &amp; New Features">
+                    <p>
+                        The cloud side of SqAC has been completely rebuilt as a cloud native application in
+                        AWS. I've been working on this since July, and you can read the long details in a series
+                        of posts in the
+                        <a href="http://fanello.net/home/category/sqac/" target="blog">
+                            SqAC Blog <span class="glyphicon glyphicon-new-window"></span>
+                        </a>.
+                        This will only have one noticeable impact on you: new accounts!
+                    </p>
+                    <p>
+                        First off, user accounts are now optional. 🎉 Not having an account means that your data
+                        is only save locally in your browser, and could thus go away and can't be shared to another
+                        device. Thus I recommend creating a new account, but you don't have to anymore. If you had
+                        content in your old account that wasn't migrated over, <a href="email:adam@fanello.net">contact me</a>
+                        and I'll get it for you.
+                    </p>
+                </sqac-news-item>
                 <sqac-news-item date="2018-11-11" headline="More Mobile Style">
                     <p>
                         Square Dance calling is done on the move, so SqAC should have mobile style user interface,
@@ -190,37 +208,15 @@
                             won't notice them yet, but they are steps toward that goal.
                         </p>
                 </sqac-news-item>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="panel-title">
-                            On-Demand Dance Modules
-                            <span class="pull-right">
-                                October 1, 2017
-                            </span>
-                        </div>
-                    </div>
-                    <div class="panel-body">
+                <sqac-news-item date="2017-10-01" headline="On-Demand Dance Modules">
                         <p>
                             You can now <span class="glyphicon glyphicon-play"></span> Play (dance) modules on-demand
                             from in their collection. This is great for teach modules!
                             Search online for <b>CALLERLAB SSD</b> for the collections I'm
                             building up based on the CALLERLAB Sustainable Square Dancing program.
                         </p>
-                        <blockquote>
-                            <footer>Adam Fanello</footer>
-                        </blockquote>
-                    </div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="panel-title">
-                            Dance controls &amp; display
-                            <span class="pull-right">
-                                September 15, 2017
-                            </span>
-                        </div>
-                    </div>
-                    <div class="panel-body">
+                </sqac-news-item>
+                <sqac-news-item date="2017-09-15" headline="Dance controls &amp; display">
                         <p>
                             All of the controls on the Dance screen now function. Select the dance level,
                             continuation (resolve or keep going?), maximum difficulty, and running average
@@ -235,41 +231,8 @@
                             <li>Only the previous command shows now (<i>not</i> two back), in order to make more
                                 room for the current command, which was sometimes too long and was being cut off.</li>
                         </ul>
-                        <blockquote>
-                            <footer>Adam Fanello</footer>
-                        </blockquote>
-                    </div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="panel-title">
-                            Bug Fix: Formation selection
-                            <span class="pull-right">
-                        September 8, 2017
-                    </span>
-                        </div>
-                    </div>
-                    <div class="panel-body">
-                        <p>
-                            Whoops! When editing modules, the start and end formation selector simply did
-                            not work. At all. 😲
-                            <br>Fixed that.
-                        </p>
-                        <blockquote>
-                            <footer>Adam Fanello</footer>
-                        </blockquote>
-                    </div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="panel-title">
-                            Documentation! Yay!
-                            <span class="pull-right">
-                        August 20, 2017
-                    </span>
-                        </div>
-                    </div>
-                    <div class="panel-body">
+                </sqac-news-item>
+                <sqac-news-item date="2017-08-20" headline="Documentation! Yay!">
                         <p>
                             In this release, we have many little bug fixes and improvements, but the big change is
                             documentation! Every screen now shows helpful text on how to use it. On large screens,
@@ -287,71 +250,8 @@
                             </a>
                             to learn more.
                         </p>
-                        <blockquote>
-                            <footer>Adam Fanello</footer>
-                        </blockquote>
-                    </div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="panel-title">
-                            Bug Fixes and U/I tweaks.
-                            <span class="pull-right">
-                        July 17, 2017
-                    </span>
-                        </div>
-                    </div>
-                    <div class="panel-body">
-                        <p>
-                            Fixed error that popped up after signing in through Facebook.
-                            While playing with that, made some minor improvements to the Sign In page.
-                        </p>
-                        <p>
-                            Also, enlarged and fixed a bug with the cloud sync button.
-                        </p>
-                        <p>
-                            That's all. Normally wouldn't make such a small release, but wanted to fix
-                            the Facebook problem.
-                        </p>
-                        <blockquote>
-                            <footer>Adam Fanello</footer>
-                        </blockquote>
-                    </div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="panel-title">
-                            New Logo and U/I enhancements
-                            <span class="pull-right">
-                        July 16, 2017
-                    </span>
-                        </div>
-                    </div>
-                    <div class="panel-body">
-                        <p>
-                            SqAC now has a logo!
-                        </p>
-                        <img src="/assets/sqac-banner-160.png" height="160"/>
-                        <p></p>
-                        <p>
-                            Also, there's been some enhancements to the Dance page, making it easier to manually
-                            control the scroll, and to end a tip.
-                        </p>
-                        <blockquote>
-                            <footer>Adam Fanello</footer>
-                        </blockquote>
-                    </div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="panel-title">
-                            Public Preview Launched
-                            <span class="pull-right">
-                        June 25, 2017
-                    </span>
-                        </div>
-                    </div>
-                    <div class="panel-body">
+                </sqac-news-item>
+                <sqac-news-item date="2017-06-25" headline="Public Preview Launched">
                         <p>
                             Square Auto-Choreographer (SqAC) is now available for anyone to play with. This is still very
                             much an in-development product so let's be clear: it's buggy and incomplete!
@@ -405,21 +305,8 @@
                                 but they are <i>not</i> tested at this point.
                             </li>
                         </ul>
-                        <blockquote>
-                            <footer>Adam Fanello</footer>
-                        </blockquote>
-                    </div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <div class="panel-title">
-                            Welcome to SqAC!
-                            <span class="pull-right">
-                        May 12, 2017
-                    </span>
-                        </div>
-                    </div>
-                    <div class="panel-body">
+                </sqac-news-item>
+                <sqac-news-item date="2017-05-12" headline="Welcome to SqAC!">
                         <p>
                             Square Auto-Choreographer (SqAC, pronounced "squawk") is a computer program to assist a caller,
                             or even a knowledgeable dancer, in calling patter.
@@ -427,11 +314,7 @@
                         <p>
                             This application is in early development. You are seeing this because you're an alpha tester! 🙌&nbsp; 😎
                         </p>
-                        <blockquote>
-                            <footer>Adam Fanello</footer>
-                        </blockquote>
-                    </div>
-                </div>
+                </sqac-news-item>
                 </ng-container>
             </div>
             <div class="col-sm-2">

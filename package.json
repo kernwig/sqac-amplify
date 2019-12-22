@@ -1,6 +1,6 @@
 {
   "name": "sqac-amplify",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "description": "Square Auto-Choreographer",
   "author": "Adam Fanello",
   "homepage": "http://fanello.net",
@@ -44,7 +44,7 @@
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.803.20",
+    "@angular-devkit/build-angular": "^0.803.21",
     "@angular/cli": "^8.0.6",
     "@angular/compiler-cli": "^8.0.3",
     "@types/aws-lambda": "^8.10.39",
