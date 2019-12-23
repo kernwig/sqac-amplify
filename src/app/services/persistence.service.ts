@@ -311,7 +311,6 @@ export class PersistenceService {
         // Save to cloud
         model.revision = model.revision ? model.revision + 1 : 1;
         model.isCloudBacked = true;
-        location = new StorageLocation(model, true);
         const json = model.toJSON() as AbstractStorableModelJSON;
 
         try {
