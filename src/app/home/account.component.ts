@@ -5,10 +5,20 @@ import {UserSettings} from "../models/user-settings";
 import {CollectionService} from "../services/collection.service";
 import {SyncService} from "../services/sync.service";
 import {takeUntil} from "rxjs/operators";
+import {AmplifyService} from 'aws-amplify-angular';
 
 @Component({
     selector: 'sqac-account',
-    templateUrl: './account.component.html'
+    templateUrl: './account.component.html',
+    styles: [`
+        .sign-in-google {
+            background: url(../assets/btn_google_signin_light_normal_web.png) no-repeat;
+            background-position-x: center;
+            height: 46px;
+            margin: 20px;
+            cursor: pointer;
+        }
+    `]
 })
 export class AccountComponent extends AbstractBaseComponent implements OnInit {
 
@@ -46,7 +56,9 @@ export class AccountComponent extends AbstractBaseComponent implements OnInit {
     /** Construct */
     constructor(private userSvc: UserService,
                 public syncSvc: SyncService,
-                private collectionSvc: CollectionService) {
+                private collectionSvc: CollectionService,
+                private readonly amplifySvc: AmplifyService,
+    ) {
         super();
     }
 
@@ -63,5 +75,9 @@ export class AccountComponent extends AbstractBaseComponent implements OnInit {
 
     syncWithCloud() {
         this.syncSvc.syncWithCloud(this.userSvc, this.collectionSvc).then();
+    }
+
+    signInWithGoogle() {
+        this.amplifySvc.auth().federatedSignIn({provider: 'Google'});
     }
 }
