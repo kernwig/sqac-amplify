@@ -89,7 +89,7 @@ export class PersistenceService {
                     // New user!
                     throw new PersistenceException(404, "No such user");
                 }
-                if (settingsLocation && settingsLocation.revision > json.revision) {
+                if (settingsLocation && (!json || settingsLocation.revision > json.revision)) {
                     const downloadedObj = await this.cloud.get(settingsLocation.key, settingsLocation.toStorageConfig(true));
                     try {
                         const downloadedStr = (downloadedObj as any).Body.toString('utf-8');
@@ -107,6 +107,10 @@ export class PersistenceService {
                         console.error("Fetch of updated settings from cloud failure", badCloudUpdate);
                     }
                 }
+            }
+
+            if (!json) {
+                throw new PersistenceException(0, "Offline");
             }
 
             const user = UserSettings.fromJSON(json);

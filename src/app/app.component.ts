@@ -1,4 +1,4 @@
-import {Component, OnInit, Optional, ViewChild} from "@angular/core";
+import {ChangeDetectorRef, Component, OnInit, Optional, ViewChild} from '@angular/core';
 import {ActivationStart, NavigationEnd, Router} from "@angular/router";
 import {LocationStrategy} from "@angular/common";
 import {SwUpdate} from "@angular/service-worker";
@@ -47,8 +47,9 @@ export class AppComponent extends AbstractBaseComponent implements OnInit {
                 public syncSvc: SyncService,
                 public layoutSvc: LayoutService,
                 private locStrat: LocationStrategy,
-                private router: Router) {
-
+                private router: Router,
+                private readonly changeRef: ChangeDetectorRef,
+    ) {
         super();
     }
 
@@ -179,6 +180,7 @@ export class AppComponent extends AbstractBaseComponent implements OnInit {
             this.errorTitle = error.name;
             this.errorModal.show();
         }
+        this.changeRef.detectChanges();
     }
 
     /**
