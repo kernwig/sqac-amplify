@@ -8,7 +8,7 @@ import {CollectionFilter} from "./widget/collection-filter.component";
 import {SyncService} from "../services/sync.service";
 import {takeUntil} from "rxjs/operators";
 import {APIService, ModelCollectionFilterInput} from '../API.service';
-import {StorageLocation} from '../services/persistence.service';
+import {StorageLocation} from '../models/storage-location';
 import {AbstractStorableModel} from '../models/abstract-storable-model';
 
 interface CollectionView extends CollectionJSON {

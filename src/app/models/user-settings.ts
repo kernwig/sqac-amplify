@@ -2,7 +2,7 @@
 import { AbstractStorableModel, AbstractStorableModelJSON } from "./abstract-storable-model";
 import { DanceSession, DanceSessionJSON } from "./dance-session";
 import {Collection} from './collection';
-import {StorageLocation} from '../services/persistence.service';
+import {StorageLocation} from './storage-location';
 
 /*
  * AuthUser's application settings.
