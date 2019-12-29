@@ -219,7 +219,7 @@ export class ListCollectionsComponent extends AbstractBaseComponent implements O
      * Unsubscribe from the active collection... Called when user confirms.
      */
     doUnsubscribe() {
-        this.settings.collections.delete(this.activeCollection.id);
+        this.settings.unsubscribeCollection(this.activeCollection);
         this.syncSvc.setDirty(this.settings);
         this.collectionSvc.loadFrom(this.settings).then();
         // Upon the reload completing, refreshCollectionList() is automatically triggered.

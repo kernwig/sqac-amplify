@@ -80,4 +80,8 @@ export class AccountComponent extends AbstractBaseComponent implements OnInit {
     signInWithGoogle() {
         this.amplifySvc.auth().federatedSignIn({provider: 'Google'});
     }
+
+    localSignUp() {
+        this.userSvc.createLocalAccount();
+    }
 }

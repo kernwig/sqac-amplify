@@ -35,6 +35,8 @@ export class PersistenceService {
     /** API to the cloud storage */
     private readonly cloud: StorageClass;
 
+    private isLocalUser = false;
+
     /** Location to the latest revision of all of the user's files. Map key is model id. */
     private usersLatestFiles = new ExpiringValue<Map<string, StorageLocation>>(
         () => this.refreshLatestFiles(), CLOUD_LIST_PERIOD);
@@ -67,21 +69,34 @@ export class PersistenceService {
      * @param model
      */
     async isNewerInCloud(model: AbstractStorableModel): Promise<boolean> {
-        const latestCloud = (await this.usersLatestFiles.get()).get(model.id);
-        return (latestCloud && latestCloud.revision > model.revision);
+        if (this.isLocalUser) {
+            return false;
+        }
+        else {
+            const latestCloud = (await this.usersLatestFiles.get()).get(model.id);
+            return (latestCloud && latestCloud.revision > model.revision);
+        }
     }
 
     /**
      * Load UserSettings for the authenticated user.
      * @returns the UserSettings or reject with PersistenceException upon failure.
      */
-    async loadUser(): Promise<UserSettings> {
+    async loadUser(isLocalAccount = false): Promise<UserSettings> {
+        this.isLocalUser = isLocalAccount;
+
         try {
             // First get local copy
             let json: UserSettingsJSON | null = (await localForage.getItem('settings')) as UserSettingsJSON;
 
+            if (isLocalAccount) {
+                if (!json) {
+                    // New user!
+                    throw new PersistenceException(404, "No such user");
+                }
+            }
             // Then ask the server for a newer one
-            if (this.syncSvc.isOnline()) {
+            else if (this.syncSvc.isOnline()) {
                 // Load the user's latest settings
                 const settingsLocation = (await this.usersLatestFiles.get()).get('settings');
 
@@ -349,7 +364,7 @@ export class PersistenceService {
     private async refreshLatestFiles(): Promise<Map<string, StorageLocation>> {
         const files = new Map<string, StorageLocation>();
 
-        if (this.syncSvc.isOnline()) {
+        if (!this.isLocalUser && this.syncSvc.isOnline()) {
             const list = await this.cloudList(new StorageLocation(""));
 
             for (const item of list) {
@@ -385,7 +400,7 @@ export class PersistenceService {
     }
 }
 
-class StorageLocation {
+export class StorageLocation {
     /**
      * Location expressed as a single string.
      * If public: <identityId>/<id>

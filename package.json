@@ -14,6 +14,7 @@
     "serve:prod": "npm run build:prod && npm run serve:dist",
     "lint": "ng lint",
     "clean": "rm -R dist/",
+    "publish": "amplify publish --invalidateCloudFront",
     "amplify:S3Trigger08755fbf": "cd amplify/backend/function/S3Trigger08755fbf/src/ && npm run build"
   },
   "dependencies": {
@@ -31,7 +32,7 @@
     "aws-amplify": "^2.2.1",
     "aws-amplify-angular": "^4.1.2",
     "bootstrap": "^3.3.7",
-    "core-js": "^3.6.0",
+    "core-js": "^3.6.1",
     "image-to-data-uri": "^1.1.0",
     "localforage": "^1.7.3",
     "ng-sidebar": "^9.2.0",
@@ -39,7 +40,7 @@
     "ngx-toastr": "^11.2.1",
     "nouislider": "^10.1.0",
     "random-js": "^1.0.8",
-    "rxjs": "^6.5.3",
+    "rxjs": "^6.5.4",
     "uuid": "^3.3.3",
     "zone.js": "~0.9.1"
   },
@@ -49,8 +50,8 @@
     "@angular/compiler-cli": "^8.0.3",
     "@types/aws-lambda": "^8.10.39",
     "@types/jasmine": "^2.8.9",
-    "@types/node": "^10.17.11",
-    "@types/nouislider": "^9.0.5",
+    "@types/node": "^10.17.13",
+    "@types/nouislider": "^9.0.6",
     "codelyzer": "^5.2.1",
     "http-server": "^0.12.0",
     "jasmine-core": "~2.5.2",

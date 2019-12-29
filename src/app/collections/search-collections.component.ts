@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AbstractBaseComponent} from "../shared/abstract-base.component";
-import {CollectionJSON} from "../models/collection";
+import {Collection, CollectionJSON} from '../models/collection';
 import {UserService} from "../services/user.service";
 import {CollectionService} from "../services/collection.service";
 import {UserSettings} from "../models/user-settings";
@@ -8,6 +8,8 @@ import {CollectionFilter} from "./widget/collection-filter.component";
 import {SyncService} from "../services/sync.service";
 import {takeUntil} from "rxjs/operators";
 import {APIService, ModelCollectionFilterInput} from '../API.service';
+import {StorageLocation} from '../services/persistence.service';
+import {AbstractStorableModel} from '../models/abstract-storable-model';
 
 interface CollectionView extends CollectionJSON {
     path: string;
@@ -79,14 +81,14 @@ export class SearchCollectionsComponent extends AbstractBaseComponent implements
 
         // Add view properties
         this.collections.forEach(col => {
-            col.path = col.authorUserId + '/' + col.id;
+            col.path = new StorageLocation((col as any) as AbstractStorableModel).path;
             col.isSubscribed = (col.authorUserId === this.settings.id) || this.settings.collections.has(col.path);
         });
     }
 
     subscribe(collection: CollectionView) {
         collection.isSubscribed = true;
-        this.settings.collections.add(collection.path);
+        this.settings.subscribeCollection((collection as any) as Collection);
         this.settings.isDirty = true;
     }
 }

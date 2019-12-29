@@ -14,4 +14,6 @@ export interface AuthUser {
     /** DataURI of the user's profile picture */
     photo: string;
 
+    /** ID provider */
+    provider: string;
 }

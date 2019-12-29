@@ -100,10 +100,10 @@ export class Collection extends AbstractStorableModel {
         o.isPublic = json.isPublic;
         o.difficulty = (+json.difficulty) as Difficulty;
         o.level = json.level as DanceLevel;
-        o.formations = json.formations.map(f => Formation.fromJSON(f));
-        o.families = json.families.map(f => Family.fromJSON(f));
-        o.calls = json.calls.map(c => Call.fromJSON(c));
-        o.modules = json.modules.map(m => Module.fromJSON(m));
+        o.formations = Array.isArray(json.formations) ? json.formations.map(f => Formation.fromJSON(f)) : [];
+        o.families = Array.isArray(json.families) ? json.families.map(f => Family.fromJSON(f)) : [];
+        o.calls = Array.isArray(json.calls) ? json.calls.map(c => Call.fromJSON(c)) : [];
+        o.modules = Array.isArray(json.modules) ? json.modules.map(m => Module.fromJSON(m)) : [];
         o.license = json.license || "";
         return o;
     }
