@@ -232,7 +232,9 @@ export class PersistenceService {
      * @throws {PersistenceException} upon unhandled failure.
      */
     cloudSaveCollection(collection: Collection): Promise<Collection> {
-        return this.saveModelToCloud(collection, new StorageLocation(collection, true));
+        return (this.isLocalUser)
+            ? Promise.resolve(collection)
+            : this.saveModelToCloud(collection, new StorageLocation(collection, true));
     }
 
     /**

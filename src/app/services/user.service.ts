@@ -143,7 +143,7 @@ export class UserService {
     /**
      * AuthUser authentication changed. Process it.
      */
-    private onUserAuth(newUser: AuthUser|undefined) {
+    private async onUserAuth(newUser: AuthUser|undefined) {
         // Ignore if no change
         if ((this.authUser && newUser && this.authUser.id === newUser.id) || (!this.authUser && !newUser)) {
             console.log("Received user auth, but it didn't change");
@@ -155,18 +155,25 @@ export class UserService {
             console.log("Login", this.authUser);
 
             // Load the UserSettings, and then notify any listeners that a user is available.
-            this.getUserSettings()
-                .then(() => {
-                    return this.setPhotoFromURI(this.authUser.photo);
-                })
-                .then(() => {
-                    // Save user data after
-                    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.authUser));
-                    if (this.settings.isDirty) {
-                        this.localSave();
-                    }
-                    this.user$.next(this.settings);
-                });
+            await this.getUserSettings();
+            await this.setPhotoFromURI(this.authUser.photo);
+
+            // Upgraded local user to cloud?
+            if (this.settings.id === LOCAL_USER_ID && this.authUser.id !== LOCAL_USER_ID) {
+                const oldSettings = this.settings;
+                this.createNewSettings();
+                this.settings.collections = oldSettings.collections;
+                this.settings.sessions = oldSettings.sessions;
+                this.settings.activeSession = oldSettings.activeSession;
+            }
+
+            // Save user data after
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(this.authUser));
+            if (this.settings.isDirty) {
+                await this.localSave();
+                await this.sync(true);
+            }
+            this.user$.next(this.settings);
         }
         else {
             console.log("Logout");
@@ -253,9 +260,12 @@ export class UserService {
     /**
      * Store any changes to UserSettings in memory to local storage.
      */
-    localSave(): void {
+    localSave(): Promise<UserSettings> {
         if (this.settings && this.settings.isDirty) {
-            this.persistSvc.localStoreUser(this.settings).then();
+            return this.persistSvc.localStoreUser(this.settings);
+        }
+        else {
+            return Promise.resolve(this.settings);
         }
     }
 
@@ -265,7 +275,7 @@ export class UserService {
      */
     async sync(sendOnly?: boolean): Promise<UserSettings> {
         if (this.isLocalUser()) {
-            this.localSave();
+            return this.localSave();
         }
         else if (!this.settings) {
             console.log("Not loaded - do so now?");
