@@ -13,6 +13,7 @@ import {AuthClass, Hub} from 'aws-amplify';
 import {Router} from '@angular/router';
 
 const STORAGE_KEY = 'user';
+export const LOCAL_USER_ID = 'local';
 
 /**
  * Manage the current user.
@@ -66,13 +67,11 @@ export class UserService {
                 }
             });
 
-        // If offline, wait a moment and then try to init from stored authentication
-        if (!this.syncSvc.isOnline()) {
-            setTimeout(() => this.offlineAuthentication(), 100);
-        }
+        // For offline and local account, wait a moment and then try to init from stored authentication
+        setTimeout(() => this.localOnlyAuthentication(), 100);
     }
 
-    private offlineAuthentication() {
+    private localOnlyAuthentication() {
         // Try to init existing authentication from storage.
         try {
             const authUserStr = localStorage.getItem(STORAGE_KEY);
@@ -118,7 +117,8 @@ export class UserService {
                     id: cognitoIdentity.id,
                     email: cognitoIdentity.attributes.email,
                     name: cognitoIdentity.attributes.name || "Unknown",
-                    photo: cognitoIdentity.attributes.picture
+                    photo: cognitoIdentity.attributes.picture,
+                    provider: cognitoIdentity.username.startsWith("Google") ? "Google" : "SqAC",
                 }
                 : undefined;
 
@@ -129,10 +129,21 @@ export class UserService {
         }
     }
 
+    createLocalAccount() {
+        console.log("Creating local account");
+        this.onUserAuth({
+            id: LOCAL_USER_ID,
+            name: "Local User",
+            email: "user@localhost",
+            photo: '',
+            provider: "local account"
+        });
+    }
+
     /**
      * AuthUser authentication changed. Process it.
      */
-    private onUserAuth(newUser: AuthUser|undefined) {
+    private async onUserAuth(newUser: AuthUser|undefined) {
         // Ignore if no change
         if ((this.authUser && newUser && this.authUser.id === newUser.id) || (!this.authUser && !newUser)) {
             console.log("Received user auth, but it didn't change");
@@ -144,15 +155,25 @@ export class UserService {
             console.log("Login", this.authUser);
 
             // Load the UserSettings, and then notify any listeners that a user is available.
-            this.getUserSettings()
-                .then(() => {
-                    return this.setPhotoFromURI(this.authUser.photo);
-                })
-                .then(() => {
-                    // Save user data after
-                    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.authUser));
-                    this.user$.next(this.settings);
-                });
+            await this.getUserSettings();
+            await this.setPhotoFromURI(this.authUser.photo);
+
+            // Upgraded local user to cloud?
+            if (this.settings.id === LOCAL_USER_ID && this.authUser.id !== LOCAL_USER_ID) {
+                const oldSettings = this.settings;
+                this.createNewSettings();
+                this.settings.collections = oldSettings.collections;
+                this.settings.sessions = oldSettings.sessions;
+                this.settings.activeSession = oldSettings.activeSession;
+            }
+
+            // Save user data after
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(this.authUser));
+            if (this.settings.isDirty) {
+                await this.localSave();
+                await this.sync(true);
+            }
+            this.user$.next(this.settings);
         }
         else {
             console.log("Logout");
@@ -164,17 +185,13 @@ export class UserService {
         }
     }
 
-    /**
-     * Request anonymous login.
-     */
-    // signInAsGuest() {
-    //     //TODO: this.fireAuth.auth.signInAnonymously();
-    //     this.onUserAuth({
-    //         id: 'user1',
-    //         name: 'Adam Fanello',
-    //         email: 'adam@fanello.net'
-    //     } as AuthUser);
-    // }
+    isLocalUser(): boolean {
+        return this.authUser && this.authUser.id === LOCAL_USER_ID;
+    }
+
+    isCloudUser(): boolean {
+        return this.authUser && this.authUser.id !== LOCAL_USER_ID;
+    }
 
     /**
      * Sign out of system.
@@ -198,7 +215,7 @@ export class UserService {
             return this.settings;
         }
         else {
-            return this.persistSvc.loadUser()
+            return this.persistSvc.loadUser(this.isLocalUser())
                 .then(settings => {
                     console.log("User settings loaded");
                     this.settings = settings;
@@ -221,7 +238,7 @@ export class UserService {
                     //     this.syncSvc.setDirty();
                     // }
                     let isDirty = false;
-                    if (!this.settings.isCloudBacked) {
+                    if (!this.settings.isCloudBacked && this.isCloudUser()) {
                         console.log('User settings are unsynced');
                         isDirty = true;
                     }
@@ -243,9 +260,12 @@ export class UserService {
     /**
      * Store any changes to UserSettings in memory to local storage.
      */
-    localSave(): void {
+    localSave(): Promise<UserSettings> {
         if (this.settings && this.settings.isDirty) {
-            this.persistSvc.localStoreUser(this.settings).then();
+            return this.persistSvc.localStoreUser(this.settings);
+        }
+        else {
+            return Promise.resolve(this.settings);
         }
     }
 
@@ -254,7 +274,10 @@ export class UserService {
      * @throws [PersistenceException] upon unhandled failure.
      */
     async sync(sendOnly?: boolean): Promise<UserSettings> {
-        if (!this.settings) {
+        if (this.isLocalUser()) {
+            return this.localSave();
+        }
+        else if (!this.settings) {
             console.log("Not loaded - do so now?");
             if (this.authUser && !sendOnly) {
                 return this.getUserSettings();
@@ -320,7 +343,7 @@ export class UserService {
      *
      * @return resolved Promise when complete.
      */
-    private setPhotoFromURI(photoUri: string): Promise<void> {
+    private setPhotoFromURI(photoUri: string|undefined): Promise<void> {
         // Default to unknown user photo
         // tslint:disable-next-line:max-line-length
         this.authUser.photo = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAB+1BMVEWCg4aEhYiEhoiEhomFh4mFiIqGiIqGiIuGiYuHiIqHiYuHiYyIiYuIiYyIioyIio2JioyJio2Ji42JjI6KjI6KjY+LjZCLjpCMjpCMj5GNj5GNj5KNkJKOkJOPkZOPkpSPkpWQk5WRlJeSlZeTlpiTlpmTlpqVl5mVmJuVmZyXmZ2XmpyXmp2Xmp6Xm56YmpyYm56YnKCYnaCZnaCZnaGanZ+anqCanqGanqKbn6KcnqCcn6KcoKOcoKScoaSdoKSdoaWdoqaen6Geoqaeo6eepKifoaOfpKego6aho6WhpKiipqqjpaejp6qkp6qkqKukqKymqa2mqqynqauoqqyorLCsr7CusLKwtLaxs7Wxtbiztre0tri0t7m1tri1t7q3ubq3uby3u764ury5u727vsG8vsG8v8G9wMG+wMG/wcO/wsS/wsXAwsTAw8TBw8XBxcjCxMbCxcjCxsnDxcfEx8jEx8nFx8nFyMrGyMrGys3Hy83Iy87IzM7Lzc/MztDMz9HO0NLO0dLP0dLP0dTQ0tTQ09XR1NXS1dbT1dfT1djU1tjU19jU19nV19rW2NrX2dvX2tzX2t3X293Y29zY293Z3N3Z3N7a3N7a3d7a3d/b3t/b3uDc3uDc3+Dc3+Hc4OLd3+Hd4OLe4OLe4ePf4ePf4uTg4uTg4+TZCKiIAAABkElEQVQ4ja2S1VbDQBRFgxUvUIIXiru7Q2lLcXd3d3d3v4UhEILrZ5ISmmSRsHhhv53JXudOZgZDf4D9twA0vwtAHixPTixdEPCLQF0sNhRrtaoFkpZFBNiqVqrVGo1G2TEGrMETzlQsyrJ9YQMUZnPGECJ+CrA2qM1kiQHBCPiYic9gSe4WNCCqNIWjvFkoXGXHc9Q9C/+CTI9jia0zFPCE24pIjl50LhCOs0IjDIQXvApG6PaSQjgS30VO8iY82ED0schRw3VJgIE0il3mX1aPnz+DYhaJChDoy5B3D2ICOj/18f5iB0Qb6H0lKPTI35CYAIggGt3kcrnLOEUIXxSgl9WqgaciZw/nysvW2t03HfAFII/6gqw974CqSa29h3U787CRE+btYsz3LlfcCW+nQF8F8FEvw3Gv0QdgBEDbuRJHmczRLGqeVoAc9rego8ws/5DQC4A2pfbfmPbTvZ1Sh+8o3QDAkG5aYitlWUdzJmywxVf0I1oseeQ8uttwyaiNoIUmiQUHNmXFS8ZtxCdiCrz8WJjJugAAAABJRU5ErkJggg==";

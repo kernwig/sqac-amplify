@@ -1,6 +1,7 @@
 type Collection
   # Store in DynamoDB, disable mutations and subscriptions
   @model( mutations: null, subscriptions: null)
+  @auth(rules: [{allow: public, provider: iam}])
 {
   id: ID!
   created: String!

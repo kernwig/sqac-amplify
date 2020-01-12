@@ -13,7 +13,7 @@
             <li><a [routerLink]="['/collections']">Collections</a></li>
             <li class="active">{{showOnly.name}}</li>
         </ol>
-        <div *ngIf="!showOnly" class="text-right">
+        <div *ngIf="!showOnly && userSvc.isCloudUser()" class="text-right">
             <button type="button" class="btn btn-danger btn-circle btn-lg btn-float-bottom-right"
                     (click)="onCreateCollection()" title="Create New">
                 <span class="glyphicon glyphicon-plus"></span>

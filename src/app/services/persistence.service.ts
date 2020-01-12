@@ -7,6 +7,7 @@ import {SyncService} from "./sync.service";
 import {AmplifyService} from 'aws-amplify-angular';
 import {AuthClass, StorageClass} from 'aws-amplify';
 import {ExpiringValue} from '@sailplane/expiring-value/dist/expiring-value';
+import {StorageLocation} from '../models/storage-location';
 
 const CLOUD_LIST_PERIOD = 10_000; // ten seconds
 
@@ -34,6 +35,8 @@ export class PersistenceException {
 export class PersistenceService {
     /** API to the cloud storage */
     private readonly cloud: StorageClass;
+
+    private isLocalUser = false;
 
     /** Location to the latest revision of all of the user's files. Map key is model id. */
     private usersLatestFiles = new ExpiringValue<Map<string, StorageLocation>>(
@@ -67,21 +70,34 @@ export class PersistenceService {
      * @param model
      */
     async isNewerInCloud(model: AbstractStorableModel): Promise<boolean> {
-        const latestCloud = (await this.usersLatestFiles.get()).get(model.id);
-        return (latestCloud && latestCloud.revision > model.revision);
+        if (this.isLocalUser) {
+            return false;
+        }
+        else {
+            const latestCloud = (await this.usersLatestFiles.get()).get(model.id);
+            return (latestCloud && latestCloud.revision > model.revision);
+        }
     }
 
     /**
      * Load UserSettings for the authenticated user.
      * @returns the UserSettings or reject with PersistenceException upon failure.
      */
-    async loadUser(): Promise<UserSettings> {
+    async loadUser(isLocalAccount = false): Promise<UserSettings> {
+        this.isLocalUser = isLocalAccount;
+
         try {
             // First get local copy
             let json: UserSettingsJSON | null = (await localForage.getItem('settings')) as UserSettingsJSON;
 
+            if (isLocalAccount) {
+                if (!json) {
+                    // New user!
+                    throw new PersistenceException(404, "No such user");
+                }
+            }
             // Then ask the server for a newer one
-            if (this.syncSvc.isOnline()) {
+            else if (this.syncSvc.isOnline()) {
                 // Load the user's latest settings
                 const settingsLocation = (await this.usersLatestFiles.get()).get('settings');
 
@@ -216,7 +232,9 @@ export class PersistenceService {
      * @throws {PersistenceException} upon unhandled failure.
      */
     cloudSaveCollection(collection: Collection): Promise<Collection> {
-        return this.saveModelToCloud(collection, new StorageLocation(collection, true));
+        return (this.isLocalUser)
+            ? Promise.resolve(collection)
+            : this.saveModelToCloud(collection, new StorageLocation(collection, true));
     }
 
     /**
@@ -349,7 +367,7 @@ export class PersistenceService {
     private async refreshLatestFiles(): Promise<Map<string, StorageLocation>> {
         const files = new Map<string, StorageLocation>();
 
-        if (this.syncSvc.isOnline()) {
+        if (!this.isLocalUser && this.syncSvc.isOnline()) {
             const list = await this.cloudList(new StorageLocation(""));
 
             for (const item of list) {
@@ -382,86 +400,5 @@ export class PersistenceService {
         const ex = new PersistenceException(status, errMsg, error);
         console.error(ex.toString(), error);
         return ex;
-    }
-}
-
-class StorageLocation {
-    /**
-     * Location expressed as a single string.
-     * If public: <identityId>/<id>
-     * If private: <id>+<revision>
-     */
-    readonly path: string;
-
-    /** Model id */
-    readonly id?: string;
-    /** Model revision number */
-    readonly revision?: number;
-
-    /** S3 Object Key */
-    readonly key: string;
-    readonly level: 'private' | 'protected';
-    /** User ID, if level is 'protected' */
-    readonly identityId?: string;
-
-
-    /**
-     * Convert either an AbstractStorableModel or a path to a one into the S3 storage location.
-     *
-     * @param modelOrPath a data model to make a location out of, or a path to content
-     * @param forcePrivate if true, force to use private location even if modelOrPath can be public
-     */
-    constructor(modelOrPath: AbstractStorableModel | string, forcePrivate = false) {
-        if (typeof modelOrPath === 'string') {
-            // Path is just the ID when private.
-            // When public the path has the user ID '/' model ID, with no +rev.
-            const path = modelOrPath as string;
-            const slashIdx = path.indexOf('/');
-            const plusIdx = path.indexOf('+', slashIdx);
-            if (slashIdx > 0 && !forcePrivate) {
-                this.path = path;
-                this.id = path.substring(slashIdx + 1, plusIdx > slashIdx ? plusIdx : undefined);
-                this.revision = plusIdx > slashIdx ? +path.substring(plusIdx + 1) : undefined;
-                this.key = path.substring(slashIdx + 1);
-                this.level = 'protected';
-                this.identityId = path.substring(0, slashIdx);
-            } else {
-                this.path = path;
-                this.id = plusIdx > 0 ? path.substring(0, plusIdx) : path;
-                this.revision = plusIdx > 0 ? +path.substring(plusIdx + 1) : undefined;
-                this.key = path;
-                this.level = 'private';
-            }
-        } else if ((modelOrPath as Collection).authorUserId) {
-            const collection = modelOrPath as Collection;
-            const isPublic = collection.isPublic && !forcePrivate;
-            this.level = isPublic ? 'protected' : 'private';
-            this.id = collection.id;
-            this.revision = collection.revision;
-            this.key = isPublic ? collection.id : collection.id + '+' + collection.revision;
-            this.identityId = collection.isPublic ? collection.authorUserId : undefined;
-            this.path = collection.isPublic ? collection.authorUserId + '/' + this.key : this.key;
-        } else {
-            // Some other AbstractStorableModel - always private
-            const model = modelOrPath as AbstractStorableModel;
-            this.id = model.id;
-            this.revision = model.revision;
-            this.key = this.id + '+' + this.revision;
-            this.level = 'private';
-            this.path = this.key;
-        }
-    }
-
-    /**
-     * Create config options for Amplify StorageClass operations
-     * @param doDownload set to true for get operation to download content
-     */
-    toStorageConfig(doDownload?: boolean): any {
-        return {
-            level: this.level,
-            identityId: this.identityId,
-            download: doDownload === true,
-            contentType: "application/json",
-        };
     }
 }

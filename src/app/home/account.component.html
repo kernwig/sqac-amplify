@@ -10,38 +10,64 @@
     </div>
 
     <div *ngIf="!userSettings && syncSvc.isOnline()" class="container-fluid text-center">
-        <div class="amplify-block">
-            <amplify-authenticator [signUpConfig]="signUpConfig"
-                                   usernameAttributes="email">
-            </amplify-authenticator>
-            <hr>
-            <i>or</i>
-            <div class="sign-in-google" (click)="signInWithGoogle()"></div>
+        <h3>Local Only</h3>
+        <div>
+            <p class="text-info small">
+                A local account lets you use dance to public module collections and create your own sessions.
+                Your subscriptions and sessions are only stored locally in this browser, and could be lost.
+            </p>
+            <button class="btn btn-default" (click)="localSignUp()">Create Local Account</button>
         </div>
-        <hr>
-        <p class="text-info small">
-            Your account is only used for basic identification, so that you can backup your data and share between your,
-            and <i>only your</i> devices. (Unless you <i>choose</i> to share with others.)
-            <br>
-            SqAC does not gain access to your social feeds, shopping, or anything of the sort.
-            <br>
-            These providers will tell you if special permissions were being requested.
-            They are just used so that SqAC can focus on calling, and not account maintenance.
-            <br>
-            Once you choose a provider, you must continue using it each time. Choosing a different provider
-            will result in a separate SqAC account.
-        </p>
+
+        <hr style="margin: 30px 0">
+
+        <h3>Cloud Storage</h3>
+        <ng-container *ngTemplateOutlet="cloudLogin"></ng-container>
     </div>
 
     <div *ngIf="userSettings" class="container-fluid text-center">
         <img [src]="userSvc.info.photo" class="img-rounded" style="width: 96px; height: 96px">
-        <h4 class="text-success">You are signed in with {{userSettings.getAuthProviderName()}} as <em>{{userSettings.name}}</em>.</h4>
-        <button type="button" class="btn btn-primary" (click)="syncWithCloud()" [disabled]="!syncSvc.isOnline()">
-            Update collections from cloud storage.
-        </button>
-        <hr>
-        <button type="button" class="btn btn-danger" (click)="signOut()" [disabled]="!syncSvc.isOnline()">
-            Sign Out
-        </button>
+        <h4 class="text-success">You are signed in with {{userSvc.info.provider}} as <em>{{userSettings.name}}</em>.</h4>
+
+        <div *ngIf="userSvc.isCloudUser()">
+            <button class="btn btn-primary" (click)="syncWithCloud()" [disabled]="!syncSvc.isOnline()">
+                Update collections from cloud storage.
+            </button>
+            <hr>
+            <button type="button" class="btn btn-danger" (click)="signOut()" [disabled]="!syncSvc.isOnline()">
+                Sign Out
+            </button>
+        </div>
+
+        <div *ngIf="userSvc.isLocalUser()">
+            <p class="text-info small">
+                This local account lets you use dance to public module collections and create your own sessions.
+                Your subscriptions and sessions are only stored locally in this browser, and could be lost.
+            </p>
+            <button type="button" class="btn btn-danger" (click)="signOut()">
+                Destroy Local Account
+            </button>
+            <hr style="margin: 30px 0">
+            <h3>Upgrade to Cloud Storage</h3>
+            <ng-container *ngTemplateOutlet="cloudLogin"></ng-container>
+        </div>
     </div>
 </div>
+
+<ng-template #cloudLogin>
+    <p class="text-info small">
+        A free cloud account lets you backup your data and share between <i>your</i> devices.
+        It also allows you to create your own collections of dance modules, which you may <i>choose</i>
+        to share with others.
+    </p>
+    <div class="amplify-block">
+        <amplify-authenticator [signUpConfig]="signUpConfig"
+                               usernameAttributes="email">
+        </amplify-authenticator>
+    </div>
+    <hr class="text" data-content="or">
+    <div class="sign-in-google" (click)="signInWithGoogle()"></div>
+    <p class="text-info small">
+        Google will only share your name and email address. Your photo will be displayed to you.
+    </p>
+</ng-template>

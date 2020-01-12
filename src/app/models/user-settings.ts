@@ -1,6 +1,8 @@
 /* tslint:disable:member-ordering */
 import { AbstractStorableModel, AbstractStorableModelJSON } from "./abstract-storable-model";
 import { DanceSession, DanceSessionJSON } from "./dance-session";
+import {Collection} from './collection';
+import {StorageLocation} from './storage-location';
 
 /*
  * AuthUser's application settings.
@@ -32,6 +34,14 @@ export class UserSettings extends AbstractStorableModel {
         super(1, userId);
     }
 
+    subscribeCollection(collection: Collection) {
+        this.collections.add(new StorageLocation(collection).path);
+    }
+
+    unsubscribeCollection(collection: Collection) {
+        this.collections.delete(new StorageLocation(collection).path);
+    }
+
     /** Serialize this instance into JSON */
     public toJSON(): UserSettingsJSON {
         const json = super.toJSON() as UserSettingsJSON;
@@ -60,25 +70,6 @@ export class UserSettings extends AbstractStorableModel {
             o.activeSession = o.sessions.find((session) => session.id === json.activeSession);
         }
         return o;
-    }
-
-    /**
-     * Get the name of the authentication provider used by this user.
-     * @deprecated no longer useful?
-     */
-    getAuthProviderName(): string {
-        if (!this.id) {
-            return "";
-        }
-        else if (this.id.startsWith("google")) {
-            return "Google";
-        }
-        else if (this.id.startsWith("facebook")) {
-            return "Facebook";
-        }
-        else {
-            return "SqAC";
-        }
     }
 }
 
