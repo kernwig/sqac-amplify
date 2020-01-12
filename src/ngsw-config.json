@@ -14,15 +14,12 @@
                     "/favicon.ico",
                     "/manifest.json",
                     "/assets/*",
+                    "/*.css",
+                    "/*.js",
+                    "/*.woff",
+                    "/*.woff2",
                     "!/ngsw-worker.js",
                     "!/**/.DS_Store"
-                ],
-                "versionedFiles": [
-                    "/*.bundle.css",
-                    "/*.bundle.js",
-                    "/*.chunk.js",
-                    "/*.woff",
-                    "/*.woff2"
                 ]
             }
         }

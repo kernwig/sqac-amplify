@@ -40,8 +40,10 @@
     "triggers": "{}",
     "hostedUI": true,
     "hostedUIDomainName": "sqac",
-    "authProvidersUserPool": [],
-    "hostedUIProviderMeta": "[]",
+    "authProvidersUserPool": [
+        "Google"
+    ],
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
     "authRoleArn": {
         "Fn::GetAtt": [
             "AuthRole",
@@ -59,5 +61,6 @@
     },
     "permissions": [],
     "dependsOn": [],
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:4200/\"],\"LogoutURLs\":[\"http://localhost:4200/\"]}"
+    "userPoolGroupList": [],
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:4200/\",\"https://d3l0j9nusq7n6r.cloudfront.net/\"],\"LogoutURLs\":[\"http://localhost:4200/\",\"https://d3l0j9nusq7n6r.cloudfront.net/\"]}"
 }

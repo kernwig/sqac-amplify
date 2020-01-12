@@ -1,7 +1,7 @@
 import {SyncService} from "./sync.service";
 
 const imageToURI = require('image-to-data-uri');
-import {Injectable} from "@angular/core";
+import {Injectable, NgZone} from '@angular/core';
 import {UserSettings} from "../models/user-settings";
 import {CollectionService} from "./collection.service";
 import {BehaviorSubject} from "rxjs";
@@ -9,7 +9,8 @@ import {AuthUser} from "../models/auth-user";
 import {PersistenceService, PersistenceException} from "./persistence.service";
 import {ToastrService} from "ngx-toastr";
 import {AmplifyService} from 'aws-amplify-angular';
-import {AuthClass} from 'aws-amplify';
+import {AuthClass, Hub} from 'aws-amplify';
+import {Router} from '@angular/router';
 
 const STORAGE_KEY = 'user';
 
@@ -41,15 +42,27 @@ export class UserService {
                 private readonly amplifySvc: AmplifyService,
                 private persistSvc: PersistenceService,
                 private syncSvc: SyncService,
-                private toastr: ToastrService
+                private toastr: ToastrService,
+                private readonly router: Router,
+                private ngZone: NgZone,
     ) {
+        // Listen for federated sign-in and redirect to account page to complete the process
+        Hub.listen('auth', ({ payload: { event, data } }) => {
+            if (event === 'signIn') {
+                this.ngZone.run(() =>
+                    this.router.navigate(['/home/account'])
+                ).then();
+            }
+        });
+
+        // Listen for any sign-in/sign-out
         this.amplifySvc.authStateChange$
             .subscribe(authState => {
                 if (authState.state === 'signedIn') {
-                    this.onCognitoUserAuth(authState.user);
+                    this.onCognitoUserAuth(authState.user).then();
                 }
-                else {
-                    this.onCognitoUserAuth(undefined);
+                else if (authState.state === 'signedOut') {
+                    this.onCognitoUserAuth(undefined).then();
                 }
             });
 
