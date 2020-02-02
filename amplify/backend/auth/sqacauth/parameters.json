@@ -62,5 +62,5 @@
     "permissions": [],
     "dependsOn": [],
     "userPoolGroupList": [],
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:4200/\",\"https://d3l0j9nusq7n6r.cloudfront.net/\"],\"LogoutURLs\":[\"http://localhost:4200/\",\"https://d3l0j9nusq7n6r.cloudfront.net/\"]}"
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:4200/\",\"https://sqac.fanello.net/\"],\"LogoutURLs\":[\"http://localhost:4200/\",\"https://sqac.fanello.net/\"]}"
 }
