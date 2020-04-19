@@ -8,7 +8,7 @@ import {ModuleService} from "../../services/module.service";
 import {UserSettings} from "../../models/user-settings";
 import {Module} from "../../models/module";
 import {ChoreographerService} from "../../services/choreographer.service";
-import {ModalDirective} from "ngx-bootstrap";
+import {ModalDirective} from "ngx-bootstrap/modal";
 import {Formation} from "../../models/formation";
 import {combineLatest} from "rxjs";
 import {takeUntil} from "rxjs/operators";

@@ -1,5 +1,5 @@
 import {Component, Input, Output, EventEmitter, ViewChild, ElementRef} from "@angular/core";
-import {BsDropdownMenuDirective} from "ngx-bootstrap";
+import {BsDropdownMenuDirective} from "ngx-bootstrap/dropdown";
 
 export interface SearchItem {
     /** Unique ID */

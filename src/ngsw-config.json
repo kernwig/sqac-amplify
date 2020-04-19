@@ -13,14 +13,14 @@
                     "/*.html",
                     "/favicon.ico",
                     "/manifest.json",
+                    "/manifest.webmanifest",
                     "/assets/*",
                     "/*.css",
                     "/*.js",
                     "/*.woff",
                     "/*.woff2",
                     "!/ngsw-worker.js",
-                    "!/**/.DS_Store",
-                    "/manifest.webmanifest"
+                    "!/**/.DS_Store"
                 ]
             }
         }
