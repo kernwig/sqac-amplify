@@ -5,7 +5,7 @@ import {AbstractStorableModel, AbstractStorableModelJSON} from "../models/abstra
 import * as localForage from "localforage";
 import {SyncService} from "./sync.service";
 import {AmplifyService} from 'aws-amplify-angular';
-import {AuthClass, StorageClass} from 'aws-amplify';
+import {Auth, Storage} from 'aws-amplify';
 import {ExpiringValue} from '@sailplane/expiring-value/dist/expiring-value';
 import {StorageLocation} from '../models/storage-location';
 
@@ -34,7 +34,7 @@ export class PersistenceException {
 @Injectable()
 export class PersistenceService {
     /** API to the cloud storage */
-    private readonly cloud: StorageClass;
+    private readonly cloud = Storage;
 
     private isLocalUser = false;
 
@@ -45,8 +45,6 @@ export class PersistenceService {
     constructor(private readonly syncSvc: SyncService,
                 private readonly amplifySvc: AmplifyService,
     ) {
-        this.cloud = this.amplifySvc.storage();
-
         localForage.config({
             name: 'SqAC',
             size: 20000000, // 20 MB
@@ -62,7 +60,7 @@ export class PersistenceService {
     signOut() {
         this.syncSvc.reset();
         localForage.clear().then();
-        return (this.amplifySvc.auth() as AuthClass).signOut();
+        return (this.amplifySvc.auth() as typeof Auth).signOut();
     }
 
     /**
