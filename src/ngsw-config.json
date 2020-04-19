@@ -19,7 +19,8 @@
                     "/*.woff",
                     "/*.woff2",
                     "!/ngsw-worker.js",
-                    "!/**/.DS_Store"
+                    "!/**/.DS_Store",
+                    "/manifest.webmanifest"
                 ]
             }
         }

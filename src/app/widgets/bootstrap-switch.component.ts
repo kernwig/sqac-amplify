@@ -1,7 +1,4 @@
-import {
-    Component, Input, ElementRef, Output, EventEmitter, OnChanges, SimpleChange, ViewChild, Renderer, AfterViewInit, AfterViewChecked,
-    ViewEncapsulation
-} from '@angular/core';
+import { Component, Input, ElementRef, Output, EventEmitter, OnChanges, SimpleChange, ViewChild, AfterViewInit, AfterViewChecked, ViewEncapsulation, Renderer2 } from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
@@ -252,7 +249,7 @@ export class BootstrapSwitchComponent implements OnChanges, AfterViewInit, After
     _disabledClass = '';
     _needCalculateWidth = false;
 
-    constructor(private el: ElementRef, private renderer: Renderer) {
+    constructor(private el: ElementRef, private renderer: Renderer2) {
         this._calculateSize();
     }
 
@@ -315,18 +312,18 @@ export class BootstrapSwitchComponent implements OnChanges, AfterViewInit, After
 
     private _calculateWidth(): void {
         if (this._onSpan) {
-            this.renderer.setElementStyle(this._onSpan.nativeElement, 'width', '');
-            this.renderer.setElementStyle(this._midSpan.nativeElement, 'width', '');
-            this.renderer.setElementStyle(this._offSpan.nativeElement, 'width', '');
-            this.renderer.setElementStyle(this._main.nativeElement, "width", "");
+            this.renderer.setStyle(this._onSpan.nativeElement, 'width', '');
+            this.renderer.setStyle(this._midSpan.nativeElement, 'width', '');
+            this.renderer.setStyle(this._offSpan.nativeElement, 'width', '');
+            this.renderer.setStyle(this._main.nativeElement, "width", "");
 
             const width = Math.max(this._onSpan.nativeElement.clientWidth, this._offSpan.nativeElement.clientWidth, this._minWidth);
 
-            this.renderer.setElementStyle(this._onSpan.nativeElement, 'width', width.toString() + 'px');
-            this.renderer.setElementStyle(this._midSpan.nativeElement, 'width', (width - 10).toString() + 'px');
-            this.renderer.setElementStyle(this._offSpan.nativeElement, 'width', width.toString() + 'px');
-            this.renderer.setElementStyle(this._container.nativeElement, 'width', (width * 3).toString() + 'px');
-            this.renderer.setElementStyle(this._main.nativeElement, 'width', (width * 2).toString() + 'px');
+            this.renderer.setStyle(this._onSpan.nativeElement, 'width', width.toString() + 'px');
+            this.renderer.setStyle(this._midSpan.nativeElement, 'width', (width - 10).toString() + 'px');
+            this.renderer.setStyle(this._offSpan.nativeElement, 'width', width.toString() + 'px');
+            this.renderer.setStyle(this._container.nativeElement, 'width', (width * 3).toString() + 'px');
+            this.renderer.setStyle(this._main.nativeElement, 'width', (width * 2).toString() + 'px');
         }
     }
 

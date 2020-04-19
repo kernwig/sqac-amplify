@@ -59,7 +59,7 @@ export class SearchableInputComponent<T extends SearchItem> {
     showAbove = false;
 
     @ViewChild('inputBar', { static: true }) inputBar: ElementRef;
-    @ViewChild('matchItemList', { static: false }) matchItemList: BsDropdownMenuDirective;
+    @ViewChild('matchItemList') matchItemList: BsDropdownMenuDirective;
     @ViewChild('scrollIntoView', { static: true }) scrollIntoViewElem: ElementRef;
 
     /** availableItems filtered by search input */

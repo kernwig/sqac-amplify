@@ -11,6 +11,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -36,6 +37,12 @@
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": true,
@@ -119,35 +126,35 @@
   "defaultProject": "sqac-amplify",
   "schematics": {
     "@schematics/angular:class": {
-      "spec": false
+      "skipTests": true
     },
     "@schematics/angular:component": {
       "flat": true,
-      "spec": false,
+      "skipTests": true,
       "prefix": "sqac",
-      "styleext": "scss"
+      "style": "scss"
     },
     "@schematics/angular:directive": {
       "flat": true,
-      "spec": false,
+      "skipTests": true,
       "prefix": "sqac"
     },
     "@schematics/angular:guard": {
       "flat": true,
-      "spec": false
+      "skipTests": true
     },
     "@schematics/angular:module": {
       "flat": false,
-      "spec": false,
+      "skipTests": true,
       "routing": true
     },
     "@schematics/angular:pipe": {
       "flat": true,
-      "spec": false
+      "skipTests": true
     },
     "@schematics/angular:service": {
       "flat": true,
-      "spec": false
+      "skipTests": true
     }
   }
 }
