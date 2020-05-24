@@ -1,5 +1,5 @@
 import {Component, Input, Output, EventEmitter, ViewChild, ElementRef} from "@angular/core";
-import {BsDropdownMenuDirective} from "ngx-bootstrap";
+import {BsDropdownMenuDirective} from "ngx-bootstrap/dropdown";
 
 export interface SearchItem {
     /** Unique ID */
@@ -59,7 +59,7 @@ export class SearchableInputComponent<T extends SearchItem> {
     showAbove = false;
 
     @ViewChild('inputBar', { static: true }) inputBar: ElementRef;
-    @ViewChild('matchItemList', { static: false }) matchItemList: BsDropdownMenuDirective;
+    @ViewChild('matchItemList') matchItemList: BsDropdownMenuDirective;
     @ViewChild('scrollIntoView', { static: true }) scrollIntoViewElem: ElementRef;
 
     /** availableItems filtered by search input */

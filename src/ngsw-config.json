@@ -13,6 +13,7 @@
                     "/*.html",
                     "/favicon.ico",
                     "/manifest.json",
+                    "/manifest.webmanifest",
                     "/assets/*",
                     "/*.css",
                     "/*.js",

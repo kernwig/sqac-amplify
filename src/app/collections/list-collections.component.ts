@@ -6,7 +6,7 @@ import {UserService} from "../services/user.service";
 import {CollectionService} from "../services/collection.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {UserSettings} from "../models/user-settings";
-import {ModalDirective} from "ngx-bootstrap";
+import {ModalDirective} from "ngx-bootstrap/modal";
 import {CollectionFilter} from "./widget/collection-filter.component";
 import {CollectionFilterPipe} from "./pipe/collection-filter.pipe";
 import {SyncService} from "../services/sync.service";

@@ -4,13 +4,14 @@ import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 
 /* External Modules */
-import {
-    ButtonsModule, CollapseModule, BsDropdownModule,
-    ModalModule, PopoverModule, TabsModule,
-    TooltipModule,
-} from 'ngx-bootstrap';
+import {ButtonsModule} from 'ngx-bootstrap/buttons';
+import {CollapseModule} from 'ngx-bootstrap/collapse';
+import {ModalModule} from 'ngx-bootstrap/modal';
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import {PopoverModule} from 'ngx-bootstrap/popover';
+import {TabsModule} from 'ngx-bootstrap/tabs';
+import {TooltipModule} from 'ngx-bootstrap/tooltip';
 import {SidebarModule} from 'ng-sidebar';
-
 
 //
 // Pipes

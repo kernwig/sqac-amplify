@@ -9,7 +9,7 @@ import {AuthUser} from "../models/auth-user";
 import {PersistenceService, PersistenceException} from "./persistence.service";
 import {ToastrService} from "ngx-toastr";
 import {AmplifyService} from 'aws-amplify-angular';
-import {AuthClass, Hub} from 'aws-amplify';
+import {Auth, Hub} from 'aws-amplify';
 import {Router} from '@angular/router';
 
 const STORAGE_KEY = 'user';
@@ -48,10 +48,10 @@ export class UserService {
                 private ngZone: NgZone,
     ) {
         // Listen for federated sign-in and redirect to account page to complete the process
-        Hub.listen('auth', ({ payload: { event, data } }) => {
+        Hub.listen('auth', ({ payload: { event} }) => {
             if (event === 'signIn') {
                 this.ngZone.run(() =>
-                    this.router.navigate(['/home/account'])
+                    this.onCognitoUserAuth({})
                 ).then();
             }
         });
@@ -76,7 +76,7 @@ export class UserService {
         try {
             const authUserStr = localStorage.getItem(STORAGE_KEY);
             if (authUserStr) {
-                this.onUserAuth(JSON.parse(authUserStr));
+                this.onUserAuth(JSON.parse(authUserStr)).then();
             }
         } catch (err) {
             console.log(err);
@@ -85,12 +85,11 @@ export class UserService {
 
     /**
      * Try to renew authenticate on network
-     */
+     *
     private renewAuthentication() {
         if (this.syncSvc.isOnline()) {
-            const auth = this.amplifySvc.auth() as AuthClass;
-            auth.currentSession()
-                .then(() => auth.currentAuthenticatedUser())
+            Auth.currentSession()
+                .then(() => Auth.currentAuthenticatedUser())
                 .then(user => this.onCognitoUserAuth(user))
                 .catch(err => {
                     console.warn("renewAuthentication failure", err);
@@ -98,7 +97,7 @@ export class UserService {
                     return this.persistSvc.signOut();
                 });
         }
-    }
+    } */
 
     /**
      * Cognito user authentication changed. Process it.
@@ -109,7 +108,7 @@ export class UserService {
         if (cognitoUser) {
             // Ignore CognitoUser content. Storage uses the Cognito Identity Pool's
             // subject ID for the storage path, so that's the one we want to use.
-            const cognitoIdentity = await (this.amplifySvc.auth() as AuthClass).currentUserInfo();
+            const cognitoIdentity = await Auth.currentUserInfo();
             console.log("cognitoIdentity", cognitoIdentity);
 
             const newUser: AuthUser = cognitoIdentity && cognitoIdentity.attributes
@@ -137,7 +136,7 @@ export class UserService {
             email: "user@localhost",
             photo: '',
             provider: "local account"
-        });
+        }).then();
     }
 
     /**
@@ -198,7 +197,7 @@ export class UserService {
      */
     signOut() {
         this.persistSvc.signOut().then();
-        this.onUserAuth(undefined);
+        this.onUserAuth(undefined).then();
     }
 
     /**

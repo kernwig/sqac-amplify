@@ -1,12 +1,12 @@
 # SqAC
 
 Square Auto-Choreographer\
-Copyright (c) 2017-2019, Adam Fanello\
+Copyright (c) 2017-2020, Adam Fanello\
 All rights reserved.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Use Node.js 12. Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 

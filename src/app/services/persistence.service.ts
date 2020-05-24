@@ -5,7 +5,7 @@ import {AbstractStorableModel, AbstractStorableModelJSON} from "../models/abstra
 import * as localForage from "localforage";
 import {SyncService} from "./sync.service";
 import {AmplifyService} from 'aws-amplify-angular';
-import {AuthClass, StorageClass} from 'aws-amplify';
+import {Auth, Storage} from 'aws-amplify';
 import {ExpiringValue} from '@sailplane/expiring-value/dist/expiring-value';
 import {StorageLocation} from '../models/storage-location';
 
@@ -34,7 +34,7 @@ export class PersistenceException {
 @Injectable()
 export class PersistenceService {
     /** API to the cloud storage */
-    private readonly cloud: StorageClass;
+    private readonly cloud = Storage;
 
     private isLocalUser = false;
 
@@ -45,8 +45,6 @@ export class PersistenceService {
     constructor(private readonly syncSvc: SyncService,
                 private readonly amplifySvc: AmplifyService,
     ) {
-        this.cloud = this.amplifySvc.storage();
-
         localForage.config({
             name: 'SqAC',
             size: 20000000, // 20 MB
@@ -62,7 +60,7 @@ export class PersistenceService {
     signOut() {
         this.syncSvc.reset();
         localForage.clear().then();
-        return (this.amplifySvc.auth() as AuthClass).signOut();
+        return (this.amplifySvc.auth() as typeof Auth).signOut();
     }
 
     /**
@@ -108,8 +106,7 @@ export class PersistenceService {
                 if (settingsLocation && (!json || settingsLocation.revision > json.revision)) {
                     const downloadedObj = await this.cloud.get(settingsLocation.key, settingsLocation.toStorageConfig(true));
                     try {
-                        const downloadedStr = (downloadedObj as any).Body.toString('utf-8');
-                        const downloadedJson = JSON.parse(downloadedStr) as UserSettingsJSON;
+                        const downloadedJson = (downloadedObj as any).Body as UserSettingsJSON;
                         if (!json || downloadedJson.revision > json.revision) {
                             // Use and local save updated version
                             json = downloadedJson;
@@ -202,10 +199,8 @@ export class PersistenceService {
         console.debug("cloudLoadCollection", location);
         const downloadedObj = await this.cloud.get(location.key, location.toStorageConfig(true));
         try {
-            const downloadedStr = (downloadedObj as any).Body.toString('utf-8');
-
             // Use and local save updated version
-            const json = JSON.parse(downloadedStr) as CollectionJSON;
+            const json = (downloadedObj as any).Body as CollectionJSON;
             json.isCloudBacked = true;
             localForage.setItem(location.id, json).then();
             return Collection.fromJSON(json);
@@ -258,8 +253,7 @@ export class PersistenceService {
         for (const location of list) {
             const downloadedObj = await this.cloud.get(location.key, location.toStorageConfig(true));
             try {
-                const downloadedStr = (downloadedObj as any).Body.toString('utf-8');
-                const downloadedJson = JSON.parse(downloadedStr) as CollectionJSON;
+                const downloadedJson = (downloadedObj as any).Body as CollectionJSON;
                 results.push(Collection.fromJSON(downloadedJson));
             }
             catch (badCloudUpdate) {

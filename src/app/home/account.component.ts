@@ -77,8 +77,17 @@ export class AccountComponent extends AbstractBaseComponent implements OnInit {
         this.syncSvc.syncWithCloud(this.userSvc, this.collectionSvc).then();
     }
 
-    signInWithGoogle() {
-        this.amplifySvc.auth().federatedSignIn({provider: 'Google'});
+    // signInWithGoogle() {
+    //     this.amplifySvc.auth().federatedSignIn({provider: 'Google'}).then();
+    // }
+
+    /**
+     * Since the amplify-authenticator component doesn't work with Angular 9,
+     * use Coginto's hosted sign-in instead.
+     * @see https://github.com/aws-amplify/amplify-js/issues/4744
+     */
+    federatedSignIn() {
+        this.amplifySvc.auth().federatedSignIn().then();
     }
 
     localSignUp() {
