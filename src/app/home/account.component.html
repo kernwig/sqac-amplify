@@ -60,14 +60,16 @@
         It also allows you to create your own collections of dance modules, which you may <i>choose</i>
         to share with others.
     </p>
-    <div class="amplify-block">
-        <amplify-authenticator [signUpConfig]="signUpConfig"
-                               usernameAttributes="email">
-        </amplify-authenticator>
-    </div>
-    <hr class="text" data-content="or">
-    <div class="sign-in-google" (click)="signInWithGoogle()"></div>
-    <p class="text-info small">
-        Google will only share your name and email address. Your photo will be displayed to you.
-    </p>
+    <button type="button" class="btn btn-success" (click)="federatedSignIn()">Sign In or Sign Up</button>
+<!-- @see https://github.com/aws-amplify/amplify-js/issues/4744 -->
+<!--    <div class="amplify-block">-->
+<!--        <amplify-authenticator [signUpConfig]="signUpConfig"-->
+<!--                               usernameAttributes="email">-->
+<!--        </amplify-authenticator>-->
+<!--    </div>-->
+<!--    <hr class="text" data-content="or">-->
+<!--    <div class="sign-in-google" (click)="signInWithGoogle()"></div>-->
+<!--    <p class="text-info small">-->
+<!--        Google will only share your name and email address. Your photo will be displayed to you.-->
+<!--    </p>-->
 </ng-template>

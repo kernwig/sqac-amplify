@@ -51,7 +51,7 @@ export class UserService {
         Hub.listen('auth', ({ payload: { event} }) => {
             if (event === 'signIn') {
                 this.ngZone.run(() =>
-                    this.router.navigate(['/home/account'])
+                    this.onCognitoUserAuth({})
                 ).then();
             }
         });

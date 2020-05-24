@@ -40,7 +40,7 @@ export class AppComponent extends AbstractBaseComponent implements OnInit {
      * Construct.
      */
     constructor(private errorSvc: ErrorCatchingService,
-                private userSvc: UserService,
+                public userSvc: UserService,
                 private collectionSvc: CollectionService,
                 @Optional() private swUpdate: SwUpdate,
                 private toastr: ToastrService,
