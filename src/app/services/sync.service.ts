@@ -75,7 +75,6 @@ export class SyncService {
 
     /**
      * Return icon name based on the dirty and online flags.
-     * @returns {string}
      */
     getIcon(): string {
         if (this.isOnline()) {

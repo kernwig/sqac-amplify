@@ -44,6 +44,9 @@ export interface SearchItem {
         input:-ms-input-placeholder { color: #333; }
         input:focus:-ms-input-placeholder { color: #999; }
         .search-popup { width: 20em; }
+        .input-group .form-control {
+            z-index: 0; /* lower from 2 so that help sidebar shows above this */
+        }
     `]
 })
 export class SearchableInputComponent<T extends SearchItem> {
@@ -122,31 +125,30 @@ export class SearchableInputComponent<T extends SearchItem> {
     }
 
     onKeyup(event: KeyboardEvent) {
-        // noinspection JSDeprecatedSymbols
-        switch (event.keyCode) {
-            case 9: // tab
-            case 13: // enter
+        switch (event.code) {
+            case 'Tab':
+            case 'Enter':
                 this.finish();
                 break;
-            case 27: // etc
+            case 'Escape':
                 this.clear();
                 break;
-            case 33: // page up
+            case 'PageUp':
                 this.highlightMatchIdx = 0;
                 event.stopPropagation();
                 event.preventDefault();
                 break;
-            case 34: // page down
+            case 'PageDown':
                 this.highlightMatchIdx = (this.matchedItems ? this.matchedItems.length - 1 : 0);
                 event.stopPropagation();
                 event.preventDefault();
                 break;
-            case 38: // cursor up
+            case 'ArrowUp':
                 if (this.matchedItems) {
                     this.highlightMatchIdx = (this.highlightMatchIdx > 0) ? this.highlightMatchIdx - 1 : this.matchedItems.length - 1;
                 }
                 break;
-            case 40: // cursor down
+            case 'ArrowDown':
                 if (this.matchedItems) {
                     this.highlightMatchIdx = (this.highlightMatchIdx < this.matchedItems.length - 1) ? this.highlightMatchIdx + 1 : 0;
                 }

@@ -42,7 +42,7 @@ export class DanceSession extends AbstractModel {
 
     /** Serialize this instance into JSON */
     public toJSON(): DanceSessionJSON {
-        return <DanceSessionJSON> {
+        return {
             id: this.id,
             name: this.name,
             enabledCollections: Array.from(this.enabledCollections),

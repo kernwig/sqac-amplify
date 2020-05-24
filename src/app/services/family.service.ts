@@ -14,7 +14,6 @@ export class FamilyService extends CachingModelService<Family> {
 
     /**
      * Clear all data from this service.
-     * @override
      */
     clearAll(): void {
         this.clearCache();

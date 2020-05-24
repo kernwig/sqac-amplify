@@ -29,7 +29,7 @@ export class Formation extends AbstractModel implements SearchItem {
 
     /** Serialize this instance into JSON */
     public toJSON(): FormationJSON {
-        return <FormationJSON> {
+        return {
             id: this.id,
             name: this.name,
             abbr: this.abbreviation,

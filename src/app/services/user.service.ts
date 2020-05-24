@@ -84,22 +84,6 @@ export class UserService {
     }
 
     /**
-     * Try to renew authenticate on network
-     *
-    private renewAuthentication() {
-        if (this.syncSvc.isOnline()) {
-            Auth.currentSession()
-                .then(() => Auth.currentAuthenticatedUser())
-                .then(user => this.onCognitoUserAuth(user))
-                .catch(err => {
-                    console.warn("renewAuthentication failure", err);
-                    // No user - make sure storage is clean.
-                    return this.persistSvc.signOut();
-                });
-        }
-    } */
-
-    /**
      * Cognito user authentication changed. Process it.
      * @param cognitoUser a CognitoUser
      * @see https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html#cognito-user-pools-standard-attributes

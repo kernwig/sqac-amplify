@@ -8,6 +8,7 @@ import {AmplifyService} from 'aws-amplify-angular';
 import {Auth, Storage} from 'aws-amplify';
 import {ExpiringValue} from '@sailplane/expiring-value/dist/expiring-value';
 import {StorageLocation} from '../models/storage-location';
+import {GetObjectOutput} from '@aws-sdk/client-s3/types/models';
 
 const CLOUD_LIST_PERIOD = 10_000; // ten seconds
 
@@ -65,7 +66,6 @@ export class PersistenceService {
 
     /**
      * Does the cloud have a newer revision of a storable model?
-     * @param model
      */
     async isNewerInCloud(model: AbstractStorableModel): Promise<boolean> {
         if (this.isLocalUser) {
@@ -104,9 +104,8 @@ export class PersistenceService {
                     throw new PersistenceException(404, "No such user");
                 }
                 if (settingsLocation && (!json || settingsLocation.revision > json.revision)) {
-                    const downloadedObj = await this.cloud.get(settingsLocation.key, settingsLocation.toStorageConfig(true));
                     try {
-                        const downloadedJson = (downloadedObj as any).Body as UserSettingsJSON;
+                        const downloadedJson = await this.loadModelFromCloud<UserSettingsJSON>(settingsLocation);
                         if (!json || downloadedJson.revision > json.revision) {
                             // Use and local save updated version
                             json = downloadedJson;
@@ -139,7 +138,7 @@ export class PersistenceService {
     /**
      * Save/update UserSettings to the cloud for the authenticated user.
      *
-     * @returns {Promise<UserSettings>} the modified model.
+     * @returns the modified model.
      * @throws {PersistenceException} upon unhandled failure.
      */
     cloudSaveUser(userSettings: UserSettings): Promise<UserSettings> {
@@ -149,7 +148,7 @@ export class PersistenceService {
     /**
      * Save UserSettings to local storage for the authenticated user.
      *
-     * @returns {Promise<UserSettings>} the modified model.
+     * @returns the modified model.
      */
     localStoreUser(userSettings: UserSettings): Promise<UserSettings> {
         return this.saveModelToLocal(userSettings, new StorageLocation('settings'));
@@ -193,21 +192,16 @@ export class PersistenceService {
 
     /**
      * Helper function to actually load a collection from the cloud
-     * @param location
      */
     private async cloudLoadCollection(location: StorageLocation): Promise<Collection> {
         console.debug("cloudLoadCollection", location);
-        const downloadedObj = await this.cloud.get(location.key, location.toStorageConfig(true));
-        try {
-            // Use and local save updated version
-            const json = (downloadedObj as any).Body as CollectionJSON;
-            json.isCloudBacked = true;
-            localForage.setItem(location.id, json).then();
-            return Collection.fromJSON(json);
-        }
-        catch (badCloudUpdate) {
-            console.error("Fetch of updated collection from cloud failure", badCloudUpdate);
-        }
+        const json = await this.loadModelFromCloud<CollectionJSON>(location);
+
+        // Use and local save updated version
+        json.isCloudBacked = true;
+        localForage.setItem(location.id, json).then();
+
+        return Collection.fromJSON(json);
     }
 
     /**
@@ -223,8 +217,8 @@ export class PersistenceService {
     /**
      * Save/update a Collection to the cloud.
      *
-     * @returns {Promise<Collection>} the modified model.
-     * @throws {PersistenceException} upon unhandled failure.
+     * @returns the modified model.
+     * @throws PersistenceException upon unhandled failure.
      */
     cloudSaveCollection(collection: Collection): Promise<Collection> {
         return (this.isLocalUser)
@@ -235,7 +229,7 @@ export class PersistenceService {
     /**
      * Save/update a Collection to local storage..
      *
-     * @returns {Promise<Collection>} the modified model.
+     * @returns the modified model.
      */
     localStoreCollection(collection: Collection): Promise<Collection> {
         return this.saveModelToLocal(collection, new StorageLocation(collection, true));
@@ -251,9 +245,8 @@ export class PersistenceService {
 
         const results: Collection[] = [];
         for (const location of list) {
-            const downloadedObj = await this.cloud.get(location.key, location.toStorageConfig(true));
             try {
-                const downloadedJson = (downloadedObj as any).Body as CollectionJSON;
+                const downloadedJson = await this.loadModelFromCloud<CollectionJSON>(location);
                 results.push(Collection.fromJSON(downloadedJson));
             }
             catch (badCloudUpdate) {
@@ -309,7 +302,7 @@ export class PersistenceService {
     }
 
     /**
-     * Save an {AbstractStorableModel}.
+     * Save an AbstractStorableModel.
      *
      * @returns the modified model, or rejects with {PersistenceException}
      */
@@ -348,6 +341,16 @@ export class PersistenceService {
 
             // Return Error
             throw this.translateError(error);
+        }
+    }
+
+    private async loadModelFromCloud<T extends AbstractStorableModelJSON>(location: StorageLocation): Promise<T> {
+        const downloadedObj = await this.cloud.get(location.key, location.toStorageConfig(true)) as GetObjectOutput;
+        try {
+            return new Response(downloadedObj.Body as Blob).json();
+        }
+        catch (badCloudUpdate) {
+            console.error("Fetch of", location.key, "from cloud failure", badCloudUpdate);
         }
     }
 

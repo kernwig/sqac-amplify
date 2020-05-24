@@ -48,7 +48,7 @@ export class ListModulesComponent extends AbstractBaseComponent implements OnIni
             .pipe(takeUntil(this.destroy$))
             .subscribe((values: [UserSettings, Params]) => {
                 const user = values[0];
-                const cid = values[1]['cid'];
+                const cid = values[1].cid;
                 this.collection = this.collectionSvc.get(cid);
 
                 if (this.collection) {

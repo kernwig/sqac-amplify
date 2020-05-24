@@ -20,7 +20,6 @@ export class CallService extends CachingModelService<Call> {
 
     /**
      * Clear all data from this service.
-     * @override
      */
     clearAll(): void {
         this.clearCache();

@@ -29,7 +29,7 @@ export class Family extends AbstractModel implements SearchItem {
 
     /** Serialize this instance into JSON */
     public toJSON(): FamilyJSON {
-        return <FamilyJSON> {
+        return {
             id: this.id,
             name: this.name,
             level: this.level.toString()

@@ -1,10 +1,11 @@
-import { AbstractModel } from "../models/abstract-model";
+import {AbstractModel} from '../models/abstract-model';
 
 /**
  * This wraps Map, which can't be extended directly.
  */
-export abstract class CachingModelService<M extends AbstractModel>  {
+export abstract class CachingModelService<M extends AbstractModel> {
 
+    // tslint:disable-next-line:variable-name
     protected _data = new Map<string, M>();
 
     clearAll(): void {

@@ -54,7 +54,7 @@ export class EditCallsComponent extends AbstractBaseComponent implements OnInit,
             .pipe(takeUntil(this.destroy$))
             .subscribe((values: [UserSettings, Params]) => {
                 const user = values[0];
-                const cid = values[1]['cid'];
+                const cid = values[1].cid;
                 this.collection = this.collectionSvc.get(cid);
 
                 if (this.collection) {
@@ -165,7 +165,6 @@ export class EditCallsComponent extends AbstractBaseComponent implements OnInit,
 
     /**
      * Clear the fields for new family being entered.
-     * @param giveFocus
      */
     clearAdding(giveFocus?: HTMLInputElement) {
         this.adding.family = null;

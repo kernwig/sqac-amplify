@@ -118,7 +118,7 @@ export interface CollectionJSON extends AbstractStorableModelJSON {
     difficulty: number;
     level: string;
     formations: FormationJSON[];
-    families:  FamilyJSON[];
+    families: FamilyJSON[];
     calls: CallJSON[];
     modules: ModuleJSON[];
     license: string;

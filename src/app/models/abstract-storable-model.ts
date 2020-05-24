@@ -40,7 +40,7 @@ export abstract class AbstractStorableModel extends AbstractModel {
 
     /** Serialize this instance into JSON */
     public toJSON(): AbstractStorableModelJSON {
-        return <AbstractStorableModelJSON> {
+        return {
             id: this.id,
             schemaRev: this.schemaRev,
             created: this.created.toISOString(),

@@ -24,8 +24,6 @@ export class ErrorCatchingService extends ErrorHandler {
 
     /**
      * Receive an unhandled error.
-     * @param error
-     * @override
      */
     handleError(error: any) {
 
@@ -62,8 +60,6 @@ export class ErrorCatchingService extends ErrorHandler {
 
     /**
      * Take any thrown thing and return an Error instance.
-     * @param thrown
-     * @returns {Error}
      */
     private ensureIsError(thrown: any): Error {
         if (thrown instanceof Error) {

@@ -1,18 +1,18 @@
 import {ChangeDetectorRef, Component, OnInit, Optional, ViewChild} from '@angular/core';
-import {ActivationStart, NavigationEnd, Router} from "@angular/router";
-import {LocationStrategy} from "@angular/common";
-import {SwUpdate} from "@angular/service-worker";
-import {ModalDirective} from "ngx-bootstrap/modal";
-import {UserService} from "./services/user.service";
-import {ErrorCatchingService} from "./services/error-catching.service";
-import {UserSettings} from "./models/user-settings";
-import {AbstractBaseComponent} from "./shared/abstract-base.component";
-import {ToastrService} from "ngx-toastr";
-import {CollectionService} from "./services/collection.service";
-import {SyncService} from "./services/sync.service";
-import {environment} from "../environments/environment";
-import {filter, takeUntil} from "rxjs/operators";
-import {LayoutService} from "./services/layout.service";
+import {ActivationStart, NavigationEnd, Router} from '@angular/router';
+import {LocationStrategy} from '@angular/common';
+import {SwUpdate} from '@angular/service-worker';
+import {ModalDirective} from 'ngx-bootstrap/modal';
+import {UserService} from './services/user.service';
+import {ErrorCatchingService} from './services/error-catching.service';
+import {UserSettings} from './models/user-settings';
+import {AbstractBaseComponent} from './shared/abstract-base.component';
+import {ToastrService} from 'ngx-toastr';
+import {CollectionService} from './services/collection.service';
+import {SyncService} from './services/sync.service';
+import {environment} from '../environments/environment';
+import {filter, takeUntil} from 'rxjs/operators';
+import {LayoutService} from './services/layout.service';
 
 const largeScreenWidth = 1360;
 

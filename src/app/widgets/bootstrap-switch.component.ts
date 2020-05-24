@@ -1,3 +1,4 @@
+// tslint:disable
 import { Component, Input, ElementRef, Output, EventEmitter, OnChanges, SimpleChange, ViewChild, AfterViewInit, AfterViewChecked, ViewEncapsulation, Renderer2 } from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
 
