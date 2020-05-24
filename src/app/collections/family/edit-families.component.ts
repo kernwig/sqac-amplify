@@ -48,7 +48,7 @@ export class EditFamiliesComponent extends AbstractBaseComponent implements OnIn
         combineLatest([this.userSvc.user$, this.route.params])
             .pipe(takeUntil(this.destroy$))
             .subscribe(([user, params]: [UserSettings, Params]) => {
-                const cid = params['cid'];
+                const cid = params.cid;
                 this.collection = this.collectionSvc.get(cid);
 
                 if (this.collection) {
@@ -93,7 +93,6 @@ export class EditFamiliesComponent extends AbstractBaseComponent implements OnIn
 
     /**
      * Clear the fields for new family being entered.
-     * @param giveFocus
      */
     clearAdding(giveFocus: HTMLInputElement) {
         this.adding.name = null;

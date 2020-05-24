@@ -45,7 +45,6 @@ export class CollectionService extends CachingModelService<Collection> {
 
     /**
      * Clear all collections, which results in clearing all Calls, Families, Formations, and Modules as well.
-     * @override
      */
     clearAll() {
         super.clearAll();
@@ -59,8 +58,6 @@ export class CollectionService extends CachingModelService<Collection> {
 
     /**
      * Load all collections for a user into memory.
-     * @param user
-     * @returns {Promise<Null>}
      */
     async loadFrom(user: UserSettings): Promise<any> {
         this.clearAll();
@@ -143,7 +140,7 @@ export class CollectionService extends CachingModelService<Collection> {
     /**
      * Store any changes to collections in memory to local storage.
      *
-     * @returns {Promise<any>} resolves upon completion
+     * @returns resolves upon completion
      */
     localSave(collection?: Collection): Promise<any> {
         if (collection) {
@@ -171,8 +168,6 @@ export class CollectionService extends CachingModelService<Collection> {
     /**
      * Synchronize local and server Collections.
      *
-     * @param sendOnly
-     * @returns {Promise<any>}
      * @throws PersistenceException upon unhandled failure.
      */
     async sync(sendOnly?: boolean): Promise<any> {
@@ -214,8 +209,6 @@ export class CollectionService extends CachingModelService<Collection> {
 
     /**
      * Load previous versions of a collection from the cloud.
-     * @param {Collection} collection
-     * @returns {Promise<Collection[]>}
      */
     loadHistory(collection: Collection): Promise<Collection[]> {
         return this.persistSvc.loadHistory(collection);
@@ -223,8 +216,6 @@ export class CollectionService extends CachingModelService<Collection> {
 
     /**
      * Restore a collection from the cloud - trashing local changes.
-     * @param {string} collectionId
-     * @returns {Promise<Collection>}
      */
     restoreFromCloud(collectionId: string): Promise<Collection> {
         return this.persistSvc.cloudReloadCollection(collectionId)
@@ -237,8 +228,6 @@ export class CollectionService extends CachingModelService<Collection> {
 
     /**
      * Return Ionic Icon name based on the collection's visibility/editability.
-     * @param c Collection
-     * @returns {string}
      */
     getVisibilityIcon(c: Collection): string {
         if (!c) {

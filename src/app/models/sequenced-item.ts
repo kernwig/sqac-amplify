@@ -49,7 +49,7 @@ export class SequencedItem /*extends Interruption*/ {
 
     /** Serialize this instance into JSON */
     public toJSON(): SequencedItemJSON {
-        return <SequencedItemJSON> {
+        return {
             call: this.call.id,
             altCommand: this.altCommand,
             concurrent: this.concurrentWithNext
@@ -68,8 +68,6 @@ export class SequencedItem /*extends Interruption*/ {
     /**
      * If command starts with pattern "(option1/option2) ", then
      * select one of the options at random and substitute it in.
-     * @param {string} command
-     * @returns {string}
      */
     private substitute(command: string): string {
         if (this.substitutedCommand) {

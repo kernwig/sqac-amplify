@@ -53,7 +53,7 @@ export class EditFormationsComponent extends AbstractBaseComponent implements On
         combineLatest([this.userSvc.user$, this.route.params])
             .pipe(takeUntil(this.destroy$))
             .subscribe(([user, params]: [UserSettings, Params]) => {
-                const cid = params['cid'];
+                const cid = params.cid;
                 this.collection = this.collectionSvc.get(cid);
 
                 if (this.collection) {
@@ -105,7 +105,6 @@ export class EditFormationsComponent extends AbstractBaseComponent implements On
 
     /**
      * Clear the fields for new formation being entered.
-     * @param giveFocus
      */
     clearAdding(giveFocus: HTMLInputElement) {
         this.adding.name = null;
@@ -117,7 +116,6 @@ export class EditFormationsComponent extends AbstractBaseComponent implements On
 
     /**
      * Delete a Formation
-     * @param formationToRemove
      */
     delete(formationToRemove: Formation) {
         this.collection.formations = this.collection.formations.filter(f => f.id !== formationToRemove.id);

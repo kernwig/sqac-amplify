@@ -15,7 +15,6 @@ export class FormationService extends CachingModelService<Formation> {
 
     /**
      * Clear all data from this service.
-     * @override
      */
     clearAll(): void {
         this.clearCache();

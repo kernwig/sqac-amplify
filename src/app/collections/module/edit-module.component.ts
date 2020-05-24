@@ -75,10 +75,10 @@ export class EditModuleComponent extends AbstractBaseComponent implements OnInit
             .pipe(takeUntil(this.destroy$))
             .subscribe((values: [UserSettings, Params]) => {
                 const user = values[0];
-                const cid = values[1]['cid'];
+                const cid = values[1].cid;
                 this.collection = this.collectionSvc.get(cid);
 
-                const mid = values[1]['mid'];
+                const mid = values[1].mid;
                 this.module = this.moduleSvc.get(mid);
 
                 if (this.collection && this.module) {

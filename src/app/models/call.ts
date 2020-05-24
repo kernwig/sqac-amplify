@@ -27,7 +27,7 @@ export class Call extends AbstractModel implements SearchItem {
 
     /** Serialize this instance into JSON */
     public toJSON(): CallJSON {
-        return <CallJSON> {
+        return {
             id: this.id,
             command: this.command,
             beats: this.beats,

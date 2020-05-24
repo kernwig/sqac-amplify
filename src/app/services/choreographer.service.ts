@@ -1,22 +1,22 @@
 /*
  * Square Auto-Choreographer
- * Copyright (c) 2017-2019, Adam Fanello
+ * Copyright (c) 2017-2020, Adam Fanello
  * All rights reserved.
  */
-import {Injectable} from "@angular/core";
-import {Subject} from "rxjs";
-import {Module} from "../models/module";
-import {FormationService} from "./formation.service";
-import {ModuleService} from "./module.service";
-import {Formation} from "../models/formation";
-import {SequencedItem} from "../models/sequenced-item";
-import {HandMap} from "../models/hand";
-import {FlowDirectionMap} from "../models/flow-direction";
-import {compareDanceLevels, DanceLevel} from "../models/dance-level";
-import {Difficulty} from "../models/difficulty";
-import {DanceSession} from "../models/dance-session";
-import * as RandomJs from "random-js";
-import {ToastrService} from "ngx-toastr";
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs';
+import {Module} from '../models/module';
+import {FormationService} from './formation.service';
+import {ModuleService} from './module.service';
+import {Formation} from '../models/formation';
+import {SequencedItem} from '../models/sequenced-item';
+import {HandMap} from '../models/hand';
+import {FlowDirectionMap} from '../models/flow-direction';
+import {compareDanceLevels, DanceLevel} from '../models/dance-level';
+import {Difficulty} from '../models/difficulty';
+import {DanceSession} from '../models/dance-session';
+import * as RandomJs from 'random-js';
+import {ToastrService} from 'ngx-toastr';
 
 /**
  * An entry in the stack of active module.
@@ -106,8 +106,10 @@ export class ChoreographerService {
     /** Are we just playing a single module, not a tip? */
     private isPlayModule = false;
 
-    /** Tracks ms time of next call. New call gets added to this so that target timing remains accurate and
-        can make up for time lost due to single-threaded nature of the environment. */
+    /**
+     * Tracks ms time of next call. New call gets added to this so that target timing remains accurate and
+     * can make up for time lost due to single-threaded nature of the environment.
+     */
     private nextCallTime: number;
 
     /** Construct */
@@ -175,7 +177,6 @@ export class ChoreographerService {
     /**
      * Play one specific module. Loop if it's a zero, otherwise stop when complete.
      * Must call resume() or next() to actually begin.
-     * @param module
      */
     playModule(module: Module) {
         if (this.running) {
@@ -300,8 +301,6 @@ export class ChoreographerService {
     /**
      * Reset criteria based on the given dance session.
      * (Must call activateCriteria() some time after this.)
-     *
-     * @param danceSession
      */
     useDanceSession(danceSession: DanceSession) {
         if (danceSession) {
@@ -479,7 +478,7 @@ export class ChoreographerService {
     /**
      * Explain how the module was selected.
      * Warn the user of a performance problem if it takes more than half a beat to find the next module.
-     * @param startTime
+     * @param startTime unixtime when search began, for calculating time spent
      * @param passNum How many passes it took to find the module
      */
     private generateSelectionExplanation(startTime: number, passNum: number): string {

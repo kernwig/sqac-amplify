@@ -26,8 +26,6 @@ const danceLevelOrderLookup = new Map<DanceLevel, number>();
 
 /**
  * Compare first and second DanceLevel to see which is higher or lower level.
- * @param first
- * @param second
  * @return 0 if equal, -1 if first is lower level, +1 if first is higher level
  */
 export function compareDanceLevels(first: DanceLevel, second: DanceLevel): number {

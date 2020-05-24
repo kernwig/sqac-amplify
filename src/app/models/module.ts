@@ -54,13 +54,15 @@ export class Module extends AbstractModel {
     difficulty: Difficulty = 1;
 
     /** Sequence of [Call]s and Interruptions. */
-    sequence = <SequencedItem[]>[];
+    sequence: SequencedItem[] = [];
 
     /** Author notes */
     notes: string;
 
-    /** Transient flag indicating if this module has been used during the current tip.
-        true when used, falsey otherwise. */
+    /**
+     * Transient flag indicating if this module has been used during the current tip.
+     * true when used, falsey otherwise.
+     */
     usedThisTip: boolean = undefined;
 
     /** Reference back to the collection that this module belongs to */
@@ -73,16 +75,16 @@ export class Module extends AbstractModel {
 
     /** Serialize this instance into JSON */
     public toJSON(): ModuleJSON {
-        return <ModuleJSON> {
+        return {
             id: this.id,
             name: this.name,
             level: this.level,
             startFormation: this.startFormation ? this.startFormation.id : undefined,
             endFormation: this.endFormation ? this.endFormation.id : undefined,
-            startHandBelle: this.startHandBelle,
-            startHandBeau: this.startHandBeau,
-            endHandBelle: this.endHandBelle,
-            endHandBeau: this.endHandBeau,
+            startHandBelle: this.startHandBelle as string,
+            startHandBeau: this.startHandBeau as string,
+            endHandBelle: this.endHandBelle as string,
+            endHandBeau: this.endHandBeau as string,
             startFlowBelle: this.startFlowBelle,
             startFlowBeau: this.startFlowBeau,
             endFlowBelle: this.endFlowBelle,

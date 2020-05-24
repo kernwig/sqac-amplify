@@ -61,7 +61,7 @@ export class ListCollectionsComponent extends AbstractBaseComponent implements O
             .pipe(takeUntil(this.destroy$))
             .subscribe(([user, params]: [UserSettings, Params]) => {
                 this.settings = user;
-                const cid = params['cid'];
+                const cid = params.cid;
 
                 if (cid && this.collectionSvc.get(cid)) {
                     this.showOnly = this.collectionSvc.get(cid);
@@ -83,7 +83,7 @@ export class ListCollectionsComponent extends AbstractBaseComponent implements O
             .subscribe(() => this.refreshCollectionList());
 
         this.destroy$.subscribe(() => {
-            this.userSvc.localSave();
+            this.userSvc.localSave().then();
             this.collectionSvc.localSave().then();
         });
     }
@@ -191,8 +191,6 @@ export class ListCollectionsComponent extends AbstractBaseComponent implements O
 
     /**
      * Open the history page.
-     *
-     * @param {Collection} collection
      */
     openHistory(collection: Collection) {
         if (this.syncSvc.isOnline()) {
@@ -205,9 +203,6 @@ export class ListCollectionsComponent extends AbstractBaseComponent implements O
 
     /**
      * User has selected on old revision to restore. Confirm it.
-     *
-     * @param {ModalDirective} confirmRestoreModal
-     * @param {Collection} oldRev
      */
     openRestoreConfirmModal(confirmRestoreModal: ModalDirective, oldRev: Collection) {
         // Confirmation popup
@@ -227,9 +222,8 @@ export class ListCollectionsComponent extends AbstractBaseComponent implements O
 
     /**
      * User has confirmed that they wish to restore an old revision.
-     * @returns {Promise<boolean>}
      */
-    doRestoreRevision() {
+    doRestoreRevision(): Promise<boolean> {
         const oldRev = this.activeCollection;
 
         // If just dumping local modifications
