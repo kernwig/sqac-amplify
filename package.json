@@ -1,6 +1,6 @@
 {
   "name": "sqac-amplify",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "Square Auto-Choreographer",
   "author": "Adam Fanello",
   "homepage": "http://fanello.net",
@@ -30,8 +30,8 @@
     "@angular/service-worker": "^9.1.9",
     "@aws-amplify/ui": "^2.0.2",
     "@sailplane/expiring-value": "^1.0.1",
-    "aws-amplify": "^3.0.12",
-    "aws-amplify-angular": "^5.0.12",
+    "aws-amplify": "^3.0.25",
+    "aws-amplify-angular": "^5.0.60",
     "bootstrap": "^3.3.7",
     "core-js": "^3.6.5",
     "image-to-data-uri": "^1.1.0",

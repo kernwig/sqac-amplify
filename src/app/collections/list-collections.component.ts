@@ -144,7 +144,7 @@ export class ListCollectionsComponent extends AbstractBaseComponent implements O
         this.appliedFilter = filter;
         this.filteredCollections = this.filterPipe.transform(this.collections, filter);
 
-        // Computer section header positions
+        // Compute section header positions
         this.troubleSectionIdx = -1;
         this.localModSectionIdx = -1;
         this.cloudSyncSectionIdx = -1;

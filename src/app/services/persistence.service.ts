@@ -8,7 +8,6 @@ import {AmplifyService} from 'aws-amplify-angular';
 import {Auth, Storage} from 'aws-amplify';
 import {ExpiringValue} from '@sailplane/expiring-value/dist/expiring-value';
 import {StorageLocation} from '../models/storage-location';
-import {GetObjectOutput} from '@aws-sdk/client-s3/types/models';
 
 const CLOUD_LIST_PERIOD = 10_000; // ten seconds
 
@@ -345,9 +344,9 @@ export class PersistenceService {
     }
 
     private async loadModelFromCloud<T extends AbstractStorableModelJSON>(location: StorageLocation): Promise<T> {
-        const downloadedObj = await this.cloud.get(location.key, location.toStorageConfig(true)) as GetObjectOutput;
+        const downloadedObj = await this.cloud.get(location.key, location.toStorageConfig(true)) as {Body: Blob};
         try {
-            return new Response(downloadedObj.Body as Blob).json();
+            return new Response(downloadedObj.Body).json();
         }
         catch (badCloudUpdate) {
             console.error("Fetch of", location.key, "from cloud failure", badCloudUpdate);
