@@ -4,7 +4,7 @@
  * All rights reserved.
  */
 import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs';
+import {BehaviorSubject, Subject} from 'rxjs';
 import {Module} from '../models/module';
 import {FormationService} from './formation.service';
 import {ModuleService} from './module.service';
@@ -74,13 +74,13 @@ export class ChoreographerService {
     moduleStack$ = new Subject<ModuleStack>();
 
     /** Stream of updates as to whether or not the choreopgrapher is actively generating. Matches isRunning() */
-    readonly running$ = new Subject<boolean>();
+    readonly running$ = new BehaviorSubject<boolean>(false);
 
     /** The active dance session */
     session: DanceSession = new DanceSession();
 
     /** Has beginTip() been called and not endTip()? */
-    haveActiveTip = false;
+    readonly haveActiveTip$ = new BehaviorSubject<boolean>(false);
 
     /** Running average difficulty level */
     private avgDifficulty = new RunningAverager();
@@ -150,7 +150,7 @@ export class ChoreographerService {
         this.isPlayModule = false;
         this.callList = new CallTemporality();
         this.moduleStack = [];
-        this.haveActiveTip = true;
+        this.haveActiveTip$.next(true);
 
         this.moduleSvc.forEach((module) => {
             if (module.usedThisTip) {
@@ -168,7 +168,7 @@ export class ChoreographerService {
         this.callList = new CallTemporality();
         this.moduleStack = [];
         this.isPlayModule = false;
-        this.haveActiveTip = false;
+        this.haveActiveTip$.next(false);
 
         this.callList$.next(this.callList);
         this.moduleStack$.next(this.moduleStack);
@@ -470,6 +470,11 @@ export class ChoreographerService {
                 // console.log("Selected difficulty " + m.difficulty);
                 this.avgDifficulty.add(m.difficulty);
                 const explanation = this.generateSelectionExplanation(t0, passNum);
+
+                if (m.usedThisTip) {
+                    this.toastr.warning('Next module is repeat');
+                }
+
                 return { module: m, explanation } as ModuleStackFrame;
             }// for each candidate
         }// for passNum

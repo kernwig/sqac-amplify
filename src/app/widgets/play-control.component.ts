@@ -50,7 +50,7 @@ export class PlayControlComponent extends AbstractBaseComponent {
     }
 
     play() {
-        if (!this.choreoSvc.haveActiveTip) {
+        if (!this.choreoSvc.haveActiveTip$.getValue()) {
             if (!this.choreoSvc.haveChoreography()) {
                 this.toastr.warning("No collections loaded.");
                 return;
@@ -67,7 +67,7 @@ export class PlayControlComponent extends AbstractBaseComponent {
     }
 
     nextOne() {
-        if (!this.choreoSvc.haveActiveTip) {
+        if (!this.choreoSvc.haveActiveTip$.getValue()) {
             if (!this.choreoSvc.haveChoreography()) {
                 this.toastr.warning("No collections loaded.");
                 return;

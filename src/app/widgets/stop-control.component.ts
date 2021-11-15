@@ -1,12 +1,11 @@
 import {Component} from "@angular/core";
 import {ChoreographerService} from "../services/choreographer.service";
 import {AbstractBaseComponent} from "../shared/abstract-base.component";
-import {takeUntil} from "rxjs/operators";
 
 @Component({
     selector: 'sqac-stop-control',
     template: `
-        <div *ngIf="!isPlaying && inProgress">
+        <div *ngIf="choreoSvc.haveActiveTip$ | async">
             <button (click)="stopModal.show()"
                     type="button" class="btn btn-default btn-circle btn-danger btn-lg">
                 <span class="glyphicon glyphicon-stop"></span>
@@ -44,22 +43,11 @@ import {takeUntil} from "rxjs/operators";
 })
 export class StopControlComponent extends AbstractBaseComponent {
 
-    inProgress = false;
-    isPlaying = false;
-
     constructor(public choreoSvc: ChoreographerService) {
         super();
-        this.choreoSvc.running$.pipe(takeUntil(this.destroy$))
-            .subscribe((isRunning: boolean) => {
-                this.isPlaying = isRunning;
-                if (isRunning) {
-                    this.inProgress = true;
-                }
-            });
     }
 
     stop() {
         this.choreoSvc.endTip();
-        this.inProgress = false;
     }
 }

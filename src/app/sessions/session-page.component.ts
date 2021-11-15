@@ -104,6 +104,7 @@ export class SessionPageComponent extends AbstractBaseComponent implements OnIni
             this.refreshUiModels();
         });
     }
+
     private refreshUiModels() {
         // Wait for session to be defined
         if (!this.session) {

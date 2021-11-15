@@ -281,7 +281,7 @@ export class UserService {
             await this.toastr.success("Saved changes", "Account");
             return this.settings;
         }
-        else if (!sendOnly && (await this.persistSvc.isNewerInCloud(this.settings))) {
+        else if (!sendOnly) {
             console.log("Read updated content from server");
             const tmp = await this.persistSvc.loadUser();
 

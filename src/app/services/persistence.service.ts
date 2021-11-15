@@ -102,7 +102,7 @@ export class PersistenceService {
                     // New user!
                     throw new PersistenceException(404, "No such user");
                 }
-                if (settingsLocation && (!json || settingsLocation.revision > json.revision)) {
+                if (settingsLocation) {
                     try {
                         const downloadedJson = await this.loadModelFromCloud<UserSettingsJSON>(settingsLocation);
                         if (!json || downloadedJson.revision > json.revision) {
